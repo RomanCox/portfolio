@@ -1,0 +1,78 @@
+@import '../common/styles/sass/mixins';
+
+.header {
+  background: transparent;
+  padding: 23px 50px;
+  display: flex;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1030;
+  & > a {
+    display: inline-block;
+    font-size: 1.25rem;
+    line-height: inherit;
+    margin-right: 1rem;
+    padding-bottom: 0.3125rem;
+    padding-top: 0.3125rem;
+    white-space: nowrap;
+    transition: all .15s ease-in-out;
+    background-color: transparent;
+    cursor: pointer;
+    & > img {
+      width: 110px;
+    }
+  }
+
+  .navButtonContainer {
+    width: 100%;
+    /*@include flex(row, flex-end, center);*/
+    position: absolute;
+    justify-self: center;
+    z-index: -10;
+
+    /*@media (max-width: 598px) {
+      z-index: 1;
+    }*/
+  }
+
+  .navContainer {
+    width: 100%;
+    @include flex(row, flex-end, center, 32px);
+    position: relative;
+    z-index: 1;
+
+    .navbar {
+      @include flex(row, space-between, center, 20px);
+      list-style: none;
+      padding-left: 0;
+      //margin-block-start: 1em;
+      //margin-block-end: 1em;
+      //margin-inline-start: 0;
+      //margin-inline-end: 0;
+      //padding-inline-start: 40px;
+
+      .navbarItem {
+        display: list-item;
+        text-align: -webkit-match-parent;
+
+        a {
+          cursor: pointer;
+          @include text($titleFontFamily, 20px, 400, 1.2, normal, $primaryTextColor);
+          text-decoration: none;
+          &:visited {
+            color: $primaryTextColor;
+          }
+        }
+      }
+    }
+
+    @media (max-width: 598px) {
+      z-index: 0;
+    }
+  }
+}
+
+
+

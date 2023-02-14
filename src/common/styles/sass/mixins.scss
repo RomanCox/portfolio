@@ -1,0 +1,18 @@
+@import './variables.scss';
+
+@mixin text($fontFamily, $fontSize, $fontWeight, $lineHeight, $letterSpacing, $textColor) {
+  font-family: $fontFamily;
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  line-height: $lineHeight;
+  letter-spacing: $letterSpacing;
+  color: $textColor;
+}
+
+@mixin flex($flexDirection, $justifyContent, $alignItems, $gap: 0) {
+  display: flex;
+  flex-direction: $flexDirection;
+  justify-content: $justifyContent;
+  align-items: $alignItems;
+  gap: $gap;
+}

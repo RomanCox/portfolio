@@ -1,0 +1,130 @@
+@import '../common/styles/sass/variables.scss';
+@import '../common/styles/sass/mixins.scss';
+
+.fixedContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+
+  .glitchWrapper {
+    width: 100%;
+    text-align: center;
+    animation: glitch 5s linear infinite;
+
+    .glitch404 {
+      @include text($textFontFamily, 150px, 700, 1.2, normal, $primaryTextColor);
+      position: relative;
+      z-index: 2;
+      opacity: 0.9;
+      animation: glitch 6s infinite;
+
+      &:before {
+        content: '404';
+        color: black;
+        position: absolute;
+        z-index: -1;
+        left: 0;
+        right: 0;
+        opacity: 0.5;
+      }
+
+      @keyframes glitch {
+        3% {
+          text-shadow: 7px 7px 0 red
+        }
+        6% {
+          text-shadow: -9px 4px 0px blue;
+          transform: translate(4px, -10px) skewX(3240deg)
+        }
+        7% {
+          text-shadow: 3px -4px 0px green
+        }
+        9% {
+          text-shadow: 0 0 3px white;
+          transform: translate(0px, 0px) skewX(0deg)
+        }
+        2%, 54% {
+          transform: translateX(0px) skew(0deg)
+        }
+        55% {
+          transform: translate(-2px, 6px) skew(-5530deg)
+        }
+        56% {
+          text-shadow: 0 0 3px white;
+          transform: translate(0px, 0px) skew(0deg)
+        }
+        57% {
+          text-shadow: 7px 7px 0 red;
+          transform: translate(4px, -10px) skew(-70deg)
+        }
+        58% {
+          text-shadow: 0 0 3px white;
+          transform: translate(0px, 0px) skew(0deg)
+        }
+        62% {
+          text-shadow: 3px -4px 0px green;
+          transform: translate(0px, 20px) skew(0deg)
+        }
+        63% {
+          text-shadow: 0 0 3px white;
+          transform: translate(4px, -2px) skew(0deg)
+        }
+        64% {
+          transform: translate(1px, 3px) skew(-230deg)
+        }
+        65% {
+          transform: translate(-7px, 2px) skew(120deg)
+        }
+        66% {
+          transform: translate(0px, 0px) skew(0deg)
+        }
+      }
+    }
+
+    .glitchTitle {
+      @include text($textFontFamily, 48px, 700, 1.2, normal, $primaryTextColor);
+      position: relative;
+      z-index: 2;
+      opacity: 0.9;
+      animation: glitch 6s infinite;
+    }
+
+    .glitchTextWrapper {
+      margin-top: 50px;
+
+      .glitchText {
+        @include text($titleFontFamily, 20px, 400, 1.2, normal, $primaryTextColor);
+        position: relative;
+        z-index: 2;
+        opacity: 0.9;
+        //animation: glitch 6s infinite;
+      }
+    }
+  }
+
+  .buttonsWrapper {
+    margin-top: 50px;
+
+    .buttonsTitle {
+      @include text($titleFontFamily, 32px, 600, 1.2, normal, $primaryTextColor);
+    }
+
+    .buttonsContainer {
+      margin: 20px auto 0;
+      width: 300px;
+      display: flex;
+      justify-content: space-between;
+
+      img {
+        cursor: pointer;
+      }
+    }
+  }
+}

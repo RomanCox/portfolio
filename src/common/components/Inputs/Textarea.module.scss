@@ -1,0 +1,102 @@
+@import '../../styles/sass/variables.scss';
+
+.container {
+    height: 120px;
+    width: 450px;
+    position: relative;
+}
+
+.textarea {
+    background: $bgColorSecondary;
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
+    display: block;
+    border: none;
+    caret-color: $primaryColor;
+    border-radius: 10px;
+    resize: vertical;
+}
+
+.textarea:focus {
+    outline: none;
+}
+
+.label {
+    color: #999;
+    font-size: 18px;
+    position: absolute;
+    pointer-events: none;
+    left: 10px;
+    top: 5px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.textarea:focus ~ .label,
+.textarea:valid ~ .label:focus {
+    top: -15px;
+    font-size: 14px;
+    color: $primaryColor;
+}
+
+.textareaError:focus ~ .label,
+.textareaError:valid ~ .label:focus {
+    top: -15px;
+    font-size: 14px;
+    color: red;
+}
+
+.bar {
+    position: relative;
+    display: block;
+    width: 450px;
+}
+
+.bar:before,
+.bar:after {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 0;
+    position: absolute;
+    background: $primaryColor;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.barError:before,
+.barError:after {
+    background: red;
+}
+
+.bar:before {
+    left: 47%;
+}
+
+.bar:after {
+    right: 47%;
+}
+
+.textarea:focus ~ .bar:before,
+.textarea:focus ~ .bar:after {
+    width: 50%;
+}
+
+.span {
+    color: #d2ff89;
+    font-weight: 900;
+    font-size: 30px;
+    padding-top: 10px;
+    -webkit-text-stroke: 0 white;
+}
+
+.textarea:focus ~ .span {
+    -webkit-text-stroke: 0.02em white;
+}
+
+.textarea:focus ~ .spanError {
+    color: red;
+}

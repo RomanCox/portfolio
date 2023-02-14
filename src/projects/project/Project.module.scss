@@ -1,0 +1,38 @@
+@import '../../common/styles/sass/variables.scss';
+@import '../../common/styles/sass/mixins.scss';
+
+.project {
+  width: 450px;
+  background-color: $bgColorPrimary;
+  display: flex;
+  flex-direction: column;
+
+  .image {
+    height: 300px;
+    width: 100%;
+    cursor: pointer;
+    background-size: cover;
+    background-position: center;
+    @include flex(row, center, center);
+    background-repeat: no-repeat;
+    border-top-left-radius: calc(0.25rem - 1px);
+    border-top-right-radius: calc(0.25rem - 1px);
+  }
+
+  .projectInfo {
+    padding: 25px 0;
+
+    .projectTitle {
+      @include text($titleFontFamily, 1.5rem, 700, 1.2, normal, $primaryTextColor);
+      letter-spacing: 1px;
+      margin: 0 0 5px;
+    }
+
+    .description {
+      @include text($textFontFamily, 1.1rem, 400, 1.8, normal, $secondaryTextColor);
+    }
+  }
+}
+
+
+

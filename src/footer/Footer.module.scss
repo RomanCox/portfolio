@@ -1,0 +1,36 @@
+@import '../common/styles/sass/variables.scss';
+@import '../common/styles/sass/mixins.scss';
+
+.footer {
+  background-color: $bgColorPrimary;
+  color: $primaryTextColor;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+
+  .footerSocialContainer {
+    width: 280px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .footerSocial {
+      background-color: #f7f7f7;
+      width: 40px;
+      height: 40px;
+      @include text($titleFontFamily, 1.5rem, 700, 1.2, normal, $primaryTextColor);
+    }
+  }
+
+  .description {
+
+  }
+}
+
+
+
+
+

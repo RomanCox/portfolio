@@ -1,0 +1,129 @@
+@import '../common/styles/sass/variables';
+@import '../common/styles/sass/mixins';
+
+.body {
+  height: 100vh;
+  width: 100%;
+  background-color: #1f1f20;
+  overflow: hidden;
+
+  .mainBlock {
+    height: 100%;
+    width: 100%;
+
+    .container {
+      height: 100vh;
+      position: relative;
+      width: 100%;
+
+      .imgCover {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+      }
+
+      .video {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 1;
+      }
+
+      .center {
+        height: 100%;
+        @include flex(row, center, center);
+        flex-wrap: wrap;
+        margin-left: -15px;
+        margin-right: -15px;
+        position: relative;
+        z-index: 2;
+
+        .textContainer {
+          height: 200px;
+          width: 600px;
+          text-align: center;
+          padding-left: 15px;
+          padding-right: 15px;
+          @include flex(column, center, flex-start);
+
+          .nameContainer {
+            width: 450px;
+            height: 60px;
+            margin: 0;
+
+            span:first-child {
+              @include text($textFontFamily, 26px, 400, 1.2, 1, #fff);
+            }
+
+            .typeIt {
+              @include text($textFontFamily, 52px, 700, 1.2, 1, #fff);
+            }
+          }
+
+          .selection::selection {
+            background-color: $primaryColor;
+            color: $secondaryTextColor;
+          }
+          .selection::-moz-selection {
+            background-color: #fff300;
+            color: #fff;
+          }
+
+          //& > h1 {
+          //  @include text($textFontFamily, 52px, 700, 1.2, 1, #fff);
+          //  margin: 0;
+          //}
+
+          & > h4 {
+            width: 100%;
+            @include text($textFontFamily, 30px, 400, 1.2, 0.3px, #fff);
+            display: flex;
+          }
+
+          .typingTextContainer {
+            width: calc(100% - 75px)
+          }
+
+          //.text {
+          //  display: inline-block;
+          //  position: relative;
+          //  text-align: left;
+          //  vertical-align: top;
+          //  width: 158px;
+          //
+          //  &::after {
+          //    //background-color: #b9b9b9;
+          //    background-color: $secondaryTextColor;
+          //    content: '';
+          //    height: 100%;
+          //    position: absolute;
+          //    right: 0;
+          //    top: 0;
+          //    width: 2px;
+          //  }
+          //
+          //  .dropdownText {
+          //    overflow: hidden;
+          //    opacity: 1;
+          //  }
+          //
+          //  .hiddenText {
+          //    opacity: 0;
+          //  }
+          //}
+
+          @media screen and (max-width: 767px) {
+
+          }
+        }
+      }
+    }
+  }
+}

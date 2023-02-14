@@ -1,0 +1,43 @@
+@import '../../common/styles/sass/variables.scss';
+
+.buttonContainer {
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    z-index: 3;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    color: white;
+    transition: transform .25s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+        transform: rotate(90deg);
+    }
+
+    .button {
+        &:after,
+        &:before {
+            content: '';
+            width: 40px;
+            height: 6px;
+            border-radius: 3px;
+            background: $primaryTextColor;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, 0);
+        }
+
+        &:after {
+            transform: translate(-50%, 0) rotate(45deg);
+        }
+
+        &:before {
+            transform: translate(-50%, 0) rotate(-45deg);
+        }
+    }
+}

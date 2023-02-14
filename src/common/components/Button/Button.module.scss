@@ -1,0 +1,25 @@
+@import '../../styles/sass/variables.scss';
+@import '../../styles/sass/mixins';
+
+.button {
+  min-width: 100px;
+  height: 40px;
+  padding: 0 20px;
+  background: $primaryColor;
+  color: $primaryTextColor;
+  border: 2px solid $primaryColor;
+  border-radius: 10px;
+  outline: none;
+  transition: 0.5s ease-in-out;
+  box-sizing: border-box;
+  cursor: pointer;
+
+  &:hover {
+    background: $bgColorPrimary;
+    color: $primaryColor;
+  }
+
+  .title {
+    @include text($textFontFamily, 16px, 500, 1.2, 1, #fff);
+  }
+}
