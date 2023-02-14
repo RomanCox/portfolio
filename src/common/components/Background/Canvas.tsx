@@ -20,7 +20,6 @@ export const Canvas = ({color}: BackgroundPropsType) => {
         }
 
         let ctx = canvas.getContext('2d');
-        console.log(ctx)
 
         //making the canvas full screen
         canvas.height = window.innerHeight;

@@ -1,13 +1,25 @@
 @import '../common/styles/sass/variables.scss';
 
-.skillsBlock {
-  /*min-height: 100vh;*/
-  height: calc(100vh - 200px);
-  width: 100%;
-  background-color: $bgColorPrimary;
-  padding: 100px 0;
-  position: relative;
-  z-index: 2;
+//.skillsBlock {
+//  background-color: $bgColorPrimary;
+//  padding: 100px 0;
+//  position: absolute;
+//  left: 0;
+//  top: 0;
+//  right: 0;
+//  bottom: 0;
+//  z-index: 2;
+//  animation: appearance 500ms ease-in 1 normal forwards;
+//  overflow: hidden;
+//
+//  @keyframes appearance {
+//    0% {top: 100%}
+//    60% {top: -120px}
+//    70% {top: 60px}
+//    80% {top: -30px}
+//    90% {top: 15px}
+//    100% {top: 0}
+//  }
 
   .skillsContainer {
     flex-direction: column;
@@ -20,7 +32,6 @@
       flex-direction: column;
       justify-content: space-between;
       flex-wrap: wrap;
-      box-sizing: border-box;
       margin-top: 30px;
 
       .skillsLevel {
@@ -39,4 +50,4 @@
       }
     }
   }
-}
+//}

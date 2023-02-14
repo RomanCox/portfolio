@@ -1,13 +1,15 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import style from './Main.module.scss';
 import rainCode from '../assets/image/rainCode.png';
-import {Nav} from '../nav/Nav';
 import {TypingText} from '../hooks/TypingText/TypingText';
 import videoMp4 from '../assets/video/rainCode.mp4';
 import videoWebm from '../assets/video/rainCode.webm';
 import videoMov from '../assets/video/rainCode.mov';
+import {Header} from '../header/Header';
+import {CommonPropsType} from '../app/App';
 
-export const MainVideoBG = () => {
+export const MainVideoBG = ({onClickHandler, isShow}: CommonPropsType) => {
+    const [isDisplay, setIsDisplay] = useState<boolean>(true)
 
     const matrixBG = {
         backgroundImage: `url(${rainCode})`,
@@ -15,11 +17,20 @@ export const MainVideoBG = () => {
         backgroundPosition: 'center',
     }
 
-    const phrases = ['', 'front-end developer', 'web developer', 'freelancer']
+    const phrases = ['', 'front-end developer', 'web developer', 'freelancer'];
+
+    useEffect(() => {
+        if (!isShow) {
+            setTimeout(setIsDisplay, 250, false)
+        } else {
+            setIsDisplay(true)
+        }
+        console.log(isShow)
+    }, [isShow])
 
     return (
             <div className={style.body}>
-                <Nav/>
+                {isDisplay && <Header onClickHandler={onClickHandler} isShow={isShow}/>}
                 <section className={style.mainBlock}>
                     <div className={style.container}>
                         <div className={style.imgCover} style={matrixBG}></div>

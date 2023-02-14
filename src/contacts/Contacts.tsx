@@ -23,9 +23,9 @@ export const Contacts = () => {
 
     return (
         <div className={style.contactsBlock}>
-            <NavLink to={PATH.MAIN} className={styleCloseButton.buttonContainer}>
-                <div className={styleCloseButton.button} />
-            </NavLink>
+            <div className={styleCloseButton.buttonContainer}>
+                <NavLink to={PATH.EMPTY} className={styleCloseButton.button} />
+            </div>
             <div className={`${styleContainer.container} ${style.contactsContainer}`}>
                 <Title title={'Get in Touch'}/>
                 <div className={style.contactInfo}>

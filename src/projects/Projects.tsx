@@ -21,9 +21,9 @@ export const Projects = () => {
 
     return (
         <div className={style.projectsBlock}>
-            <NavLink to={PATH.MAIN} className={styleCloseButton.buttonContainer}>
-                <div className={styleCloseButton.button} />
-            </NavLink>
+            <div className={styleCloseButton.buttonContainer}>
+                <NavLink to={PATH.EMPTY} className={styleCloseButton.button} />
+            </div>
             <div className={`${styleContainer.container} ${style.projectsContainer}`}>
                 <Title title={'My Projects'}/>
                 <div className={style.projects}>

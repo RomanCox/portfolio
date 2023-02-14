@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import style from './Skills.module.scss';
 import styleContainer from '../common/styles/Container.module.scss';
 import styleCloseButton from '../common/styles/CloseButton.module.scss';
@@ -10,10 +10,18 @@ import reactImage from '../assets/image/react.png';
 import reduxImage from '../assets/image/redux_black.png';
 import cssImage from '../assets/image/css3_white.png';
 import sassImage from '../assets/image/sass.png';
-import {PATH} from "../app/App";
-import {NavLink} from "react-router-dom";
+import {CommonPropsType} from '../app/App';
+import {useNavigate} from 'react-router-dom';
+import {SkillsContainerStyled} from './Skills.styled';
 
-export const Skills = () => {
+export const Skills = ({onClickHandler, isShow}: CommonPropsType) => {
+    const [isDisplay, setIsDisplay] = useState<boolean>(false)
+    const navigate = useNavigate();
+
+    const closeHandler = () => {
+        onClickHandler()
+        setTimeout(navigate, 400, '/')
+    }
 
     const js = {
         backgroundImage: `url(${jsImage})`,
@@ -34,14 +42,20 @@ export const Skills = () => {
         backgroundImage: `url(${sassImage})`,
     };
 
+    useEffect(() =>  {
+        setTimeout(setIsDisplay, 500, true)
+    }, [])
+
     return (
-        <div className={style.skillsBlock}>
-            <NavLink to={PATH.MAIN} className={styleCloseButton.buttonContainer}>
+        // <div className={style.skillsBlock}>
+        <SkillsContainerStyled isShow={isShow}>
+            <div className={styleCloseButton.buttonContainer} onClick={closeHandler}>
                 <div className={styleCloseButton.button} />
-            </NavLink>
+                {/*<NavLink to={PATH.EMPTY} className={styleCloseButton.button} />*/}
+            </div>
             <div className={`${styleContainer.container} ${style.skillsContainer}`}>
                 <Title title={'My Skillz'}/>
-                <div className={style.skills}>
+                {isDisplay && <div className={style.skills}>
                     <div className={style.skillsLevel}>
                         <Skill
                             style={js}
@@ -77,45 +91,45 @@ export const Skills = () => {
                         />
                     </div>
 
-
-                    {/*<div>
-                        <Skill
-                            style={js}
-                            title={'JavaScript'}
-                            description={'I learn JS'}
-                        />
-                        <Skill
-                            style={ts}
-                            title={'TypeScript'}
-                            description={'I learn TypeScript'}
-                        />
-                    </div>
-                    <div>
-                        <Skill
-                            style={css}
-                            title={'CSS'}
-                            description={'I learn CSS'}
-                        />
-                        <Skill
-                            style={sass}
-                            title={'SASS'}
-                            description={'I learn SASS'}
-                        />
-                    </div>
-                    <div>
-                        <Skill
-                            style={react}
-                            title={'React'}
-                            description={'I learn React'}
-                        />
-                        <Skill
-                            style={redux}
-                            title={'Redux'}
-                            description={'I learn Redux'}
-                        />
-                    </div>*/}
-                </div>
+                    {/*<div>*/}
+                    {/*    <Skill*/}
+                    {/*        style={js}*/}
+                    {/*        title={'JavaScript'}*/}
+                    {/*        description={'I learn JS'}*/}
+                    {/*    />*/}
+                    {/*    <Skill*/}
+                    {/*        style={ts}*/}
+                    {/*        title={'TypeScript'}*/}
+                    {/*        description={'I learn TypeScript'}*/}
+                    {/*    />*/}
+                    {/*</div>*/}
+                    {/*<div>*/}
+                    {/*    <Skill*/}
+                    {/*        style={css}*/}
+                    {/*        title={'CSS'}*/}
+                    {/*        description={'I learn CSS'}*/}
+                    {/*    />*/}
+                    {/*    <Skill*/}
+                    {/*        style={sass}*/}
+                    {/*        title={'SASS'}*/}
+                    {/*        description={'I learn SASS'}*/}
+                    {/*    />*/}
+                    {/*</div>*/}
+                    {/*<div>*/}
+                    {/*    <Skill*/}
+                    {/*        style={react}*/}
+                    {/*        title={'React'}*/}
+                    {/*        description={'I learn React'}*/}
+                    {/*    />*/}
+                    {/*    <Skill*/}
+                    {/*        style={redux}*/}
+                    {/*        title={'Redux'}*/}
+                    {/*        description={'I learn Redux'}*/}
+                    {/*    />*/}
+                    {/*</div>*/}
+                </div>}
             </div>
-        </div>
+        </SkillsContainerStyled>
+        // </div>
     );
 }
