@@ -1,15 +1,15 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import style from './Projects.module.scss';
 import styleContainer from '../common/styles/Container.module.scss';
 import {Project} from './project/Project';
 import {Title} from '../common/components/Title/Title';
 import todoListImage from '../assets/image/todolist.png';
 import socialImage from '../assets/image/social.png';
-import {PATH} from "../app/App";
-import styleCloseButton from '../common/styles/CloseButton.module.scss';
-import {NavLink} from 'react-router-dom';
+import {CommonPropsType} from '../app/App';
+import {PageLayout} from '../layouts/Page.layout';
 
-export const Projects = () => {
+export const Projects = ({onClickHandler, isShow}: CommonPropsType) => {
+    const [isDisplay, setIsDisplay] = useState<boolean>(false)
 
     const todoList = {
         backgroundImage: `url(${todoListImage})`,
@@ -19,26 +19,28 @@ export const Projects = () => {
         backgroundImage: `url(${socialImage})`,
     };
 
+    useEffect(() =>  {
+        setTimeout(setIsDisplay, 500, true)
+    }, [])
+
     return (
-        <div className={style.projectsBlock}>
-            <div className={styleCloseButton.buttonContainer}>
-                <NavLink to={PATH.EMPTY} className={styleCloseButton.button} />
-            </div>
+        <PageLayout isShow={isShow} onClickHandler={onClickHandler}>
             <div className={`${styleContainer.container} ${style.projectsContainer}`}>
                 <Title title={'My Projects'}/>
-                <div className={style.projects}>
+                {isDisplay && <div className={style.projects}>
                     <Project
                         style={todoList}
                         title={'TodoList'}
                         description={'sd gflksa gflkg kjsanfkjsndfklmlk kjasndkjsafdl kamslkd'}
+                        link={'https://todolist-xi-seven.vercel.app'}
                     />
                     <Project
                         style={social}
                         title={'Social Network'}
                         description={'salkdnmgf oian gfkjag'}
                     />
-                </div>
+                </div>}
             </div>
-        </div>
+        </PageLayout>
     );
 }

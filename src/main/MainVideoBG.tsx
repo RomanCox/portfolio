@@ -25,7 +25,6 @@ export const MainVideoBG = ({onClickHandler, isShow}: CommonPropsType) => {
         } else {
             setIsDisplay(true)
         }
-        console.log(isShow)
     }, [isShow])
 
     return (
@@ -40,13 +39,15 @@ export const MainVideoBG = ({onClickHandler, isShow}: CommonPropsType) => {
                         <source type='video/mov' src={videoMov}/>
                     </video>
                     <div className={style.center}>
-                        <div className={style.textContainer}>
-                            <h1 className={style.selection}>Roman Cox</h1>
-                            <h4>{`I'm a`}
+                        <div className={style.contentContainer}>
+                            <h1 className={style.title}>Roman Cox</h1>
+                            <div className={style.textContainer}>
+                                <h4 className={style.text}>{`I'm a`}</h4>
                                 <div className={style.typingTextContainer}>
                                     <TypingText phrases={phrases}/>
                                 </div>
-                            </h4>
+                            </div>
+
                         </div>
                     </div>
                 </div>

@@ -2,178 +2,183 @@
 @import '../common/styles/sass/mixins.scss';
 @import '../common/styles/sass/fonts.scss';
 
-.contactsBlock {
-  height: calc(100vh - 200px);
-  width: 100%;
-  padding: 100px 0;
-  background-color: $bgColorPrimary;
+.contactsContainer {
+  flex-direction: column;
   position: relative;
-  z-index: 2;
+  z-index: 3;
 
-  .contactsContainer {
-    @include flex(column, flex-start, center);
+  .contactInfo {
+    width: 100%;
+    margin-top: 30px;
+    @include flex(row, space-between, center);
 
-    .contactInfo {
-      width: 100%;
-      margin-top: 30px;
-      @include flex(row, space-between, center);
+    .formContainer {
+      max-width: 450px;
+      height: 375px;
+      @include flex(column, flex-start, flex-start);
 
-      .formContainer {
-        max-width: 450px;
-        height: 375px;
-        @include flex(column, flex-start, flex-start);
+      & h3 {
+        margin-top: 0;
+        @include text($titleFontFamily, 1.5rem, 700, 1.2, normal, $primaryTextColor);
+      }
 
-        & h3 {
-          margin-top: 0;
-          @include text($titleFontFamily, 1.5rem, 700, 1.2, normal, $primaryTextColor);
+      .contactForm {
+        min-width: 450px;
+        height: 310px;
+        @include flex(column, flex-start, center);
+
+        .formContactBlock {
+          width: 100%;
+          @include flex(row, space-between, center);
+
+          .shortInputContainer {
+            width: 210px;
+          }
         }
 
-        .contactForm {
-          min-width: 450px;
-          height: 310px;
+        .formMessageBlock {
+          width: 100%;
+          height: 190px;
           @include flex(column, flex-start, center);
 
-          .formContactBlock {
-            width: 100%;
-            @include flex(row, space-between, center);
-            .shortInputContainer {
-              width: 210px;
-            }
+          & textarea {
+            width: 95%;
           }
+        }
 
-          .formMessageBlock {
-            width: 100%;
-            height: 190px;
-            @include flex(column, flex-start, center);
-
-            & textarea {
-              width: 95%;
-            }
-          }
-
-          .formButtonContainer {
-            height: 55px;
-            width: 100%;
-            @include flex(row, flex-start, center);
-          }
+        .formButtonContainer {
+          height: 55px;
+          width: 100%;
+          @include flex(row, flex-start, center);
         }
       }
+    }
 
-      .contactContainer {
-        max-width: 450px;
-        height: 375px;
-        @include flex(column, space-between, flex-start);
+    .contactContainer {
+      max-width: 450px;
+      height: 375px;
+      @include flex(column, space-between, flex-start);
 
-        & h3 {
-          margin-top: 0;
-          margin-bottom: 12px;
-          @include text($titleFontFamily, 1.5rem, 700, 1.2, normal, $primaryTextColor);
+      & h3 {
+        margin-top: 0;
+        margin-bottom: 12px;
+        @include text($titleFontFamily, 1.5rem, 700, 1.2, normal, $primaryTextColor);
+      }
+
+      .preContacts {
+        width: 75%;
+        @include text($textFontFamily, 12px, 400, 1.95, normal, $secondaryTextColor);
+        line-height: 18px;
+      }
+
+      .list {
+        list-style: none;
+        padding-left: 0;
+        display: block;
+        margin-block-start: 1em;
+        margin-block-end: 0;
+        margin-inline-start: 0;
+        margin-inline-end: 0;
+
+        & > li {
+          margin-bottom: 13px;
         }
 
-        .preContacts {
-          width: 75%;
-          @include text($textFontFamily, 12px, 400, 1.95, normal, $secondaryTextColor);
-          line-height: 18px;
-        }
+        .liStyleContainer {
+          height: 53.5px;
+          @include flex(row, flex-start, center);
 
-        .list {
-          list-style: none;
-          padding-left: 0;
-          display: block;
-          margin-block-start: 1em;
-          margin-block-end: 0;
-          margin-inline-start: 0;
-          margin-inline-end: 0;
+          .iconContainer {
+            width: 36px;
+            height: 36px;
 
-          & > li {
-            margin-bottom: 13px;
-          }
-
-          .liStyleContainer {
-            height: 53.5px;
-            @include flex(row, flex-start, center);
-
-            .iconContainer {
+            .iconUser {
               width: 36px;
               height: 36px;
+              margin-bottom: 13px;
+              position: relative;
 
-              .iconUser {
-                width: 36px;
-                height: 36px;
-                margin-bottom: 13px;
-                position: relative;
-                &:before {
-                  /*@include text($iconEntypoFontFamily, 36px, 400, 1, $primaryColor);
-                  content: '\E809';*/
-                  @include text($iconDashIconsFontFamily, 36px, 400, 1, normal, $primaryColor);
-                  content: '\F110';
-                }
-              }
-
-              .iconLocation {
-                margin-bottom: 13px;
-                position: relative;
-                &:before {
-                  /*@include text($iconDashIconsFontFamily, 36px, 400, 1, $primaryColor);
-                  content: '\F319';*/
-                  @include text($iconIonIconsFontFamily, 36px, 400, 1, normal, $primaryColor);
-                  content: '\F301';
-                }
-              }
-
-              .iconMessenger {
-                margin-bottom: 13px;
-                position: relative;
-                &:before {
-                  @include text($iconEntypoFontFamily, 36px, 400, 1, normal, $primaryColor);
-                  content: '\E8BB';
-                }
-              }
-
-              .iconGit {
-                margin-bottom: 13px;
-                position: relative;
-                @include flex(row, center, center);
-                &:before {
-                  @include text($iconIonIconsFontFamily, 36px, 400, 1, normal, $primaryColor);
-                  content: '\F239';
-                }
+              &:before {
+                /*@include text($iconEntypoFontFamily, 36px, 400, 1, $primaryColor);
+                content: '\E809';*/
+                @include text($iconDashIconsFontFamily, 36px, 400, 1, normal, $primaryColor);
+                content: '\F110';
               }
             }
 
-            .nameContainer {
-              /*padding-top: 0;*/
-              border-left: 2px solid rgba(255,255,255,.15);
-              padding: 12px 0 12px 22px;
-              margin-left: 20px;
-              flex: 1;
-              & h6 {
-                margin: 0;
+            .iconLocation {
+              margin-bottom: 13px;
+              position: relative;
+
+              &:before {
+                /*@include text($iconDashIconsFontFamily, 36px, 400, 1, $primaryColor);
+                content: '\F319';*/
+                @include text($iconIonIconsFontFamily, 36px, 400, 1, normal, $primaryColor);
+                content: '\F301';
               }
-              @include flex(column, flex-start, flex-start);
-              .nameTitle {
-                @include text($titleFontFamily, 15px, 600, 1, normal, $primaryTextColor)
+            }
+
+            .iconMessenger {
+              margin-bottom: 13px;
+              position: relative;
+
+              &:before {
+                @include text($iconEntypoFontFamily, 36px, 400, 1, normal, $primaryColor);
+                content: '\E8BB';
               }
-              .name {
-                .link {
+            }
+
+            .iconGit {
+              margin-bottom: 13px;
+              position: relative;
+              @include flex(row, center, center);
+
+              &:before {
+                @include text($iconIonIconsFontFamily, 36px, 400, 1, normal, $primaryColor);
+                content: '\F239';
+              }
+            }
+          }
+
+          .nameContainer {
+            /*padding-top: 0;*/
+            border-left: 2px solid rgba(255, 255, 255, .15);
+            padding: 12px 0 12px 22px;
+            margin-left: 20px;
+            flex: 1;
+
+            & h6 {
+              margin: 0;
+            }
+
+            @include flex(column, flex-start, flex-start);
+
+            .nameTitle {
+              @include text($titleFontFamily, 15px, 600, 1, normal, $primaryTextColor)
+            }
+
+            .name {
+              .link {
+                color: $secondaryTextColor;
+
+                &:active, &:visited {
                   color: $secondaryTextColor;
-                  &:active, &:visited {
-                    color: $secondaryTextColor;
-                  }
-                  &:hover {
-                    color: $primaryColor;
-                  }
                 }
-                @include text($textFontFamily, 14px, 400, 1.95, normal, $secondaryTextColor)
+
+                &:hover {
+                  color: $primaryColor;
+                }
               }
+
+              @include text($textFontFamily, 14px, 400, 1.95, normal, $secondaryTextColor)
             }
           }
         }
       }
+    }
 
-      @media screen and (max-width: 1141px) {
-        @include flex(column, center, center);
-      }
+    @media screen and (max-width: 1141px) {
+      @include flex(column, center, center);
     }
   }
 }

@@ -1,53 +1,32 @@
-@import '../common/styles/sass/variables.scss';
+@import '../common/styles/sass/variables';
+@import '../common/styles/sass/mixins';
 
-//.skillsBlock {
-//  background-color: $bgColorPrimary;
-//  padding: 100px 0;
-//  position: absolute;
-//  left: 0;
-//  top: 0;
-//  right: 0;
-//  bottom: 0;
-//  z-index: 2;
-//  animation: appearance 500ms ease-in 1 normal forwards;
-//  overflow: hidden;
-//
-//  @keyframes appearance {
-//    0% {top: 100%}
-//    60% {top: -120px}
-//    70% {top: 60px}
-//    80% {top: -30px}
-//    90% {top: 15px}
-//    100% {top: 0}
-//  }
+.skillsContainer {
+  flex-direction: column;
+  position: relative;
+  z-index: 3;
 
-  .skillsContainer {
+  .skills {
+    width: 100%;
+    display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    flex-wrap: nowrap;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 30px;
 
-    .skills {
-      width: 100%;
+    .skillsLevel {
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      margin-top: 30px;
+      flex-direction: row;
+      justify-content: space-around;
 
-      .skillsLevel {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-
-        @media screen and (max-width: 766px) {
-          flex-direction: column;
-          align-items: center;
-        }
-      }
-
-      @media screen and (max-width: 628px) {
-
+      @media screen and (max-width: 766px) {
+        flex-direction: column;
+        align-items: center;
       }
     }
+
+    @media screen and (max-width: 628px) {
+
+    }
   }
-//}
+}

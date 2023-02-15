@@ -1,34 +1,35 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import style from './Contacts.module.scss';
 import styleContainer from '../common/styles/Container.module.scss';
 import {Title} from '../common/components/Title/Title';
 import {InputText} from '../common/components/Inputs/InputText';
 import {Textarea} from '../common/components/Inputs/Textarea';
 import {Button} from '../common/components/Button/Button';
-import {PATH} from "../app/App";
-import styleCloseButton from "../common/styles/CloseButton.module.scss";
-import {NavLink} from "react-router-dom";
+import {CommonPropsType} from '../app/App';
+import {PageLayout} from '../layouts/Page.layout';
 
-export const Contacts = () => {
+export const Contacts = ({onClickHandler, isShow}: CommonPropsType) => {
+    const [isDisplay, setIsDisplay] = useState<boolean>(false)
 
-    let shortInput = {
+    const shortInput = {
         input: {width: '190px',},
         bar: {width: '200px'},
-    }
+    };
 
-    let longInput = {
+    const longInput = {
         input: {width: '430px'},
         bar: {width: '450px'},
-    }
+    };
+
+    useEffect(() =>  {
+        setTimeout(setIsDisplay, 500, true)
+    }, [])
 
     return (
-        <div className={style.contactsBlock}>
-            <div className={styleCloseButton.buttonContainer}>
-                <NavLink to={PATH.EMPTY} className={styleCloseButton.button} />
-            </div>
+        <PageLayout isShow={isShow} onClickHandler={onClickHandler}>
             <div className={`${styleContainer.container} ${style.contactsContainer}`}>
                 <Title title={'Get in Touch'}/>
-                <div className={style.contactInfo}>
+                {isDisplay && <div className={style.contactInfo}>
                     <div className={style.formContainer}>
                         <h3>Message Me</h3>
                         <form className={style.contactForm}>
@@ -114,8 +115,8 @@ export const Contacts = () => {
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div>}
             </div>
-        </div>
+        </PageLayout>
     );
 }

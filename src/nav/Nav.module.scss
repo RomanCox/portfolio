@@ -9,15 +9,13 @@
   .navbarItem {
     display: list-item;
     text-align: -webkit-match-parent;
+    cursor: pointer;
+    @include text($titleFontFamily, 20px, 400, 1.2, normal, $primaryTextColor);
+    text-decoration: none;
+    user-select: none;
 
-    > a {
-      cursor: pointer;
-      @include text($titleFontFamily, 20px, 400, 1.2, normal, $primaryTextColor);
-      text-decoration: none;
-
-      &:visited {
-        color: $primaryTextColor;
-      }
+    &:visited {
+      color: $primaryTextColor;
     }
   }
 }

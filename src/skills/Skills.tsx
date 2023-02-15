@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import style from './Skills.module.scss';
 import styleContainer from '../common/styles/Container.module.scss';
-import styleCloseButton from '../common/styles/CloseButton.module.scss';
 import {Skill} from './skill/Skill';
 import {Title} from '../common/components/Title/Title';
 import jsImage from '../assets/image/js.png';
@@ -11,17 +10,10 @@ import reduxImage from '../assets/image/redux_black.png';
 import cssImage from '../assets/image/css3_white.png';
 import sassImage from '../assets/image/sass.png';
 import {CommonPropsType} from '../app/App';
-import {useNavigate} from 'react-router-dom';
-import {SkillsContainerStyled} from './Skills.styled';
+import {PageLayout} from '../layouts/Page.layout';
 
 export const Skills = ({onClickHandler, isShow}: CommonPropsType) => {
     const [isDisplay, setIsDisplay] = useState<boolean>(false)
-    const navigate = useNavigate();
-
-    const closeHandler = () => {
-        onClickHandler()
-        setTimeout(navigate, 400, '/')
-    }
 
     const js = {
         backgroundImage: `url(${jsImage})`,
@@ -42,17 +34,12 @@ export const Skills = ({onClickHandler, isShow}: CommonPropsType) => {
         backgroundImage: `url(${sassImage})`,
     };
 
-    useEffect(() =>  {
+    useEffect(() => {
         setTimeout(setIsDisplay, 500, true)
     }, [])
 
     return (
-        // <div className={style.skillsBlock}>
-        <SkillsContainerStyled isShow={isShow}>
-            <div className={styleCloseButton.buttonContainer} onClick={closeHandler}>
-                <div className={styleCloseButton.button} />
-                {/*<NavLink to={PATH.EMPTY} className={styleCloseButton.button} />*/}
-            </div>
+        <PageLayout isShow={isShow} onClickHandler={onClickHandler}>
             <div className={`${styleContainer.container} ${style.skillsContainer}`}>
                 <Title title={'My Skillz'}/>
                 {isDisplay && <div className={style.skills}>
@@ -129,7 +116,6 @@ export const Skills = ({onClickHandler, isShow}: CommonPropsType) => {
                     {/*</div>*/}
                 </div>}
             </div>
-        </SkillsContainerStyled>
-        // </div>
+        </PageLayout>
     );
 }

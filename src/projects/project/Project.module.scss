@@ -10,13 +10,13 @@
   .image {
     height: 300px;
     width: 100%;
-    cursor: pointer;
+    @include flex(row, center, center);
     background-size: cover;
     background-position: center;
-    @include flex(row, center, center);
     background-repeat: no-repeat;
     border-top-left-radius: calc(0.25rem - 1px);
     border-top-right-radius: calc(0.25rem - 1px);
+    cursor: pointer;
   }
 
   .projectInfo {
@@ -26,6 +26,17 @@
       @include text($titleFontFamily, 1.5rem, 700, 1.2, normal, $primaryTextColor);
       letter-spacing: 1px;
       margin: 0 0 5px;
+
+      > a {
+        color: $primaryTextColor;
+        text-decoration:none;
+        cursor: pointer;
+
+        &:active {
+          color: $primaryTextColor;
+          text-decoration:none;
+        }
+      }
     }
 
     .description {

@@ -54,13 +54,13 @@
         position: relative;
         z-index: 2;
 
-        .textContainer {
-          height: 200px;
-          width: 600px;
+        .contentContainer {
+          height: 120px;
+          width: 450px;
           text-align: center;
           padding-left: 15px;
           padding-right: 15px;
-          @include flex(column, center, flex-start);
+          @include flex(column, space-between, flex-start);
 
           .nameContainer {
             width: 450px;
@@ -76,29 +76,42 @@
             }
           }
 
-          .selection::selection {
-            background-color: $primaryColor;
-            color: $secondaryTextColor;
-          }
-          .selection::-moz-selection {
-            background-color: #fff300;
-            color: #fff;
+          .title {
+            @include text($textFontFamily, 52px, 700, 1.2, 1, #fff);
+            margin: 0;
+
+            &::selection {
+              background-color: $primaryColor;
+              color: $secondaryTextColor;
+            }
+
+            &::selection {
+              background-color: $primaryColor;
+              color: $secondaryTextColor;
+            }
           }
 
-          //& > h1 {
-          //  @include text($textFontFamily, 52px, 700, 1.2, 1, #fff);
-          //  margin: 0;
-          //}
-
-          & > h4 {
+          .textContainer {
             width: 100%;
-            @include text($textFontFamily, 30px, 400, 1.2, 0.3px, #fff);
             display: flex;
+
+            .text {
+              width: 75px;
+              margin: 0;
+              @include text($textFontFamily, 30px, 400, 1.2, 0.3px, #fff);
+              display: flex;
+            }
+
+            .typingTextContainer {
+              width: calc(100% - 75px);
+              @include text($textFontFamily, 30px, 400, 1.2, 0.3px, #fff);
+              display: flex;
+            }
           }
 
-          .typingTextContainer {
-            width: calc(100% - 75px)
-          }
+
+
+
 
           //.text {
           //  display: inline-block;

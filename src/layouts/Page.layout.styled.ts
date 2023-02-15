@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-type SkillsContainerStyledPropsType = {
+type PageLayoutStyledPropsType = {
     isShow: boolean,
 }
-export const SkillsContainerStyled = styled.div<SkillsContainerStyledPropsType>`
+export const PageLayoutStyled = styled.div<PageLayoutStyledPropsType>`
   max-width: 100%;
   max-height: 100%;
   padding: 100px 0;
@@ -64,4 +64,57 @@ export const SkillsContainerStyled = styled.div<SkillsContainerStyledPropsType>`
       opacity: 1;
     }
   }
+`;
+
+export const CloseButtonStyled = styled.div`
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  z-index: 3;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  transition: transform .25s ease-in-out;
+
+  &:hover {
+    transform: rotate(90deg);
+  }
+`;
+
+export const ButtonStyled = styled.button`
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: white;
+
+  &:focus {
+    border: none;
+    outline: none;
+  }
+
+  &:after,
+  &:before {
+    content: '';
+    width: 40px;
+    height: 6px;
+    border-radius: 3px;
+    background: white;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+
+  &:after {
+    transform: translate(-50%, 0) rotate(45deg);
+  }
+
+  &:before {
+    transform: translate(-50%, 0) rotate(-45deg);
+  }
+
 `;

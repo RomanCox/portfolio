@@ -9,18 +9,10 @@ type NavPropsType = {
 export const Nav = ({onClickHandler}: NavPropsType) => {
     return (
         <nav className={style.navbar}>
-            <div className={style.navbarItem} onClick={onClickHandler}>
-                <NavLink to={PATH.MAIN}>Main</NavLink>
-            </div>
-            <div className={style.navbarItem} onClick={onClickHandler}>
-                <NavLink to={PATH.SKILLS}>My Skillz</NavLink>
-            </div>
-            <div className={style.navbarItem} onClick={onClickHandler}>
-                <NavLink to={PATH.PROJECTS}>My Projects</NavLink>
-            </div>
-            <div className={style.navbarItem} onClick={onClickHandler}>
-                <NavLink to={PATH.CONTACTS}>My Contacts</NavLink>
-            </div>
+            <NavLink to={PATH.MAIN} className={style.navbarItem} onClick={onClickHandler}>Main</NavLink>
+            <NavLink to={PATH.SKILLS} className={style.navbarItem} onClick={onClickHandler}>My Skillz</NavLink>
+            <NavLink to={PATH.PROJECTS} className={style.navbarItem} onClick={onClickHandler}>My Projects</NavLink>
+            <NavLink to={PATH.CONTACTS} className={style.navbarItem} onClick={onClickHandler}>My Contacts</NavLink>
         </nav>
     );
 }
