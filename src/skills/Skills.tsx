@@ -77,43 +77,6 @@ export const Skills = ({onClickHandler, isShow}: CommonPropsType) => {
                             description={'I learn Redux'}
                         />
                     </div>
-
-                    {/*<div>*/}
-                    {/*    <Skill*/}
-                    {/*        style={js}*/}
-                    {/*        title={'JavaScript'}*/}
-                    {/*        description={'I learn JS'}*/}
-                    {/*    />*/}
-                    {/*    <Skill*/}
-                    {/*        style={ts}*/}
-                    {/*        title={'TypeScript'}*/}
-                    {/*        description={'I learn TypeScript'}*/}
-                    {/*    />*/}
-                    {/*</div>*/}
-                    {/*<div>*/}
-                    {/*    <Skill*/}
-                    {/*        style={css}*/}
-                    {/*        title={'CSS'}*/}
-                    {/*        description={'I learn CSS'}*/}
-                    {/*    />*/}
-                    {/*    <Skill*/}
-                    {/*        style={sass}*/}
-                    {/*        title={'SASS'}*/}
-                    {/*        description={'I learn SASS'}*/}
-                    {/*    />*/}
-                    {/*</div>*/}
-                    {/*<div>*/}
-                    {/*    <Skill*/}
-                    {/*        style={react}*/}
-                    {/*        title={'React'}*/}
-                    {/*        description={'I learn React'}*/}
-                    {/*    />*/}
-                    {/*    <Skill*/}
-                    {/*        style={redux}*/}
-                    {/*        title={'Redux'}*/}
-                    {/*        description={'I learn Redux'}*/}
-                    {/*    />*/}
-                    {/*</div>*/}
                 </div>}
             </div>
         </PageLayout>
