@@ -11,16 +11,6 @@ import {PageLayout} from '../layouts/Page.layout';
 export const Contacts = ({onClickHandler, isShow}: CommonPropsType) => {
     const [isDisplay, setIsDisplay] = useState<boolean>(false)
 
-    const shortInput = {
-        input: {width: '190px',},
-        bar: {width: '200px'},
-    };
-
-    const longInput = {
-        input: {width: '430px'},
-        bar: {width: '450px'},
-    };
-
     useEffect(() =>  {
         setTimeout(setIsDisplay, 500, true)
     }, [])
@@ -35,15 +25,19 @@ export const Contacts = ({onClickHandler, isShow}: CommonPropsType) => {
                         <form className={style.contactForm}>
                             <div className={style.formContactBlock}>
                                 <div className={style.shortInputContainer}>
-                                    <InputText placeholder={'Name'} style={shortInput}/>
+                                    <InputText placeholder={'Name'} />
                                 </div>
                                 <div className={style.shortInputContainer}>
-                                    <InputText placeholder={'Email'} style={shortInput}/>
+                                    <InputText placeholder={'Email'} />
                                 </div>
                             </div>
                             <div className={style.formMessageBlock}>
-                                <InputText placeholder={'Subject'} style={longInput}/>
-                                <Textarea placeholder={'Message'} rows={5} wrap={'soft'}/>
+                                <div className={style.longInputContainer}>
+                                    <InputText placeholder={'Subject'} />
+                                </div>
+                                <div className={style.textAreaContainer}>
+                                    <Textarea placeholder={'Message'} rows={5} wrap={'soft'}/>
+                                </div>
                             </div>
                             <div className={style.formButtonContainer}>
                                 <Button type='submit' title={'Send message'} />
@@ -90,6 +84,7 @@ export const Contacts = ({onClickHandler, isShow}: CommonPropsType) => {
                                                 className={style.link}
                                                 target={'_blank'}
                                                 title='Telegram Messenger'
+                                                rel={'nofollow noreferrer'}
                                             >@romancox</a>
                                         </span>
                                     </div>
@@ -108,6 +103,7 @@ export const Contacts = ({onClickHandler, isShow}: CommonPropsType) => {
                                                 className={style.link}
                                                 target={'_blank'}
                                                 title='GitHub'
+                                                rel={'nofollow noreferrer'}
                                             >RomanCox</a>
                                         </span>
                                     </div>

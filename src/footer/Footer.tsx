@@ -12,7 +12,7 @@ export const Footer = () => {
                 <div className={style.footerSocial}></div>
             </div>
             <span className={style.description}>Copyright © 2021. All rights reserved.</span>
-            <span className={style.description}>Designed & Developed by {<a className={style.link} href={'https://romancox.github.io/'} target={'_blank'}>Roman Cox</a>}</span>
+            <span className={style.description}>Designed & Developed by {<a className={style.link} href={'https://romancox.github.io/'} target={'_blank'} rel={'nofollow noreferrer'}>Roman Cox</a>}</span>
 
         </div>
 );
