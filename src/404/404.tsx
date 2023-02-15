@@ -38,7 +38,7 @@ export const Error404 = () => {
                     ?   <div className={style.buttonsWrapper}>
                             <div className={style.buttonsTitle}>Choose: Matrix or Reality?</div>
                             <div className={style.buttonsContainer}>
-                                <NavLink to={PATH.MAINVIDEOBG}>
+                                <NavLink to={PATH.EMPTY}>
                                     <img src={redPill} alt={'red pill'}/>
                                 </NavLink>
                                 <img src={bluePill} onClick={closePage} alt={'blue pill'}/>

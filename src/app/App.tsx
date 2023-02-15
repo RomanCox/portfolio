@@ -33,12 +33,12 @@ export const App = () => {
         <>
             <MainVideoBG onClickHandler={openPage} isShow={isShow} />
             <Routes>
-                <Route path={PATH.EMPTY} element={<Empty/>}/>
-                <Route path={PATH.MAIN} element={<Main/>}/>
-                <Route path={PATH.SKILLS} element={<Skills onClickHandler={closePage} isShow={isShow}/>}/>
-                <Route path={PATH.PROJECTS} element={<Projects/>}/>
-                <Route path={PATH.CONTACTS} element={<Contacts/>}/>
-                <Route path='*' element={<Error404/>}/>
+                <Route path={PATH.EMPTY} element={<Empty />}/>
+                <Route path={PATH.MAIN} element={<Main onClickHandler={closePage} isShow={isShow} />}/>
+                <Route path={PATH.SKILLS} element={<Skills onClickHandler={closePage} isShow={isShow} />}/>
+                <Route path={PATH.PROJECTS} element={<Projects />}/>
+                <Route path={PATH.CONTACTS} element={<Contacts />}/>
+                <Route path='*' element={<Error404 />}/>
             </Routes>
         </>
     );

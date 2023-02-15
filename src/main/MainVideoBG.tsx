@@ -9,7 +9,7 @@ import {Header} from '../header/Header';
 import {CommonPropsType} from '../app/App';
 
 export const MainVideoBG = ({onClickHandler, isShow}: CommonPropsType) => {
-    const [isDisplay, setIsDisplay] = useState<boolean>(true)
+    const [isDisplay, setIsDisplay] = useState<boolean>(true);
 
     const matrixBG = {
         backgroundImage: `url(${rainCode})`,
@@ -29,29 +29,28 @@ export const MainVideoBG = ({onClickHandler, isShow}: CommonPropsType) => {
     }, [isShow])
 
     return (
-            <div className={style.body}>
-                {isDisplay && <Header onClickHandler={onClickHandler} isShow={isShow}/>}
-                <section className={style.mainBlock}>
-                    <div className={style.container}>
-                        <div className={style.imgCover} style={matrixBG}></div>
-                        <video preload='auto' autoPlay muted loop playsInline className={style.video}>
-                            <source type='video/mp4' src={videoMp4}/>
-                            <source type='video/webm' src={videoWebm}/>
-                            <source type='video/mov' src={videoMov}/>
-                        </video>
-                        <div className={style.center}>
-                            <div className={style.textContainer}>
-                                <h1 className={style.selection}>Roman Cox</h1>
-                                <h4>{`I'm a`}
-                                    <div className={style.typingTextContainer}>
-                                        <TypingText phrases={phrases}/>
-                                    </div>
-                                </h4>
-                            </div>
+        <div className={style.body}>
+            {isDisplay && <Header onClickHandler={onClickHandler} isShow={isShow}/>}
+            <section className={style.mainBlock}>
+                <div className={style.container}>
+                    <div className={style.imgCover} style={matrixBG}></div>
+                    <video preload='auto' autoPlay muted loop playsInline className={style.video}>
+                        <source type='video/mp4' src={videoMp4}/>
+                        <source type='video/webm' src={videoWebm}/>
+                        <source type='video/mov' src={videoMov}/>
+                    </video>
+                    <div className={style.center}>
+                        <div className={style.textContainer}>
+                            <h1 className={style.selection}>Roman Cox</h1>
+                            <h4>{`I'm a`}
+                                <div className={style.typingTextContainer}>
+                                    <TypingText phrases={phrases}/>
+                                </div>
+                            </h4>
                         </div>
                     </div>
-                </section>
-            </div>
-
+                </div>
+            </section>
+        </div>
     )
 }

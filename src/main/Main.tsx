@@ -1,21 +1,26 @@
 import React, {useEffect, useState} from 'react';
 import style from './Main.module.scss';
-import {Nav} from '../nav/Nav';
 import {TypingText} from '../hooks/TypingText/TypingText';
 import {Canvas} from '../common/components/Background/Canvas';
+import {Header} from '../header/Header';
+import {CommonPropsType} from '../app/App';
 
-export const Main = () => {
-    const [isShow, setIsShow] = useState<boolean>(false);
+export const Main = ({onClickHandler, isShow}: CommonPropsType) => {
+    const [isDisplay, setIsDisplay] = useState<boolean>(true);
 
     useEffect(() => {
-        setTimeout(setIsShow, 1000, true)
-    }, [])
+        if (!isShow) {
+            setTimeout(setIsDisplay, 250, false)
+        } else {
+            setIsDisplay(true)
+        }
+    }, [isShow])
 
     const phrases = ['', 'front-end developer', 'web developer', 'freelancer']
 
     return (
         <div className={style.body}>
-            <Nav/>
+            {isDisplay && <Header onClickHandler={onClickHandler} isShow={isShow}/>}
             <Canvas color={'green'}/>
             <section className={style.mainBlock}>
                 {isShow
