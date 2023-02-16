@@ -63,9 +63,9 @@ export const PlayButtonStyled = styled.div<PlayButtonStyledPropsType>`
 `;
 
 export const BurgerMenuWrapperStyled = styled.div<BurgerStyledPropsType>`
-  background-color: ${({isBurgerMenuOpened}) => isBurgerMenuOpened ? " rgba(0, 0, 0, 0.7)" : ""};
-  height: ${({isBurgerMenuOpened}) => isBurgerMenuOpened ? "100%" : ""};
-  width: ${({isBurgerMenuOpened}) => isBurgerMenuOpened ? "100%" : ""};
+  background-color: ${({isBurgerMenuOpened}) => isBurgerMenuOpened ? 'rgba(0, 0, 0, 0.7)' : ''};
+  height: ${({isBurgerMenuOpened}) => isBurgerMenuOpened ? '100%' : ''};
+  width: ${({isBurgerMenuOpened}) => isBurgerMenuOpened ? '100%' : ''};
   position: fixed;
   top: 0;
   right: 0;
@@ -85,7 +85,7 @@ export const BurgerMenuStyled = styled.div<BurgerStyledPropsType>`
   justify-content: space-between;
   padding: 68px 16px 72px 16px;
   transition: transform 0.3s ease-in-out;
-  transform: ${({isBurgerMenuOpened}) => isBurgerMenuOpened ? "translateX(0)" : "translateX(100%)"};
+  transform: ${({isBurgerMenuOpened}) => isBurgerMenuOpened ? 'translateX(0)' : 'translateX(100%)'};
 `;
 
 export const BurgerButtonStyled = styled.div`
