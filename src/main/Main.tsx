@@ -1,12 +1,33 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import style from './Main.module.scss';
 import {TypingText} from '../hooks/TypingText/TypingText';
 import {Canvas} from '../common/components/Background/Canvas';
 import {Header} from '../header/Header';
 import {CommonPropsType} from '../app/App';
+import rainCode from "../assets/image/rainCode.png";
 
 export const Main = ({onClickHandler, isShow}: CommonPropsType) => {
     const [isDisplay, setIsDisplay] = useState<boolean>(true);
+    const [isPlay, setIsPlay] = useState<boolean>(false);
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    const togglePlay = useCallback(() => {
+        if (!isPlay) {
+            videoRef.current?.play()
+            setIsPlay(true)
+        } else {
+            videoRef.current?.pause()
+            setIsPlay(false)
+        }
+    }, [isPlay])
+
+    const matrixBG = {
+        backgroundImage: `url(${rainCode})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+    }
+
+    const phrases = ['', 'front-end developer', 'web developer', 'freelancer'];
 
     useEffect(() => {
         if (!isShow) {
@@ -16,11 +37,14 @@ export const Main = ({onClickHandler, isShow}: CommonPropsType) => {
         }
     }, [isShow])
 
-    const phrases = ['', 'front-end developer', 'web developer', 'freelancer']
-
     return (
         <div className={style.body}>
-            {isDisplay && <Header onClickHandler={onClickHandler} isShow={isShow}/>}
+            {isDisplay && <Header
+                onClickHandler={onClickHandler}
+                isShow={isShow}
+                isPlay={isPlay}
+                togglePlay={togglePlay}
+            />}
             <Canvas color={'green'}/>
             <section className={style.mainBlock}>
                 {isShow
