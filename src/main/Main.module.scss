@@ -68,16 +68,16 @@
             margin: 0;
 
             span:first-child {
-              @include text($textFontFamily, 26px, 400, 1.2, 1, #fff);
+              @include text($textFontFamily, 26px, 400, 1.2, normal, #fff);
             }
 
             .typeIt {
-              @include text($textFontFamily, 52px, 700, 1.2, 1, #fff);
+              @include text($textFontFamily, 52px, 700, 1.2, normal, #fff);
             }
           }
 
           .title {
-            @include text($textFontFamily, 52px, 700, 1.2, 1, #fff);
+            @include text($textFontFamily, 52px, 700, 1.2, normal, #fff);
             margin: 0;
 
             &::selection {

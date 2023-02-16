@@ -1,6 +1,6 @@
 @import './variables.scss';
 
-@mixin text($fontFamily, $fontSize, $fontWeight, $lineHeight, $letterSpacing, $textColor) {
+@mixin text($fontFamily, $fontSize, $fontWeight, $lineHeight, $letterSpacing: normal, $textColor) {
   font-family: $fontFamily;
   font-size: $fontSize;
   font-weight: $fontWeight;

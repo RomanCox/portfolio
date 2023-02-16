@@ -26,11 +26,12 @@ export const Canvas = ({color}: BackgroundPropsType) => {
         canvas.width = window.innerWidth;
 
         //chinese characters - taken from the unicode charset
-        let matrix = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}';
+        //let matrix = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}';
+        let matrix = '鑑於對人類家庭所有成員的固有尊嚴及其平等的和不移的權利的承認，乃是世界自由、正義與和平的基礎';
         //converting the string into an array of single characters
         let matrixArray = matrix.split('');
 
-        let font_size = 15;
+        let font_size = 20;
         let columns = canvas.width / font_size; //number of columns for the rain
         //an array of drops - one per column
         let drops: any[] = [];
@@ -50,7 +51,7 @@ export const Canvas = ({color}: BackgroundPropsType) => {
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             ctx.fillStyle = textColor;//red text
-            ctx.font = font_size + 'px system-ui';
+            ctx.font = font_size + 'px Noto Sans TC';
             //looping over drops
             for (let i = 0; i < drops.length; i++) {
                 //a random chinese character to print
@@ -67,7 +68,7 @@ export const Canvas = ({color}: BackgroundPropsType) => {
                 drops[i]++;
             }
         }
-        setInterval(draw, 35);
+        setInterval(draw, 45);
     }, [])
 
     return (
@@ -75,6 +76,6 @@ export const Canvas = ({color}: BackgroundPropsType) => {
                 id='canvas'
                 className={style.canvas}
                 ref={canvasRef}
-            ></canvas>
+            />
     );
 }

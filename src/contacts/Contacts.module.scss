@@ -107,7 +107,7 @@
               position: relative;
 
               &:before {
-                /*@include text($iconEntypoFontFamily, 36px, 400, 1, $primaryColor);
+                /*@include text($iconEntypoFontFamily, 36px, 400, 1, normal, $primaryColor);
                 content: '\E809';*/
                 @include text($iconDashIconsFontFamily, 36px, 400, 1, normal, $primaryColor);
                 content: '\F110';
@@ -119,7 +119,7 @@
               position: relative;
 
               &:before {
-                /*@include text($iconDashIconsFontFamily, 36px, 400, 1, $primaryColor);
+                /*@include text($iconDashIconsFontFamily, 36px, 400, 1, normal, $primaryColor);
                 content: '\F319';*/
                 @include text($iconIonIconsFontFamily, 36px, 400, 1, normal, $primaryColor);
                 content: '\F301';

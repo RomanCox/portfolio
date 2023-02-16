@@ -1,21 +1,20 @@
 import React from 'react';
-import style from './Header.module.scss'
 import { Nav } from '../nav/Nav';
 import {CommonPropsType} from '../app/App';
-import {HeaderContainerStyled} from './Header.styled';
+import {HeaderContainerStyled, PlayButtonContainerStyled, PlayButtonStyled} from './Header.styled';
 
-export const Header = ({onClickHandler, isShow}: CommonPropsType) => {
+type HeaderPropsType = CommonPropsType & {
+    isPlay: boolean,
+    togglePlay: () => void,
+}
+
+export const Header = ({onClickHandler, isShow, isPlay, togglePlay}: HeaderPropsType) => {
     return (
-        /*<header className={style.header}>*/
         <HeaderContainerStyled isShow={isShow}>
-            {/*<a>*/}
-            {/*    <img></img>*/}
-            {/*</a>*/}
-            <div className={style.navButtonContainer}>
-                BUTTON
-            </div>
+            <PlayButtonContainerStyled>
+                <PlayButtonStyled isPlay={isPlay} onClick={togglePlay} />
+            </PlayButtonContainerStyled>
             <Nav onClickHandler={onClickHandler}/>
         </HeaderContainerStyled>
-        /*</header>*/
     );
 };

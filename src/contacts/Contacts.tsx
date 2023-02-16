@@ -52,7 +52,7 @@ export const Contacts = ({onClickHandler, isShow}: CommonPropsType) => {
                             <li>
                                 <div className={style.liStyleContainer}>
                                     <div className={style.iconContainer}>
-                                        <span className={style.iconUser}></span>
+                                        <span className={style.iconUser}/>
                                     </div>
                                     <div className={style.nameContainer}>
                                         <h6 className={style.nameTitle}>Name</h6>
@@ -63,7 +63,7 @@ export const Contacts = ({onClickHandler, isShow}: CommonPropsType) => {
                             <li>
                                 <div className={style.liStyleContainer}>
                                     <div className={style.iconContainer}>
-                                        <span className={style.iconLocation}></span>
+                                        <span className={style.iconLocation}/>
                                     </div>
                                     <div className={style.nameContainer}>
                                         <h6 className={style.nameTitle}>Location</h6>
@@ -74,7 +74,7 @@ export const Contacts = ({onClickHandler, isShow}: CommonPropsType) => {
                             <li>
                                 <div className={style.liStyleContainer}>
                                     <div className={style.iconContainer}>
-                                        <span className={`${style.iconMessenger} ${style.iconMessenger}`}></span>
+                                        <span className={style.iconMessenger}/>
                                     </div>
                                     <div className={style.nameContainer}>
                                         <h6 className={style.nameTitle}>Message / Call Me</h6>

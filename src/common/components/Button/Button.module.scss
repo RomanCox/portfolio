@@ -20,6 +20,6 @@
   }
 
   .title {
-    @include text($textFontFamily, 16px, 500, 1.2, 1, #fff);
+    @include text($textFontFamily, 16px, 500, 1.2, normal, #fff);
   }
 }

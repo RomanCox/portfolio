@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import style from './Main.module.scss';
 import rainCode from '../assets/image/rainCode.png';
 import {TypingText} from '../hooks/TypingText/TypingText';
@@ -10,6 +10,18 @@ import {CommonPropsType} from '../app/App';
 
 export const MainVideoBG = ({onClickHandler, isShow}: CommonPropsType) => {
     const [isDisplay, setIsDisplay] = useState<boolean>(true);
+    const [isPlay, setIsPlay] = useState<boolean>(false);
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    const togglePlay = useCallback(() => {
+        if (!isPlay) {
+            videoRef.current?.play()
+            setIsPlay(true)
+        } else {
+            videoRef.current?.pause()
+            setIsPlay(false)
+        }
+    }, [isPlay])
 
     const matrixBG = {
         backgroundImage: `url(${rainCode})`,
@@ -29,11 +41,16 @@ export const MainVideoBG = ({onClickHandler, isShow}: CommonPropsType) => {
 
     return (
         <div className={style.body}>
-            {isDisplay && <Header onClickHandler={onClickHandler} isShow={isShow}/>}
+            {isDisplay && <Header
+                onClickHandler={onClickHandler}
+                isShow={isShow}
+                isPlay={isPlay}
+                togglePlay={togglePlay}
+            />}
             <section className={style.mainBlock}>
                 <div className={style.container}>
                     <div className={style.imgCover} style={matrixBG}></div>
-                    <video preload='auto' autoPlay muted loop playsInline className={style.video}>
+                    <video preload='auto' muted loop playsInline className={style.video} ref={videoRef} >
                         <source type='video/mp4' src={videoMp4}/>
                         <source type='video/webm' src={videoWebm}/>
                         <source type='video/mov' src={videoMov}/>
