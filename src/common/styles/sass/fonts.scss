@@ -9,10 +9,11 @@
 
 @font-face {
   font-family: 'Entypo';
-  src: url('../../../assets/fonts/Entypo-webfont.eot');
-  src: url('../../../assets/fonts/Entypo-webfont.eot') format('embedded-opentype'),
+  src: url('../../../assets/fonts/Entypo-webfont.eot'),
+  url('../../../assets/fonts/Entypo-webfont.ttf') format('truetype'),
   url('../../../assets/fonts/Entypo-webfont.woff') format('woff'),
-  url('../../../assets/fonts/Entypo-webfont.ttf') format('truetype');
+  url('../../../assets/fonts/Entypo-webfont.eot') format('embedded-opentype');
+
   font-weight: normal;
   font-style: normal;
 }
@@ -20,10 +21,10 @@
 @font-face {
   font-family: 'Ionicons';
   src: url('../../../assets/fonts/ionicons.eot');
-  src: url('../../../assets/fonts/ionicons.eot') format('embedded-opentype'),
-  url('../../../assets/fonts/ionicons.woff2') format('woff2'),
+  src: url('../../../assets/fonts/ionicons.woff2') format('woff2'),
   url('../../../assets/fonts/ionicons.woff') format('woff'),
-  url('../../../assets/fonts/ionicons.ttf') format('truetype');
+  url('../../../assets/fonts/ionicons.ttf') format('truetype'),
+  url('../../../assets/fonts/ionicons.eot') format('embedded-opentype');
   font-weight:normal;
   font-style:normal;
 }

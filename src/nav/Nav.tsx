@@ -11,7 +11,6 @@ type NavPropsType = {
 export const Nav = ({onClickHandler}: NavPropsType) => {
     const [isBurgerMenuOpened, setIsBurgerMenuOpened] = useState<boolean>(false);
     const window = useWindowSize();
-    console.log(isBurgerMenuOpened);
 
     return (
         window.width && window.width > 600
@@ -20,6 +19,6 @@ export const Nav = ({onClickHandler}: NavPropsType) => {
                 <NavLink to={PATH.PROJECTS} className={style.navbarItem} onClick={onClickHandler}>My Projects</NavLink>
                 <NavLink to={PATH.CONTACTS} className={style.navbarItem} onClick={onClickHandler}>My Contacts</NavLink>
             </nav>
-            : <BurgerMenu isBurgerMenuOpened={isBurgerMenuOpened} setIsBurgerMenuOpened={setIsBurgerMenuOpened}/>
+            : <BurgerMenu isBurgerMenuOpened={isBurgerMenuOpened} setIsBurgerMenuOpened={setIsBurgerMenuOpened} onClickHandler={onClickHandler} />
     );
 }

@@ -10,7 +10,7 @@ import {CommonPropsType} from '../app/App';
 
 export const MainVideoBG = ({onClickHandler, isShow}: CommonPropsType) => {
     const [isDisplay, setIsDisplay] = useState<boolean>(true);
-    const [isPlay, setIsPlay] = useState<boolean>(false);
+    const [isPlay, setIsPlay] = useState<boolean>(true);
     const videoRef = useRef<HTMLVideoElement>(null);
 
     const togglePlay = useCallback(() => {
@@ -50,7 +50,7 @@ export const MainVideoBG = ({onClickHandler, isShow}: CommonPropsType) => {
             <section className={style.mainBlock}>
                 <div className={style.container}>
                     <div className={style.imgCover} style={matrixBG}></div>
-                    <video preload='auto' muted loop playsInline className={style.video} ref={videoRef} >
+                    <video preload='auto' autoPlay={isPlay} muted loop playsInline className={style.video} ref={videoRef} >
                         <source type='video/mp4' src={videoMp4}/>
                         <source type='video/webm' src={videoWebm}/>
                         <source type='video/mov' src={videoMov}/>

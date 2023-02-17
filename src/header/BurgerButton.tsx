@@ -1,8 +1,8 @@
 import React from 'react';
 import {BarsStyled, BurgerButtonStyled} from './Header.styled';
-import {BurgerPropsType} from './BurgerMenu';
+import {BurgerButtonPropsType} from './BurgerMenu';
 
-export const BurgerButton = ({isBurgerMenuOpened, setIsBurgerMenuOpened}: BurgerPropsType) => {
+export const BurgerButton = ({isBurgerMenuOpened, setIsBurgerMenuOpened}: BurgerButtonPropsType) => {
     const onClickHandler = () => {
         setIsBurgerMenuOpened(!isBurgerMenuOpened)
     }

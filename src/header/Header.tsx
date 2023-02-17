@@ -1,7 +1,9 @@
 import React from 'react';
 import { Nav } from '../nav/Nav';
 import {CommonPropsType} from '../app/App';
-import {HeaderContainerStyled, PlayButtonContainerStyled, PlayButtonStyled} from './Header.styled';
+import {HeaderContainerStyled, PlayButtonContainerStyled} from './Header.styled';
+import {PlayIcon} from '../assets/icons/play.Icon';
+import {PauseIcon} from '../assets/icons/pause.Icon';
 
 type HeaderPropsType = CommonPropsType & {
     isPlay: boolean,
@@ -11,8 +13,11 @@ type HeaderPropsType = CommonPropsType & {
 export const Header = ({onClickHandler, isShow, isPlay, togglePlay}: HeaderPropsType) => {
     return (
         <HeaderContainerStyled isShow={isShow}>
-            <PlayButtonContainerStyled>
-                <PlayButtonStyled isPlay={isPlay} onClick={togglePlay} />
+            <PlayButtonContainerStyled onClick={togglePlay}>
+                {isPlay
+                    ? <PauseIcon />
+                    : <PlayIcon />
+                }
             </PlayButtonContainerStyled>
             <Nav onClickHandler={onClickHandler}/>
         </HeaderContainerStyled>

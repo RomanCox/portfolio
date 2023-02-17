@@ -4,9 +4,6 @@ import {BurgerStyledPropsType} from './BurgerMenu';
 type HeaderStyledPropsType = {
     isShow: boolean,
 };
-type PlayButtonStyledPropsType = {
-    isPlay: boolean
-};
 
 export const HeaderContainerStyled = styled.header<HeaderStyledPropsType>`
   width: 100%;
@@ -43,27 +40,15 @@ export const HeaderContainerStyled = styled.header<HeaderStyledPropsType>`
 `;
 
 export const PlayButtonContainerStyled = styled.div`
-  width: 18px;
+  width: 36px;
   height: 36px;
   display: flex;
   align-items: center;
-`;
-
-export const PlayButtonStyled = styled.div<PlayButtonStyledPropsType>`
-  position: relative;
-
-  &:before {
-    font-family: 'Entypo',sans-serif;
-    font-size: 36px;
-    font-weight: 400;
-    color: white;
-    content: ${({isPlay}) => isPlay ? `'\\E899'` : `'\\E897'`};
-    cursor: pointer;
-  }
+  cursor: pointer;
 `;
 
 export const BurgerMenuWrapperStyled = styled.div<BurgerStyledPropsType>`
-  background-color: ${({isBurgerMenuOpened}) => isBurgerMenuOpened ? 'rgba(0, 0, 0, 0.7)' : ''};
+  background-color: ${({isBurgerMenuOpened}) => isBurgerMenuOpened ? 'rgba(0, 0, 0, 0.3)' : ''};
   height: ${({isBurgerMenuOpened}) => isBurgerMenuOpened ? '100%' : ''};
   width: ${({isBurgerMenuOpened}) => isBurgerMenuOpened ? '100%' : ''};
   position: fixed;
@@ -86,6 +71,24 @@ export const BurgerMenuStyled = styled.div<BurgerStyledPropsType>`
   padding: 68px 16px 72px 16px;
   transition: transform 0.3s ease-in-out;
   transform: ${({isBurgerMenuOpened}) => isBurgerMenuOpened ? 'translateX(0)' : 'translateX(100%)'};
+`;
+
+export const LinksContainerStyled = styled.nav`
+  display: flex;
+  flex-direction: column;
+  a {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: white;
+    text-decoration: none;
+    user-select: none;
+
+    &:visited {
+      color: white;
+    }
+  }
 `;
 
 export const BurgerButtonStyled = styled.div`
