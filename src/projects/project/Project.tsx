@@ -8,12 +8,18 @@ type ProjectPropsType = {
     link?: string,
 }
 
-export const Project = ({title, description, link = '', ...props}: ProjectPropsType) => {
+export const Project = ({title, description, link = '#', ...props}: ProjectPropsType) => {
     return (
         <div className={style.project}>
-            <a className={style.image} style={props.style} href={link} target={'_blank'} rel={'nofollow noreferrer'}></a>
+            {link === '#'
+                ? <div className={style.image} style={props.style} />
+                : <a className={style.linkImage} style={props.style} href={link} target={'_blank'} rel={'nofollow noreferrer'}></a>}
             <div className={style.projectInfo}>
-                <h3 className={style.projectTitle}><a href={link} target={'_blank'} rel={'nofollow noreferrer'}>{title}</a></h3>
+                <h3 className={style.projectTitle}>
+                    {link === '#'
+                        ? title
+                        : <a href={link} target={'_blank'} rel={'nofollow noreferrer'}>{title}</a>}
+                </h3>
                 <span className={style.description}>{description}</span>
             </div>
         </div>

@@ -16,6 +16,17 @@
     background-repeat: no-repeat;
     border-top-left-radius: calc(0.25rem - 1px);
     border-top-right-radius: calc(0.25rem - 1px);
+  }
+
+  .linkImage {
+    height: 300px;
+    width: 100%;
+    @include flex(row, center, center);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-top-left-radius: calc(0.25rem - 1px);
+    border-top-right-radius: calc(0.25rem - 1px);
     cursor: pointer;
   }
 
