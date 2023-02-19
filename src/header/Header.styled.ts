@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-import {BurgerStyledPropsType} from './BurgerMenu';
 
-type HeaderStyledPropsType = {
-    isShow: boolean,
-};
+import { type BurgerStyledPropsType } from './BurgerMenu';
+
+interface HeaderStyledPropsType {
+	isShow: boolean
+}
 
 export const HeaderContainerStyled = styled.header<HeaderStyledPropsType>`
   width: 100%;
@@ -17,7 +18,10 @@ export const HeaderContainerStyled = styled.header<HeaderStyledPropsType>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  animation: ${({isShow}) => isShow ? 'appearance 200ms ease-in normal forwards 1' : 'disappearance 200ms ease-in normal forwards 1'};
+  animation: ${({ isShow }) => isShow
+		? 'appearance 200ms ease-in normal forwards 1'
+		: 'disappearance 200ms ease-in normal forwards 1'
+};
   transform-origin: right top;
 
   @keyframes appearance {
@@ -48,9 +52,9 @@ export const PlayButtonContainerStyled = styled.div`
 `;
 
 export const BurgerMenuWrapperStyled = styled.div<BurgerStyledPropsType>`
-  background-color: ${({isBurgerMenuOpened}) => isBurgerMenuOpened ? 'rgba(0, 0, 0, 0.3)' : ''};
-  height: ${({isBurgerMenuOpened}) => isBurgerMenuOpened ? '100%' : ''};
-  width: ${({isBurgerMenuOpened}) => isBurgerMenuOpened ? '100%' : ''};
+  background-color: ${({ isBurgerMenuOpened }) => isBurgerMenuOpened ? 'rgba(0, 0, 0, 0.3)' : ''};
+  height: ${({ isBurgerMenuOpened }) => isBurgerMenuOpened ? '100%' : ''};
+  width: ${({ isBurgerMenuOpened }) => isBurgerMenuOpened ? '100%' : ''};
   position: fixed;
   top: 0;
   right: 0;
@@ -70,12 +74,13 @@ export const BurgerMenuStyled = styled.div<BurgerStyledPropsType>`
   justify-content: space-between;
   padding: 68px 16px 72px 16px;
   transition: transform 0.3s ease-in-out;
-  transform: ${({isBurgerMenuOpened}) => isBurgerMenuOpened ? 'translateX(0)' : 'translateX(100%)'};
+  transform: ${({ isBurgerMenuOpened }) => isBurgerMenuOpened ? 'translateX(0)' : 'translateX(100%)'};
 `;
 
 export const LinksContainerStyled = styled.nav`
   display: flex;
   flex-direction: column;
+
   a {
     font-family: 'Josefin Sans', sans-serif;
     font-size: 20px;
@@ -105,9 +110,9 @@ export const BarsStyled = styled.div<BurgerStyledPropsType>`
   width: 90%;
   height: 5px;
   border-radius: 2.5px;
-  background-color: ${({isBurgerMenuOpened}) => isBurgerMenuOpened ? 'transparent' : 'white'};
+  background-color: ${({ isBurgerMenuOpened }) => isBurgerMenuOpened ? 'transparent' : 'white'};
   position: relative;
-  transition: ${(isBurgerMenuOpened) => isBurgerMenuOpened ? 'all 0ms 300ms' : 'none'};
+  transition: ${({ isBurgerMenuOpened }) => isBurgerMenuOpened ? 'all 0ms 300ms' : 'none'};
 
   &:before {
     content: "";
@@ -116,10 +121,13 @@ export const BarsStyled = styled.div<BurgerStyledPropsType>`
     border-radius: 2.5px;
     position: absolute;
     left: 0;
-    bottom: ${props => !props.isBurgerMenuOpened ? '10px' : '0'};
-    transform: ${props => props.isBurgerMenuOpened ? 'rotate(-45deg)' : 'none'};
+    bottom: ${({ isBurgerMenuOpened }) => isBurgerMenuOpened ? '0' : '10px'};
+    transform: ${({ isBurgerMenuOpened }) => isBurgerMenuOpened ? 'rotate(-45deg)' : 'none'};
     background-color: white;
-    transition: ${props => (!props.isBurgerMenuOpened ? 'bottom 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms cubic-bezier(0.23, 1, 0.32, 1)' : 'bottom 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1)')};
+    transition: ${({ isBurgerMenuOpened }) => isBurgerMenuOpened
+		? 'bottom 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1)'
+		: 'bottom 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms cubic-bezier(0.23, 1, 0.32, 1)'
+};
   }
 ;
 
@@ -130,10 +138,13 @@ export const BarsStyled = styled.div<BurgerStyledPropsType>`
     border-radius: 2.5px;
     position: absolute;
     left: 0;
-    top: ${props => (!props.isBurgerMenuOpened ? '10px' : '0')};
-    transform: ${props => (props.isBurgerMenuOpened ? 'rotate(45deg)' : 'none')};
+    top: ${({ isBurgerMenuOpened }) => isBurgerMenuOpened ? '0' : '10px'};
+    transform: ${({ isBurgerMenuOpened }) => isBurgerMenuOpened ? 'rotate(45deg)' : 'none'};
     background-color: white;
-    transition: ${props => (!props.isBurgerMenuOpened ? 'top 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms cubic-bezier(0.23, 1, 0.32, 1)' : 'top 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1)')};
+    transition: ${({ isBurgerMenuOpened }) => isBurgerMenuOpened
+		? 'top 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1)'
+		: 'top 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms cubic-bezier(0.23, 1, 0.32, 1)'
+};
   }
 ;
 `;

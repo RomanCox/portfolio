@@ -1,3 +1,3 @@
 import React from 'react';
 
-export const Video = () => <video></video>
+export const Video = () => <video></video>;

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-type PageLayoutStyledPropsType = {
-    isShow: boolean,
+interface PageLayoutStyledPropsType {
+	isShow: boolean
 }
 export const PageLayoutStyled = styled.div<PageLayoutStyledPropsType>`
   max-width: 100%;
@@ -14,7 +14,9 @@ export const PageLayoutStyled = styled.div<PageLayoutStyledPropsType>`
   bottom: 0;
   z-index: 2;
   background-color: #1f1f20;
-  animation: ${({isShow}) => isShow ? 'disappearance 400ms linear 1 normal forwards' : 'appearance 500ms ease-in 1 normal forwards'};
+  animation: ${({ isShow }) => isShow
+		? 'disappearance 400ms linear 1 normal forwards'
+		: 'appearance 500ms ease-in 1 normal forwards'};
   overflow: hidden;
   
   &::after {
@@ -26,7 +28,7 @@ export const PageLayoutStyled = styled.div<PageLayoutStyledPropsType>`
     opacity: 0;
     left: 0;
     top: 0;
-    animation: ${({isShow}) => isShow ? 'disappearance_after 400ms linear 1 normal forwards' : 'none'};
+    animation: ${({ isShow }) => isShow ? 'disappearance_after 400ms linear 1 normal forwards' : 'none'};
   }
 
   @keyframes appearance {

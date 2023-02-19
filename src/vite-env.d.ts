@@ -1,25 +1,25 @@
 /// <reference types="vite/client" />
 declare module '*.mp4' {
-    const src: string;
-    export default src;
+	const src: string;
+	export default src;
 }
 
 declare module '*.webm' {
-    const src: string;
-    export default src;
+	const src: string;
+	export default src;
 }
 
 declare module '*.mov' {
-    const src: string;
-    export default src;
+	const src: string;
+	export default src;
 }
 
 declare module '*.woff' {
-    const src: string;
-    export default src;
+	const src: string;
+	export default src;
 }
 
 declare module '*.ttf' {
-    const src: string;
-    export default src;
+	const src: string;
+	export default src;
 }
