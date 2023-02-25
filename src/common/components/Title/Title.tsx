@@ -1,16 +1,16 @@
 import React from 'react';
 
-import style from './Title.module.scss';
+import { StripStyled, TitleContainerStyled, TitleStyled } from './Title.styled';
 
 interface TitlePropsType {
-	title: string
+	title: string;
 }
 
 export const Title = (props: TitlePropsType) => {
 	return (
-		<div className={style.title}>
-			<h2>{props.title}</h2>
-			<div className={style.strip} />
-		</div>
+		<TitleContainerStyled>
+			<TitleStyled>{props.title}</TitleStyled>
+			<StripStyled />
+		</TitleContainerStyled>
 	);
 };

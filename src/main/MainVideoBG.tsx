@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import rainCode from '../assets/image/rainCode.png';
+import rainCode from '../assets/images/rainCode.png';
 import { TypingText } from '../hooks/TypingText/TypingText';
 import videoMp4 from '../assets/video/rainCode.mp4';
 import videoWebm from '../assets/video/rainCode.webm';
@@ -31,7 +31,7 @@ export const MainVideoBG = ({ onClickHandler, isShow }: CommonPropsType) => {
 		backgroundPosition: 'center',
 	};
 
-	const phrases = ['', 'front-end developer', 'web developer', 'freelancer'];
+	const phrases = ['', 'developer', 'freelancer', "Neo's friend :)"];
 
 	useEffect(() => {
 		if (!isShow) {
@@ -43,12 +43,14 @@ export const MainVideoBG = ({ onClickHandler, isShow }: CommonPropsType) => {
 
 	return (
 		<div className={style.body}>
-			{isDisplay && <Header
-				onClickHandler={onClickHandler}
-				isShow={isShow}
-				isPlay={isPlay}
-				togglePlay={togglePlay}
-			/>}
+			{isDisplay && (
+				<Header
+					onClickHandler={onClickHandler}
+					isShow={isShow}
+					isPlay={isPlay}
+					togglePlay={togglePlay}
+				/>
+			)}
 			<section className={style.mainBlock}>
 				<div className={style.container}>
 					<div className={style.imgCover} style={matrixBG}></div>
@@ -59,22 +61,20 @@ export const MainVideoBG = ({ onClickHandler, isShow }: CommonPropsType) => {
 						loop
 						playsInline
 						className={style.video}
-						ref={videoRef}
-					>
-						<source type='video/mp4' src={videoMp4}/>
-						<source type='video/webm' src={videoWebm}/>
-						<source type='video/mov' src={videoMov}/>
+						ref={videoRef}>
+						<source type='video/mp4' src={videoMp4} />
+						<source type='video/webm' src={videoWebm} />
+						<source type='video/mov' src={videoMov} />
 					</video>
 					<div className={style.center}>
 						<div className={style.contentContainer}>
 							<h1 className={style.title}>Roman Cox</h1>
 							<div className={style.textContainer}>
-								<h4 className={style.text}>{'I\'m a'}</h4>
+								<h4 className={style.text}>{"I'm a"}</h4>
 								<div className={style.typingTextContainer}>
-									<TypingText phrases={phrases}/>
+									<TypingText phrases={phrases} />
 								</div>
 							</div>
-
 						</div>
 					</div>
 				</div>

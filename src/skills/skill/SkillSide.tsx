@@ -1,23 +1,25 @@
 import React from 'react';
 
 import {
-	SkillContainerStyled,
-	SkillBackgroundStyled,
-	SkillInfoStyled,
-	SkillTitleInfo,
 	SkillDescriptionInfo,
+	SkillInfoStyled,
+	SkillSideBackgroundStyled,
+	SkillSideContainerStyled,
+	SkillTitleInfo,
 } from './Skill.styled';
 import { SkillType } from '../Skills';
+import { RotateSideType } from './SkillCube';
 
 interface SkillPropsType {
 	skill: SkillType;
+	rotateSide: RotateSideType;
 }
-export const Skill = ({ skill }: SkillPropsType) => {
+export const SkillSide = ({ skill, rotateSide }: SkillPropsType) => {
 	let delayAppearance = skill.id * 0.2;
 
 	return (
-		<SkillContainerStyled>
-			<SkillBackgroundStyled
+		<SkillSideContainerStyled rotateSide={rotateSide} skillId={skill.id}>
+			<SkillSideBackgroundStyled
 				bg={skill.background}
 				delay={delayAppearance}
 			/>
@@ -25,6 +27,6 @@ export const Skill = ({ skill }: SkillPropsType) => {
 				<SkillTitleInfo>{skill.title}</SkillTitleInfo>
 				<SkillDescriptionInfo>{skill.description}</SkillDescriptionInfo>
 			</SkillInfoStyled>
-		</SkillContainerStyled>
+		</SkillSideContainerStyled>
 	);
 };

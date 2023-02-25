@@ -12,10 +12,12 @@
   },
   "dependencies": {
     "@react-spring/web": "^9.6.1",
+    "@types/react-transition-group": "^4.4.5",
     "@types/styled-components": "^5.1.26",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.1",
+    "react-transition-group": "^4.4.5",
     "styled-components": "^5.3.6",
     "typeit-react": "^2.6.4"
   },
