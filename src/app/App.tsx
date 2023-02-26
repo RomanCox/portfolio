@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 
 import { MainVideoBG } from '../main/MainVideoBG';
 import { Skills } from '../skills/Skills';
@@ -21,9 +21,11 @@ export const PATH = {
 	SKILLS: '/skills',
 	PROJECTS: '/projects',
 	CONTACTS: '/contacts',
+	ERROR: '/error',
 };
 export const App = () => {
 	const [isShow, setIsShow] = useState<boolean>(true);
+	const location = useLocation();
 
 	const openPage = () => {
 		setIsShow(false);
@@ -31,6 +33,12 @@ export const App = () => {
 	const closePage = () => {
 		setIsShow(true);
 	};
+
+	useEffect(() => {
+		if (location.pathname !== '/') {
+			setIsShow(false);
+		}
+	}, []);
 
 	return (
 		<>
@@ -62,7 +70,18 @@ export const App = () => {
 						<Contacts onClickHandler={closePage} isShow={isShow} />
 					}
 				/>
-				<Route path='*' element={<Error404 />} />
+				<Route
+					path={PATH.ERROR}
+					element={
+						<Error404 onClickHandler={closePage} isShow={isShow} />
+					}
+				/>
+				<Route
+					path='*'
+					element={
+						<Error404 onClickHandler={closePage} isShow={isShow} />
+					}
+				/>
 			</Routes>
 		</>
 	);

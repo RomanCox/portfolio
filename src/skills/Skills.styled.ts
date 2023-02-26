@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { DirectionType } from './Cube';
 
 interface SideStyledPropsType {
-	bg: string;
 	sideId: number;
 	direction: DirectionType;
 }
@@ -16,31 +15,22 @@ interface CubeStyledPropsType {
 interface CubeContainerStyledPropType {
 	delay: number;
 }
-interface SkillTitleStyledPropsType {
-	isTextLight: boolean;
-}
-
-export const SkillSideContainerStyled = styled.div`
-	width: 200px;
-	height: 300px;
-	position: relative;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-wrap: wrap;
-`;
 
 export const CubesContainerStyled = styled.div`
 	width: 100%;
 	margin-top: 200px;
 	display: flex;
-	justify-content: center;
-	gap: 300px;
+	justify-content: space-between;
+
+	@media screen and (max-width: 768px) {
+		display: inline;
+	}
 `;
 
 export const CubeWrapper = styled.div`
-	width: 200px;
+	width: 250px;
 	height: 300px;
+	margin: 0 auto;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -56,7 +46,6 @@ export const CubeContainerStyled = styled.div<CubeContainerStyledPropType>`
 	transform: translateY(-1000px);
 	animation: ${({ delay }) =>
 		`fallingCube 1s ease-out ${delay}s 1 normal forwards`};
-
 	@keyframes fallingCube {
 		0% {
 			transform: translateY(-1000px);
@@ -174,11 +163,6 @@ export const SideStyled = styled.div<SideStyledPropsType>`
 	border: 1px solid #282828;
 	border-radius: 20px;
 	background-color: #1f1f20;
-	background-image: url(${({ bg }) => bg});
-	background-size: contain;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-attachment: local;
 	backface-visibility: hidden;
 	overflow: hidden;
 	transform-origin: 100px 100px -100px;
@@ -196,21 +180,25 @@ export const SideStyled = styled.div<SideStyledPropsType>`
 			: direction === 'horizontal'
 			? 'rotateY(90deg)'
 			: 'rotateX(90deg)'};
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+	}
 `;
 
-export const SkillTitleStyled = styled.div<SkillTitleStyledPropsType>`
+export const SkillTitleStyled = styled.div`
+	text-align: center;
 	font-family: 'Josefin Sans', sans-serif;
 	font-size: 32px;
 	font-weight: 700;
 	line-height: 120%;
-	color: ${({ isTextLight }) => (isTextLight ? '#c2ffec' : 'black')};
+	color: black;
 	letter-spacing: 1px;
 	user-select: none;
-	text-shadow: ${({ isTextLight }) =>
-		isTextLight
-			? '0 -40px 100px, 0 0 2px, 0 0 1em #0affa9, 0 0 0.5em #0affa9, 0 0 0.1em #0affa9, 0 10px 3px #000'
-			: 'none'};
-	animation: appearanceText ease-in forwards 0.4s;
+	text-shadow: none;
+	animation: appearanceText ease-in forwards 0.4s 0.25s;
 
 	@keyframes appearanceText {
 		0% {

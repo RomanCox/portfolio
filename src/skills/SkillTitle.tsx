@@ -4,9 +4,8 @@ import { SkillTitleStyled } from './Skills.styled';
 
 interface SkillTitlePropsType {
 	title: string;
-	isTextLight: boolean;
 }
-export const SkillTitle = ({ title, isTextLight }: SkillTitlePropsType) => {
+export const SkillTitle = ({ title }: SkillTitlePropsType) => {
 	function compareNumeric(a: number, b: number) {
 		if (a > b) {
 			return 1;
@@ -73,7 +72,7 @@ export const SkillTitle = ({ title, isTextLight }: SkillTitlePropsType) => {
 	}
 
 	return (
-		<SkillTitleStyled isTextLight={isTextLight}>
+		<SkillTitleStyled>
 			{title.split('').map((symbol, index) => {
 				return indexesArray.includes(index) ? (
 					<span key={index}>{symbol}</span>

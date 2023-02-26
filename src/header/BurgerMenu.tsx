@@ -1,26 +1,31 @@
 import React from 'react';
 
-import { NavLink } from 'react-router-dom';
-
-import style from '../nav/Nav.module.scss';
-
 import { PATH } from '../app/App';
 
-import { BurgerMenuStyled, BurgerMenuWrapperStyled, LinksContainerStyled } from './Header.styled';
+import {
+	BurgerMenuStyled,
+	BurgerMenuWrapperStyled,
+	LinksContainerStyled,
+} from './Header.styled';
 import { BurgerButton } from './BurgerButton';
+import { NavbarItemStyled } from '../nav/Nav.styled';
 
 export interface BurgerStyledPropsType {
-	isBurgerMenuOpened: boolean
+	isBurgerMenuOpened: boolean;
 }
 export type BurgerButtonPropsType = BurgerStyledPropsType & {
-	setIsBurgerMenuOpened: React.Dispatch<React.SetStateAction<boolean>>
-}
+	setIsBurgerMenuOpened: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
 type BurgerPropsType = BurgerButtonPropsType & {
-	onClickHandler: () => void
-}
+	onClickHandler: () => void;
+};
 
-export const BurgerMenu = ({ isBurgerMenuOpened, setIsBurgerMenuOpened, onClickHandler }: BurgerPropsType) => {
+export const BurgerMenu = ({
+	isBurgerMenuOpened,
+	setIsBurgerMenuOpened,
+	onClickHandler,
+}: BurgerPropsType) => {
 	const closeBurgerMenu = () => {
 		setIsBurgerMenuOpened(false);
 	};
@@ -29,34 +34,28 @@ export const BurgerMenu = ({ isBurgerMenuOpened, setIsBurgerMenuOpened, onClickH
 		<>
 			<BurgerMenuWrapperStyled
 				isBurgerMenuOpened={isBurgerMenuOpened}
-				onClick={closeBurgerMenu}
-			>
+				onClick={closeBurgerMenu}>
 				<BurgerMenuStyled
 					isBurgerMenuOpened={isBurgerMenuOpened}
-					onClick={(event: React.MouseEvent) => { event.stopPropagation(); }}
-				>
+					onClick={(event: React.MouseEvent) => {
+						event.stopPropagation();
+					}}>
 					<LinksContainerStyled>
-						<NavLink
+						<NavbarItemStyled
 							to={PATH.SKILLS}
-							className={style.navbarItem}
-							onClick={onClickHandler}
-						>
+							onClick={onClickHandler}>
 							My Skillz
-						</NavLink>
-						<NavLink
+						</NavbarItemStyled>
+						<NavbarItemStyled
 							to={PATH.PROJECTS}
-							className={style.navbarItem}
-							onClick={onClickHandler}
-						>
+							onClick={onClickHandler}>
 							My Projects
-						</NavLink>
-						<NavLink
+						</NavbarItemStyled>
+						<NavbarItemStyled
 							to={PATH.CONTACTS}
-							className={style.navbarItem}
-							onClick={onClickHandler}
-						>
+							onClick={onClickHandler}>
 							My Contacts
-						</NavLink>
+						</NavbarItemStyled>
 					</LinksContainerStyled>
 				</BurgerMenuStyled>
 			</BurgerMenuWrapperStyled>

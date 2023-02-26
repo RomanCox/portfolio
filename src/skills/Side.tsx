@@ -10,10 +10,8 @@ interface SkillPropsType {
 }
 export const Side = ({ side, direction }: SkillPropsType) => {
 	return (
-		<SideStyled
-			bg={side.background}
-			sideId={side.id}
-			direction={direction}
-		/>
+		<SideStyled sideId={side.id} direction={direction}>
+			<img src={side.img} alt='logo' width='100%' height='100%' />
+		</SideStyled>
 	);
 };

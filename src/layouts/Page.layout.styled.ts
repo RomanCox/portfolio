@@ -7,6 +7,9 @@ export const PageLayoutStyled = styled.div<PageLayoutStyledPropsType>`
 	max-width: 100%;
 	max-height: 100%;
 	padding: 100px 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	position: absolute;
 	left: 0;
 	top: 0;

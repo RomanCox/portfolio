@@ -3,16 +3,26 @@ import React, { useEffect, useState } from 'react';
 import { Title } from '../common/components/Title/Title';
 import { type CommonPropsType } from '../app/App';
 import { PageLayout } from '../layouts/Page.layout';
+import htmlImage from '../assets/images/skills/html5_white.png';
+import css from '../assets/images/skills/css3_white.png';
+import sass from '../assets/images/skills/sass.png';
+import styledComponents from '../assets/images/skills/styledcomponents.png';
+import js from '../assets/images/skills/js.png';
+import ts from '../assets/images/skills/ts.png';
+import react from '../assets/images/skills/react.png';
+import redux from '../assets/images/skills/redux_white.png';
 
 import { ContainerStyled } from '../common/styles/Container.styled';
 import { CubesContainerStyled } from './Skills.styled';
 import { Cube } from './Cube';
+import { useWindowSize } from '../hooks/useWindowSize';
+import Carousel from 'react-material-ui-carousel';
 
 export interface SkillType {
 	id: number;
 	title: string;
 	description: string;
-	background: string;
+	img: string;
 }
 
 export interface SkillCubeType {
@@ -23,6 +33,8 @@ type CubesType = Array<SkillCubeType>;
 
 export const Skills = ({ onClickHandler, isShow }: CommonPropsType) => {
 	const [isDisplay, setIsDisplay] = useState<boolean>(false);
+	const [isDesktop, setIsDesktop] = useState<boolean>(true);
+	const windowSize = useWindowSize();
 
 	const cubes: CubesType = [
 		{
@@ -32,25 +44,25 @@ export const Skills = ({ onClickHandler, isShow }: CommonPropsType) => {
 					id: 0,
 					title: 'HTML',
 					description: 'I learn HTML',
-					background: './skills/html5_white.png',
+					img: htmlImage,
 				},
 				{
 					id: 1,
 					title: 'CSS',
 					description: 'I learn CSS',
-					background: './skills/css3_white.png',
+					img: css,
 				},
 				{
 					id: 2,
 					title: 'SASS',
 					description: 'I learn SASS',
-					background: './skills/sass.png',
+					img: sass,
 				},
 				{
 					id: 3,
 					title: 'Styled Components',
 					description: 'I learn Styled Components',
-					background: './skills/styledcomponents.png',
+					img: styledComponents,
 				},
 			],
 		},
@@ -59,31 +71,39 @@ export const Skills = ({ onClickHandler, isShow }: CommonPropsType) => {
 			sidesCube: [
 				{
 					id: 0,
-					title: 'JS',
+					title: 'JavaScript',
 					description: 'I learn JS',
-					background: './skills/js.png',
+					img: js,
 				},
 				{
 					id: 1,
-					title: 'TS',
+					title: 'TypeScript',
 					description: 'I learn TS',
-					background: './skills/ts.png',
+					img: ts,
 				},
 				{
 					id: 2,
 					title: 'React',
 					description: 'I learn React',
-					background: './skills/react.png',
+					img: react,
 				},
 				{
 					id: 3,
 					title: 'Redux',
 					description: 'I learn Redux',
-					background: './skills/redux_white.png',
+					img: redux,
 				},
 			],
 		},
 	];
+
+	useEffect(() => {
+		if (windowSize.width && windowSize.width > 768 && !isDesktop) {
+			setIsDesktop(true);
+		} else if (windowSize.width && windowSize.width <= 768 && isDesktop) {
+			setIsDesktop(false);
+		}
+	}, [windowSize.width]);
 
 	useEffect(() => {
 		setTimeout(setIsDisplay, 500, true);
@@ -93,14 +113,33 @@ export const Skills = ({ onClickHandler, isShow }: CommonPropsType) => {
 			<ContainerStyled
 				flexDirection='column'
 				justifyContent='flex-start'
-				alignItems='center'
-				flexWrap='wrap'>
+				alignItems='center'>
 				<Title title={'My Skillz'} />
 				<CubesContainerStyled>
-					{isDisplay &&
-						cubes.map((cube) => {
-							return <Cube key={cube.id} cube={cube} />;
-						})}
+					{isDesktop
+						? isDisplay &&
+						  cubes.map((cube) => {
+								return <Cube key={cube.id} cube={cube} />;
+						  })
+						: isDisplay && (
+								<Cube cube={cubes[0]} />
+								// <Carousel
+								// 	height='400px'
+								// 	autoPlay={false}
+								// 	cycleNavigation
+								// 	animation='slide'
+								// 	swipe
+								// 	navButtonsAlwaysInvisible>
+								// 	{cubes.map((cube) => {
+								// 		return (
+								// 			<Cube
+								// 				key={cube.id}
+								// 				cube={cube}
+								// 			/>
+								// 		);
+								// 	})}
+								// </Carousel>
+						  )}
 				</CubesContainerStyled>
 			</ContainerStyled>
 		</PageLayout>

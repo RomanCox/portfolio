@@ -11,14 +11,12 @@ interface SkillPropsType {
 export type DirectionType = 'horizontal' | 'vertical';
 export const Cube = ({ cube }: SkillPropsType) => {
 	const [isRotate, setIsRotate] = useState<boolean>(false);
-	const [isTextLight, setIsTextLight] = useState<boolean>(false);
 	const [sideCube, setSideCube] = useState<number>(0);
 	const [title, setTitle] = useState<string>(cube.sidesCube[sideCube].title);
 	let cubeTimeOut = useRef<NodeJS.Timeout | null>();
 
 	let direction: DirectionType = cube.id === 0 ? 'horizontal' : 'vertical';
 	const delayFallingCube = cube.id * 0.2;
-	const delayShowText = 750;
 	const delayRotate = 2500;
 	//let delayRotate = cube.id * 0.5;
 
@@ -60,7 +58,6 @@ export const Cube = ({ cube }: SkillPropsType) => {
 
 	useEffect(() => {
 		setTimeout(setIsRotate, 1600, true);
-		setTimeout(setIsTextLight, delayShowText, true);
 	}, []);
 	return (
 		<CubeWrapper>
@@ -84,7 +81,7 @@ export const Cube = ({ cube }: SkillPropsType) => {
 					})}
 				</CubeStyled>
 			</CubeContainerStyled>
-			<SkillTitle title={title} isTextLight={isTextLight} />
+			<SkillTitle title={title} />
 		</CubeWrapper>
 	);
 };
