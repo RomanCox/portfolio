@@ -167,6 +167,7 @@ export const SideStyled = styled.div<SideStyledPropsType>`
 	backface-visibility: hidden;
 	overflow: hidden;
 	transform-origin: 100px 100px -100px;
+	transform-box: fill-box;
 	transform: ${({ sideId, direction }) =>
 		sideId === 0
 			? 'none'
