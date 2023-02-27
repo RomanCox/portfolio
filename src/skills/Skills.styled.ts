@@ -81,6 +81,7 @@ export const CubeStyled = styled.div<CubeStyledPropsType>`
 	transform-style: preserve-3d;
 	position: absolute;
 	transform-origin: 100px 100px -100px;
+	transform-box: fill-box;
 	animation: ${({ isRotate, sideCube, delay, direction }) =>
 		isRotate
 			? `${direction}Rotate${sideCube} 0.8s ease-out ${delay}s 1 normal forwards`
