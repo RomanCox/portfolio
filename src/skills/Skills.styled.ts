@@ -28,7 +28,7 @@ export const CubesContainerStyled = styled.div`
 `;
 
 export const CubeWrapper = styled.div`
-	width: 250px;
+	width: 200px;
 	height: 300px;
 	margin: 0 auto;
 	display: flex;
@@ -81,7 +81,7 @@ export const CubeStyled = styled.div<CubeStyledPropsType>`
 	transform-style: preserve-3d;
 	position: absolute;
 	transform-origin: 100px 100px -100px;
-	transform-box: fill-box;
+	//transform-box: fill-box;
 	animation: ${({ isRotate, sideCube, delay, direction }) =>
 		isRotate
 			? `${direction}Rotate${sideCube} 0.8s ease-out ${delay}s 1 normal forwards`
@@ -167,7 +167,7 @@ export const SideStyled = styled.div<SideStyledPropsType>`
 	backface-visibility: hidden;
 	overflow: hidden;
 	transform-origin: 100px 100px -100px;
-	transform-box: fill-box;
+	//transform-box: fill-box;
 	transform: ${({ sideId, direction }) =>
 		sideId === 0
 			? 'none'
