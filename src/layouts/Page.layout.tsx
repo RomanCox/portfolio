@@ -11,11 +11,13 @@ import {
 
 type PageLayoutPropsType = CommonPropsType & {
 	children: ReactNode;
+	padding?: string;
 };
 export const PageLayout = ({
 	children,
 	onClickHandler,
 	isShow,
+	padding = '100px 0',
 }: PageLayoutPropsType) => {
 	const navigate = useNavigate();
 
@@ -25,7 +27,7 @@ export const PageLayout = ({
 	};
 
 	return (
-		<PageLayoutStyled isShow={isShow}>
+		<PageLayoutStyled isShow={isShow} padding={padding}>
 			<CloseButtonStyled>
 				<ButtonStyled onClick={closeHandler} />
 			</CloseButtonStyled>

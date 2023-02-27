@@ -2,11 +2,12 @@ import styled from 'styled-components';
 
 interface PageLayoutStyledPropsType {
 	isShow: boolean;
+	padding: string;
 }
 export const PageLayoutStyled = styled.div<PageLayoutStyledPropsType>`
 	max-width: 100%;
 	max-height: 100%;
-	padding: 100px 0;
+	padding: ${({ padding }) => padding};
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -91,7 +92,7 @@ export const CloseButtonStyled = styled.div`
 	height: 50px;
 	width: 50px;
 	position: absolute;
-	z-index: 3;
+	z-index: 4;
 	top: 20px;
 	right: 20px;
 	display: flex;

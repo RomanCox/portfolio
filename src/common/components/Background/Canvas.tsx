@@ -27,13 +27,14 @@ export const Canvas = ({ color }: BackgroundPropsType) => {
 		canvas.width = window.innerWidth;
 
 		// chinese characters - taken from the unicode charset
-		// let matrix = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}';
 		const matrix =
-			'鑑於對人類家庭所有成員的固有尊嚴及其平等的和不移的權利的承認，乃是世界自由、正義與和平的基礎';
+			'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}';
+		// const matrix =
+		('鑑於對人類家庭所有成員的固有尊嚴及其平等的和不移的權利的承認，乃是世界自由、正義與和平的基礎');
 		// converting the string into an array of single characters
 		const matrixArray = matrix.split('');
 
-		const fontSize = 20;
+		const fontSize = 12;
 		const columns = canvas.width / fontSize; // number of columns for the rain
 		// an array of drops - one per column
 		const drops: any[] = [];

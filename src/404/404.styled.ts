@@ -5,7 +5,7 @@ export const ErrorPageContainer = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	position: fixed;
+	position: absolute;
 	left: 0;
 	top: 0;
 	right: 0;

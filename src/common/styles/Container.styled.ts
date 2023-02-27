@@ -14,11 +14,12 @@ interface ContainerStyledPropsType {
 	justifyContent: JustifyContentType;
 	alignItems: AlignItemsType;
 	gap?: number;
+	width?: string;
 }
 
 export const ContainerStyled = styled.div<ContainerStyledPropsType>`
 	height: 100%;
-	width: 80%;
+	width: ${({ width }) => (width ? width : '80%')};
 	display: flex;
 	flex-direction: ${({ flexDirection }) => flexDirection};
 	justify-content: ${({ justifyContent }) => justifyContent};
