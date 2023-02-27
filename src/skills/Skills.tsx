@@ -122,7 +122,7 @@ export const Skills = ({ onClickHandler, isShow }: CommonPropsType) => {
 								return <Cube key={cube.id} cube={cube} />;
 						  })
 						: isDisplay && (
-								<Cube cube={cubes[0]} />
+								<Cube cube={cubes[1]} />
 								// <Carousel
 								// 	height='400px'
 								// 	autoPlay={false}
