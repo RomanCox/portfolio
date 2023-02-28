@@ -28,7 +28,7 @@ export const CubesContainerStyled = styled.div`
 `;
 
 export const CubeWrapper = styled.div`
-	width: 200px;
+	width: 300px;
 	height: 300px;
 	margin: 0 auto;
 	display: flex;
