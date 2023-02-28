@@ -43,34 +43,47 @@ export const CubeContainerStyled = styled.div<CubeContainerStyledPropType>`
 	display: block;
 	position: relative;
 	perspective: 1000px;
+	-webkit-perspective: 1000px;
 	transform: translateY(-1000px);
+	-webkit-transform: translateY(-1000px);
 	animation: ${({ delay }) =>
 		`fallingCube 1s ease-out ${delay}s 1 normal forwards`};
 	@keyframes fallingCube {
 		0% {
 			transform: translateY(-1000px);
+			-webkit-transform: translateY(-1000px);
 		}
 		25% {
 			transform: translateY(0);
+			-webkit-transform: translateY(0);
 		}
 		40% {
 			transform: rotate(20deg);
+			-webkit-transform: rotate(20deg);
 			transform-origin: right bottom;
+			-webkit-transform-origin: right bottom;
 		}
 		55% {
 			transform: rotate(-15deg);
+			-webkit-transform: rotate(-15deg);
 			transform-origin: left bottom;
+			-webkit-transform-origin: left bottom;
 		}
 		70% {
 			transform: rotate(10deg);
+			-webkit-transform: rotate(10deg);
 			transform-origin: right bottom;
+			-webkit-transform-origin: right bottom;
 		}
 		85% {
 			transform: rotate(-5deg);
+			-webkit-transform: rotate(-5deg);
 			transform-origin: left bottom;
+			-webkit-transform-origin: left bottom;
 		}
 		100% {
 			transform: rotate(0);
+			-webkit-transform: rotate(0);
 		}
 	}
 `;
@@ -79,9 +92,12 @@ export const CubeStyled = styled.div<CubeStyledPropsType>`
 	width: 100%;
 	height: 100%;
 	transform-style: preserve-3d;
+	-webkit-transform-style: preserve-3d;
 	position: absolute;
 	transform-origin: 100px 100px -100px;
+	-webkit-transform-origin: 100px 100px -100px;
 	transform-box: fill-box;
+	-webkit-transform-box: fill-box;
 	animation: ${({ isRotate, sideCube, delay, direction }) =>
 		isRotate
 			? `${direction}Rotate${sideCube} 0.8s ease-out ${delay}s 1 normal forwards`
@@ -90,66 +106,82 @@ export const CubeStyled = styled.div<CubeStyledPropsType>`
 	@keyframes horizontalRotate0 {
 		0% {
 			transform: rotateY(0);
+			-webkit-transform: rotateY(0);
 		}
 		100% {
 			transform: rotateY(90deg);
+			-webkit-transform: rotateY(90deg);
 		}
 	}
 	@keyframes horizontalRotate1 {
 		0% {
 			transform: rotateY(90deg);
+			-webkit-transform: rotateY(90deg);
 		}
 		100% {
 			transform: rotateY(180deg);
+			-webkit-transform: rotateY(180deg);
 		}
 	}
 	@keyframes horizontalRotate2 {
 		0% {
 			transform: rotateY(180deg);
+			-webkit-transform: rotateY(180deg);
 		}
 		100% {
 			transform: rotateY(270deg);
+			-webkit-ransform: rotateY(270deg);
 		}
 	}
 	@keyframes horizontalRotate3 {
 		0% {
 			transform: rotateY(270deg);
+			-webkit-transform: rotateY(270deg);
 		}
 		100% {
 			transform: rotateY(360deg);
+			-webkit-transform: rotateY(360deg);
 		}
 	}
 
 	@keyframes verticalRotate0 {
 		0% {
 			transform: rotateX(0);
+			-webkit-transform: rotateX(0);
 		}
 		100% {
 			transform: rotateX(90deg);
+			-webkit-transform: rotateX(90deg);
 		}
 	}
 	@keyframes verticalRotate1 {
 		0% {
 			transform: rotateX(90deg);
+			-webkit-transform: rotateX(90deg);
 		}
 		100% {
 			transform: rotateX(180deg);
+			-webkit-transform: rotateX(180deg);
 		}
 	}
 	@keyframes verticalRotate2 {
 		0% {
 			transform: rotateX(180deg);
+			-webkit-transform: rotateX(180deg);
 		}
 		100% {
 			transform: rotateX(270deg);
+			-webkit-transform: rotateX(270deg);
 		}
 	}
 	@keyframes verticalRotate3 {
 		0% {
 			transform: rotateX(270deg);
+			-webkit-transform: rotateX(270deg);
 		}
 		100% {
 			transform: rotateX(360deg);
+			-webkit-transform: rotateX(360deg);
 		}
 	}
 `;
@@ -165,10 +197,27 @@ export const SideStyled = styled.div<SideStyledPropsType>`
 	border-radius: 20px;
 	background-color: #1f1f20;
 	backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
 	overflow: hidden;
 	transform-origin: 100px 100px -100px;
+	-webkit-transform-origin: 100px 100px -100px;
 	transform-box: fill-box;
+	-webkit-transform-box: fill-box;
 	transform: ${({ sideId, direction }) =>
+		sideId === 0
+			? 'none'
+			: sideId === 1
+			? direction === 'horizontal'
+				? 'rotateY(-90deg)'
+				: 'rotateX(-90deg)'
+			: sideId === 2
+			? direction === 'horizontal'
+				? 'rotateY(180deg)'
+				: 'rotateY(180deg) rotateZ(180deg)'
+			: direction === 'horizontal'
+			? 'rotateY(90deg)'
+			: 'rotateX(90deg)'};
+	-webkit-transform: ${({ sideId, direction }) =>
 		sideId === 0
 			? 'none'
 			: sideId === 1

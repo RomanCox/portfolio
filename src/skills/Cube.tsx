@@ -42,23 +42,23 @@ export const Cube = ({ cube }: SkillPropsType) => {
 		}
 	};
 
-	// useEffect(() => {
-	// 	const title =
-	// 		sideCube === 3
-	// 			? cube.sidesCube[0].title
-	// 			: cube.sidesCube[sideCube + 1].title;
-	// 	if (!isRotate) {
-	// 		cubeTimeOut.current = setTimeout(sideTurn, delayRotate + 1600);
-	// 		setTimeout(setTitle, 1600, title);
-	// 	} else {
-	// 		cubeTimeOut.current = setTimeout(sideTurn, delayRotate);
-	// 		setTitle(title);
-	// 	}
-	// }, [sideCube]);
+	useEffect(() => {
+		const title =
+			sideCube === 3
+				? cube.sidesCube[0].title
+				: cube.sidesCube[sideCube + 1].title;
+		if (!isRotate) {
+			cubeTimeOut.current = setTimeout(sideTurn, delayRotate + 1600);
+			setTimeout(setTitle, 1600, title);
+		} else {
+			cubeTimeOut.current = setTimeout(sideTurn, delayRotate);
+			setTitle(title);
+		}
+	}, [sideCube]);
 
-	// useEffect(() => {
-	// 	setTimeout(setIsRotate, 1600, true);
-	// }, []);
+	useEffect(() => {
+		setTimeout(setIsRotate, 1600, true);
+	}, []);
 	return (
 		<CubeWrapper>
 			<CubeContainerStyled
