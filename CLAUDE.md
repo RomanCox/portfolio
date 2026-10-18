@@ -103,7 +103,7 @@ import { classNames } from '@/shared/lib/classNames/classNames'
 - `cls` — базовый класс компонента; `mods` — условные классы (ключ — класс из модуля, значение — **boolean**; строки в значениях не использовать); `additional` — внешний `className` из пропсов и классы вариантов.
 - Каждый компонент принимает `className?: string` и передаёт его в `additional`.
 - Покрыть функцию юнит-тестом (пустые моды, `undefined`-класс, внешний `className`).
-- В tsconfig включить `noUncheckedIndexedAccess`, чтобы `cls.someClass` имел тип `string | undefined`.
+- `noUncheckedIndexedAccess` в tsconfig **выключен**: с ним `cls.someClass` имеет тип `string | undefined`, и запись `{ [cls.active]: isActive }` не компилируется (TS2464). Опечатки в именах классов ловит фильтр ключа `'undefined'` в `classNames`.
 
 ## Как работать
 

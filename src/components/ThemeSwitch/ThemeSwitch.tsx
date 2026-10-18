@@ -43,25 +43,38 @@ function setTheme(theme: Theme) {
 
 interface ThemeSwitchProps {
   className?: string
+  // с подписями — в мобильном меню; без — ромбы 44×44 в шапке
+  labeled?: boolean
 }
 
-export function ThemeSwitch({ className }: ThemeSwitchProps) {
+export function ThemeSwitch({ className, labeled = false }: ThemeSwitchProps) {
   const t = useTranslations()
   const current = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
 
   return (
-    <div className={classNames(cls.themeSwitch, {}, [className])} role="group" aria-label={t('menu.theme')}>
-      {THEMES.map((theme) => (
-        <button
-          key={theme}
-          type="button"
-          className={cls.button}
-          aria-pressed={current === theme}
-          onClick={() => setTheme(theme)}
-        >
-          {t(`themeNames.${theme}`)}
-        </button>
-      ))}
+    <div
+      className={classNames(cls.themeSwitch, { [cls.labeled]: labeled }, [className])}
+      role="group"
+      aria-label={t('menu.theme')}
+    >
+      {THEMES.map((theme) => {
+        const label = t(`themeNames.${theme}`)
+
+        return (
+          <button
+            key={theme}
+            type="button"
+            className={classNames(cls.button, { [cls.active]: current === theme })}
+            aria-pressed={current === theme}
+            aria-label={labeled ? undefined : label}
+            title={labeled ? undefined : label}
+            onClick={() => setTheme(theme)}
+          >
+            <span className={classNames(cls.swatch, {}, [cls[theme]])} aria-hidden="true" />
+            {labeled && <span className={cls.label}>{label}</span>}
+          </button>
+        )
+      })}
     </div>
   )
 }

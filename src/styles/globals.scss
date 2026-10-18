@@ -1,3 +1,5 @@
+@use 'mixins' as *;
+
 // Шрифты из next/font: имена семейств хешируются, поэтому
 // переопределяем --font-* из tokens.css на переменные next/font.
 :root {
@@ -83,4 +85,27 @@ p {
 ::selection {
   background: var(--color-mark);
   color: var(--color-bg);
+}
+
+// Высота шапки по макетам: mobile 69 (10 + 48 + 10 + 1), tablet 73 (12 + 48 + 12 + 1),
+// desktop 71 (12 + 46 + 12 + 1). В tokens.css — 69 для всех.
+:root {
+  @include tablet {
+    --header-h: 73px;
+  }
+
+  @include desktop {
+    --header-h: 71px;
+  }
+}
+
+// Якоря не прячутся под sticky-шапкой
+[id] {
+  scroll-margin-top: var(--header-h);
+}
+
+// Блокировка прокрутки под открытым меню; --scrollbar-comp ставится в рантайме
+html.scroll-locked {
+  overflow: hidden;
+  padding-right: var(--scrollbar-comp, 0);
 }

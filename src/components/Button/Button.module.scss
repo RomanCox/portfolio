@@ -1,0 +1,62 @@
+@use 'mixins' as *;
+
+.button {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border: 0;
+  background: transparent;
+  font-family: var(--font-body);
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity var(--dur-fast) ease;
+
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
+.primary {
+  --frame-fill: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  // свечение / жёсткая тень — на элементе без clip-path, повторяет форму псевдоэлементов
+  filter: var(--btn-primary-filter);
+}
+
+.secondary {
+  --frame-border: var(--color-card-border);
+  --frame-width: 1px;
+  --frame-fill: var(--color-bg);
+  color: var(--color-text);
+}
+
+.s {
+  @include chamfer-frame(s);
+  height: 44px;
+  padding: 0 18px;
+  font-size: 15px;
+}
+
+.m {
+  @include chamfer-frame(s);
+  height: 52px;
+  padding: 0 22px;
+  font-size: 16px;
+}
+
+.l {
+  @include chamfer-frame(m);
+  height: 56px;
+  padding: 0 24px;
+  gap: 10px;
+  font-size: 16px;
+}
+
+.fullWidth {
+  display: flex;
+  width: 100%;
+}

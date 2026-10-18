@@ -8,27 +8,31 @@ import cls from './LangSwitch.module.scss'
 
 interface LangSwitchProps {
   className?: string
+  // в мобильном меню кнопки шире: 52px вместо 44px
+  wide?: boolean
 }
 
-export function LangSwitch({ className }: LangSwitchProps) {
+// Языки — отдельные URL (/ru, /en, /be), поэтому ссылки, а не кнопки
+export function LangSwitch({ className, wide = false }: LangSwitchProps) {
   const t = useTranslations()
   const locale = useLocale()
   const pathname = usePathname()
 
   return (
-    <nav className={classNames(cls.langSwitch, {}, [className])} aria-label={t('menu.lang')}>
+    <div className={classNames(cls.langSwitch, { [cls.wide]: wide }, [className])} role="group" aria-label={t('menu.lang')}>
       {routing.locales.map((lang) => (
         <Link
           key={lang}
           href={pathname}
           locale={lang}
           hrefLang={lang}
-          className={cls.link}
-          aria-current={lang === locale ? 'true' : undefined}
+          lang={lang}
+          className={classNames(cls.link, { [cls.active]: lang === locale })}
+          aria-current={lang === locale ? 'page' : undefined}
         >
           {lang.toUpperCase()}
         </Link>
       ))}
-    </nav>
+    </div>
   )
 }

@@ -1,23 +1,58 @@
-// Временный вид для этапа 0; дизайн переключателя — этап 1
+@use 'mixins' as *;
+
 .langSwitch {
+  --frame-border: var(--color-line);
+  --frame-width: 1px;
+  @include chamfer-frame(s);
   display: flex;
-  gap: var(--space-2);
+  flex-shrink: 0;
+  padding: 1px;
 }
 
 .link {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  height: 44px;
   min-width: 44px;
-  min-height: 44px;
-  border: 1px solid var(--color-line);
+  padding: 0 10px;
+  color: var(--color-text-dim);
   font-family: var(--font-mono);
-  font-size: var(--fs-mono);
-  letter-spacing: var(--ls-label);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
   text-decoration: none;
+  transition: color var(--dur-fast) ease;
 
-  &[aria-current='true'] {
-    border-color: var(--color-mark);
-    color: var(--color-mark);
+  &:hover {
+    color: var(--color-text);
   }
+
+  &:focus-visible {
+    z-index: 1;
+    outline-offset: -2px;
+  }
+}
+
+// Активный язык — заливка цветом основной кнопки; форма повторяет скос группы
+.active {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+
+  &:hover {
+    color: var(--btn-primary-text);
+  }
+
+  &:first-child {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, calc(var(--chamfer-s) - 1px) 100%, 0 calc(100% - var(--chamfer-s) + 1px));
+  }
+
+  &:last-child {
+    clip-path: polygon(0 0, calc(100% - var(--chamfer-s) + 1px) 0, 100% calc(var(--chamfer-s) - 1px), 100% 100%, 0 100%);
+  }
+}
+
+.wide .link {
+  min-width: 52px;
 }

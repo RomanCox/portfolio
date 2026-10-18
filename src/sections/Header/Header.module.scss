@@ -1,0 +1,149 @@
+@use 'mixins' as *;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  background: var(--header-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: 10px var(--gutter-mobile);
+
+  @include tablet {
+    padding: 12px var(--gutter-tablet);
+  }
+
+  @include desktop {
+    justify-content: flex-start;
+    gap: 16px;
+    max-width: calc(var(--container) + 2 * var(--gutter));
+    margin: 0 auto;
+    padding: 12px var(--gutter);
+  }
+
+  @include wide {
+    gap: 28px;
+  }
+}
+
+.logo {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+
+  @include desktop {
+    gap: 12px;
+  }
+}
+
+.wordmark {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1;
+  color: var(--color-text-dim);
+
+  // 1024–1279: в одну строку не помещается, подпись прячем — остаётся плашка RC
+  @include desktop {
+    display: none;
+  }
+
+  @include wide {
+    display: inline;
+  }
+}
+
+.underscore {
+  color: var(--color-mark);
+}
+
+.nav {
+  display: none;
+
+  @include desktop {
+    display: flex;
+    flex: 1 1 auto;
+    min-width: 0;
+    gap: 0 14px;
+    font-size: 15px;
+  }
+
+  @include wide {
+    gap: 0 22px;
+  }
+}
+
+.navLink {
+  padding: 10px 0;
+  color: var(--color-text);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity var(--dur-fast) ease;
+
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
+.navNum {
+  margin-right: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-mark);
+}
+
+.desktopOnly {
+  display: none;
+
+  @include desktop {
+    display: flex;
+  }
+}
+
+.burger {
+  --frame-border: var(--color-card-border);
+  --frame-width: 1px;
+  --frame-fill: var(--color-card);
+  @include chamfer-frame(s);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+
+  @include desktop {
+    display: none;
+  }
+}
+
+.burgerLine {
+  width: 22px;
+  height: 2px;
+  background: var(--color-mark);
+  box-shadow: var(--line-glow);
+  transition: transform var(--dur-base) var(--ease-out);
+
+  &:nth-child(2) {
+    background: var(--color-text);
+    box-shadow: none;
+    transform: translateX(-4px);
+  }
+}
+
+.burger:hover .burgerLine:nth-child(2) {
+  transform: translateX(4px);
+}

@@ -1,12 +1,19 @@
 import { useTranslations } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import { use } from 'react'
-import { LangSwitch } from '@/components/LangSwitch/LangSwitch'
-import { ThemeSwitch } from '@/components/ThemeSwitch/ThemeSwitch'
 import type { Locale } from '@/i18n/routing'
 import cls from './page.module.scss'
 
-// Временная страница этапа 0: проверка тем, языков и шрифтов
+// Временная страница этапа 1: пустые секции-якоря для проверки меню, sticky-шапки
+// и блокировки прокрутки. Заменяется секциями на этапах 2–3.
+const SECTIONS = [
+  { id: 'about', title: 'aboutTitle' },
+  { id: 'skills', title: 'skillsTitle' },
+  { id: 'exp', title: 'expTitle' },
+  { id: 'projects', title: 'projTitle' },
+  { id: 'contact', title: 'contactLine1' },
+] as const
+
 export default function HomePage({ params }: PageProps<'/[locale]'>) {
   const { locale } = use(params)
   setRequestLocale(locale as Locale)
@@ -15,13 +22,16 @@ export default function HomePage({ params }: PageProps<'/[locale]'>) {
 
   return (
     <main className={cls.page}>
-      <p className={cls.label}>{'> whoami'}</p>
-      <h1 className={cls.title}>{t('name')}</h1>
-      <p className={cls.lead}>{t('lead')}</p>
-      <div className={cls.controls}>
-        <LangSwitch />
-        <ThemeSwitch />
-      </div>
+      <section className={cls.intro}>
+        <p className={cls.label}>{'> whoami'}</p>
+        <h1 className={cls.title}>{t('name')}</h1>
+        <p className={cls.lead}>{t('lead')}</p>
+      </section>
+      {SECTIONS.map((section) => (
+        <section key={section.id} id={section.id} className={cls.section}>
+          <h2 className={cls.sectionTitle}>{t(section.title)}</h2>
+        </section>
+      ))}
     </main>
   )
 }

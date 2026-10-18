@@ -1,22 +1,86 @@
-// Временный вид для этапа 0; дизайн переключателя — этап 1
+@use 'mixins' as *;
+
 .themeSwitch {
   display: flex;
-  gap: var(--space-2);
+  flex-shrink: 0;
+  gap: var(--space-1);
 }
 
 .button {
-  min-width: 44px;
-  min-height: 44px;
-  padding: 0 var(--space-4);
-  border: 1px solid var(--color-line);
+  --frame-border: var(--color-line);
+  --frame-width: 1px;
+  @include chamfer-frame(s);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
   background: transparent;
-  font-family: var(--font-mono);
-  font-size: var(--fs-mono);
-  text-transform: uppercase;
-  letter-spacing: var(--ls-label);
+  color: var(--color-text);
+  transition: opacity var(--dur-fast) ease;
 
-  &[aria-pressed='true'] {
-    border-color: var(--color-mark);
-    color: var(--color-mark);
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
+.active {
+  --frame-border: var(--color-mark);
+  --frame-width: 2px;
+}
+
+// Ромб-образец темы: фиксированные градиенты, не зависят от текущей темы
+.swatch {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  transform: rotate(45deg);
+}
+
+.neon {
+  background: linear-gradient(135deg, #00e5ff, #ff3dd8);
+}
+
+.light {
+  background: linear-gradient(135deg, #ffffff, #b9b0ee);
+}
+
+.citrus {
+  background: linear-gradient(135deg, #ff6a1a, #ffe14d);
+}
+
+.label {
+  font-size: 13px;
+  line-height: 1;
+}
+
+// Вариант с подписями (мобильное меню)
+.labeled {
+  gap: 6px;
+
+  .button {
+    width: auto;
+    gap: var(--space-2);
+    padding: 0 var(--space-3);
+  }
+
+  .swatch {
+    width: 14px;
+    height: 14px;
+  }
+
+  // На самых узких экранах (320px) подписи убираем, остаются ромбы.
+  // Прячем визуально, а не display: none: подпись — доступное имя кнопки
+  @media (max-width: 359.98px) {
+    .button {
+      width: 44px;
+      padding: 0;
+    }
+
+    .label {
+      @include visually-hidden;
+    }
   }
 }
