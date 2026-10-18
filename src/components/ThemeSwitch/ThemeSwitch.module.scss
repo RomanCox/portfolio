@@ -1,0 +1,22 @@
+// Временный вид для этапа 0; дизайн переключателя — этап 1
+.themeSwitch {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--color-line);
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-label);
+
+  &[aria-pressed='true'] {
+    border-color: var(--color-mark);
+    color: var(--color-mark);
+  }
+}

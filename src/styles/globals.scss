@@ -1,0 +1,86 @@
+// Шрифты из next/font: имена семейств хешируются, поэтому
+// переопределяем --font-* из tokens.css на переменные next/font.
+:root {
+  --font-display: var(--font-unbounded), system-ui, sans-serif;
+  --font-body: var(--font-onest), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  // clip, а не hidden: hidden ломает position: sticky у потомков
+  overflow-x: clip;
+}
+
+body {
+  min-height: 100svh;
+  overflow-x: clip;
+  isolation: isolate;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+picture,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  line-height: var(--lh-display);
+  letter-spacing: var(--ls-display);
+  overflow-wrap: break-word;
+}
+
+p {
+  overflow-wrap: break-word;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-mark);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--color-mark);
+  color: var(--color-bg);
+}

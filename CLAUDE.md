@@ -46,6 +46,7 @@ src/
   sections/                    Header, MobileMenu, Hero, Tape, About, Skills, Experience, Projects, CvPromo, Contact, Footer
   effects/                     PulseBackground, DecodeHeading, ScrollRing
   data/                        projects.ts, experience.ts, skills.ts (контент вне разметки)
+  shared/lib/classNames/       classNames.ts + classNames.test.ts
   styles/tokens.css, globals.scss, _mixins.scss (breakpoints, chamfer)
   i18n/                        routing.ts, request.ts
 messages/ru.json en.json be.json
@@ -64,6 +65,45 @@ design/                        материалы дизайна (не трог�
 - **Контент**: всё в `[квадратных скобках]` — заглушки. Ничего не выдумывать (стаж, компании, ссылки, почту). Если данных нет — оставить заглушку.
 - Новые зависимости — только с согласования. Логотипы технологий — официальные SVG, не перерисовывать.
 - Не трогать `design/`.
+
+## Классы: `classNames`
+
+Все составные и условные классы — **только** через `classNames` из `src/shared/lib/classNames/classNames.ts`. Не склеивать классы шаблонными строками и `+`.
+
+```ts
+export type Mods = Record<string, boolean | string | undefined>
+
+export function classNames(
+  cls: string | undefined,
+  mods: Mods = {},
+  additional: Array<string | undefined> = []
+): string {
+  return [
+    cls,
+    ...additional,
+    ...Object.entries(mods)
+      // ключ 'undefined' появляется, если класса нет в модуле (опечатка) — не пропускаем его в DOM
+      .filter(([className, value]) => Boolean(value) && className !== 'undefined')
+      .map(([className]) => className),
+  ]
+    .filter(Boolean)
+    .join(' ')
+}
+```
+
+Использование:
+
+```tsx
+import cls from './Button.module.scss'
+import { classNames } from '@/shared/lib/classNames/classNames'
+
+<button className={classNames(cls.button, { [cls.active]: isActive, [cls.disabled]: disabled }, [className, cls[variant]])} />
+```
+
+- `cls` — базовый класс компонента; `mods` — условные классы (ключ — класс из модуля, значение — **boolean**; строки в значениях не использовать); `additional` — внешний `className` из пропсов и классы вариантов.
+- Каждый компонент принимает `className?: string` и передаёт его в `additional`.
+- Покрыть функцию юнит-тестом (пустые моды, `undefined`-класс, внешний `className`).
+- В tsconfig включить `noUncheckedIndexedAccess`, чтобы `cls.someClass` имел тип `string | undefined`.
 
 ## Как работать
 

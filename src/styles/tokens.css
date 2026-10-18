@@ -1,0 +1,331 @@
+/* =====================================================================
+ * Roman Cox — portfolio design tokens
+ * Сгенерировано из макетов (Desktop.dc.html → THEMES). Три темы:
+ *   neon (по умолчанию) · light · citrus
+ * Переключение: <html data-theme="neon|light|citrus">.
+ * Без data-theme: neon, а при системной светлой теме — light.
+ * ===================================================================== */
+
+/* ---------- Статичные токены (не зависят от темы) ---------- */
+:root {
+  /* Шрифты: подключить Unbounded 500/600/800, Onest 400/500, JetBrains Mono 400/500/700 (кириллица!) */
+  --font-display: "Unbounded", system-ui, sans-serif;
+  --font-body: "Onest", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Типографика (desktop → mobile через clamp) */
+  --fs-hero-name: clamp(42px, 8vw, 104px);
+  --fs-h2: clamp(36px, 5.5vw, 64px);
+  --fs-contact: clamp(40px, 7vw, 92px);
+  --fs-h3: 20px;
+  --fs-lead: 18px;
+  --fs-body: 16px;
+  --fs-small: 15px;
+  --fs-mono: 13px;
+  --fs-label: 12px;
+  --ls-display: -0.045em;
+  --ls-label: 0.12em;
+  --lh-display: 1.02;
+  --lh-body: 1.6;
+
+  /* Отступы: шаг 4px */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-7: 28px; --space-8: 32px;
+  --space-10: 40px; --space-12: 48px; --space-14: 56px; --space-16: 64px;
+
+  /* Сетка */
+  --container: 1200px;
+  --gutter: 24px;          /* desktop */
+  --gutter-tablet: 32px;
+  --gutter-mobile: 16px;   /* шапка 16, контент hero 20 */
+  --section-pad-y: 56px;   /* сверху; снизу 32px */
+  --header-h: 69px;        /* фактическая высота шапки (mobile/tablet) */
+
+  /* Скошенные углы (правый верхний + левый нижний), clip-path */
+  --chamfer-s: 10px;   /* кнопки, чипы, переключатели */
+  --chamfer-m: 18px;   /* плитки навыков, карточки опыта */
+  --chamfer-l: 26px;   /* крупные карточки, слайды, терминал */
+  --chamfer-xl: 40px;  /* панель резюме */
+
+  /* Движение */
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+  --dur-fast: 150ms;
+  --dur-base: 300ms;
+  --dur-slow: 600ms;
+  --marquee-dur: 48s;
+  --marquee-dur-rev: 56s;
+  --ring-spin-dur: 16s;
+
+  --z-header: 30;
+  --z-menu: 60;
+  --z-scanlines: 40;
+}
+
+/* ---------- Тема: neon (по умолчанию) ---------- */
+:root,
+:root[data-theme="neon"] {
+  --color-bg: #08061c;
+  --color-grid: rgba(145,94,255,.09);
+  --color-text: #ffffff;
+  --color-text-dim: #a9a4c9;
+  --color-mark: #00e5ff;
+  --color-line: rgba(145,94,255,.28);
+  --color-card: #120d2e;
+  --color-card-border: rgba(145,94,255,.55);
+  --card-border-width: 1px;
+  --color-card-text: #ffffff;
+  --color-card-text-dim: #b3aed3;
+  --color-accent: #00e5ff;
+  --color-magenta: #ff3dd8;
+  --btn-primary-bg: #00e5ff;
+  --btn-primary-text: #07061a;
+  --btn-primary-filter: drop-shadow(0 0 16px rgba(0,229,255,.55));
+  --gradient-name: linear-gradient(90deg,#b18cff 0%,#ff3dd8 50%,#00e5ff 100%);
+  --glitch-a: rgba(0,229,255,.55);
+  --glitch-b: rgba(255,61,216,.55);
+  --card-filter: drop-shadow(0 0 22px rgba(155,107,255,.28));
+  --chip-bg: rgba(0,229,255,.08);
+  --chip-border: 1px solid rgba(0,229,255,.30);
+  --chip-text: #bff9ff;
+  --header-bg: rgba(8,6,28,.78);
+  --color-status: #39ff88;
+  --gradient-frame: linear-gradient(135deg,#00e5ff,#9b6bff 50%,#ff3dd8);
+  --color-surface-deep: #19123f;
+  --glow-a: rgba(124,58,255,.55);
+  --glow-b: rgba(255,61,216,.32);
+  --color-floor: rgba(0,229,255,.45);
+  --color-scanline: rgba(255,255,255,.028);
+  --color-outline-text: rgba(145,94,255,.30);
+  --tape-bg: #00e5ff;
+  --tape-text: #07061a;
+  --tape2-bg: #ff3dd8;
+  --tape2-text: #07061a;
+  --tape-shadow: 0 0 40px rgba(0,229,255,.45);
+  --code-keyword: #b18cff;
+  --code-string: #ff7ae6;
+  --code-number: #00e5ff;
+  --code-comment: #8d88b3;
+  --mock-line: rgba(255,255,255,.12);
+  --mock-fill: rgba(255,255,255,.04);
+  --line-glow: 0 0 12px rgba(0,229,255,.6);
+  --color-mono-1: #00e5ff;
+  --color-mono-2: #ff3dd8;
+  --color-mono-3: #b18cff;
+  color-scheme: dark;
+}
+
+/* Системная светлая тема, если пользователь ещё не выбирал */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+  --color-bg: #f3f2fa;
+  --color-grid: rgba(91,46,224,.06);
+  --color-text: #14112b;
+  --color-text-dim: #4d4870;
+  --color-mark: #00799a;
+  --color-line: rgba(20,17,43,.12);
+  --color-card: #ffffff;
+  --color-card-border: rgba(20,17,43,.14);
+  --card-border-width: 1px;
+  --color-card-text: #14112b;
+  --color-card-text-dim: #4d4870;
+  --color-accent: #00799a;
+  --color-magenta: #c0127f;
+  --btn-primary-bg: #14112b;
+  --btn-primary-text: #ffffff;
+  --btn-primary-filter: none;
+  --gradient-name: linear-gradient(90deg,#5b2ee0 0%,#c0127f 55%,#00799a 100%);
+  --glitch-a: rgba(0,121,154,.30);
+  --glitch-b: rgba(192,18,127,.30);
+  --card-filter: drop-shadow(0 14px 26px rgba(20,17,43,.08));
+  --chip-bg: rgba(0,121,154,.07);
+  --chip-border: 1px solid rgba(0,121,154,.28);
+  --chip-text: #005a73;
+  --header-bg: rgba(243,242,250,.86);
+  --color-status: #0a8f4f;
+  --gradient-frame: linear-gradient(135deg,#00799a,#5b2ee0 50%,#c0127f);
+  --color-surface-deep: #e9e6f8;
+  --glow-a: rgba(91,46,224,.18);
+  --glow-b: rgba(192,18,127,.12);
+  --color-floor: rgba(91,46,224,.28);
+  --color-scanline: transparent;
+  --color-outline-text: rgba(20,17,43,.10);
+  --tape-bg: #14112b;
+  --tape-text: #ffffff;
+  --tape2-bg: #00799a;
+  --tape2-text: #ffffff;
+  --tape-shadow: none;
+  --code-keyword: #5b2ee0;
+  --code-string: #c0127f;
+  --code-number: #00799a;
+  --code-comment: #6b6690;
+  --mock-line: rgba(20,17,43,.12);
+  --mock-fill: rgba(20,17,43,.04);
+  --line-glow: none;
+  --color-mono-1: #00799a;
+  --color-mono-2: #c0127f;
+  --color-mono-3: #5b2ee0;
+    color-scheme: light;
+  }
+}
+
+/* ---------- Тема: light (перекройка, не инверсия) ---------- */
+:root[data-theme="light"] {
+  --color-bg: #f3f2fa;
+  --color-grid: rgba(91,46,224,.06);
+  --color-text: #14112b;
+  --color-text-dim: #4d4870;
+  --color-mark: #00799a;
+  --color-line: rgba(20,17,43,.12);
+  --color-card: #ffffff;
+  --color-card-border: rgba(20,17,43,.14);
+  --card-border-width: 1px;
+  --color-card-text: #14112b;
+  --color-card-text-dim: #4d4870;
+  --color-accent: #00799a;
+  --color-magenta: #c0127f;
+  --btn-primary-bg: #14112b;
+  --btn-primary-text: #ffffff;
+  --btn-primary-filter: none;
+  --gradient-name: linear-gradient(90deg,#5b2ee0 0%,#c0127f 55%,#00799a 100%);
+  --glitch-a: rgba(0,121,154,.30);
+  --glitch-b: rgba(192,18,127,.30);
+  --card-filter: drop-shadow(0 14px 26px rgba(20,17,43,.08));
+  --chip-bg: rgba(0,121,154,.07);
+  --chip-border: 1px solid rgba(0,121,154,.28);
+  --chip-text: #005a73;
+  --header-bg: rgba(243,242,250,.86);
+  --color-status: #0a8f4f;
+  --gradient-frame: linear-gradient(135deg,#00799a,#5b2ee0 50%,#c0127f);
+  --color-surface-deep: #e9e6f8;
+  --glow-a: rgba(91,46,224,.18);
+  --glow-b: rgba(192,18,127,.12);
+  --color-floor: rgba(91,46,224,.28);
+  --color-scanline: transparent;
+  --color-outline-text: rgba(20,17,43,.10);
+  --tape-bg: #14112b;
+  --tape-text: #ffffff;
+  --tape2-bg: #00799a;
+  --tape2-text: #ffffff;
+  --tape-shadow: none;
+  --code-keyword: #5b2ee0;
+  --code-string: #c0127f;
+  --code-number: #00799a;
+  --code-comment: #6b6690;
+  --mock-line: rgba(20,17,43,.12);
+  --mock-fill: rgba(20,17,43,.04);
+  --line-glow: none;
+  --color-mono-1: #00799a;
+  --color-mono-2: #c0127f;
+  --color-mono-3: #5b2ee0;
+  color-scheme: light;
+}
+
+/* ---------- Тема: citrus (яркая; жёсткие тени вместо свечения) ---------- */
+:root[data-theme="citrus"] {
+  --color-bg: #ff6a1a;
+  --color-grid: rgba(28,8,56,.10);
+  --color-text: #1c0838;
+  --color-text-dim: #3a1650;
+  --color-mark: #1c0838;
+  --color-line: rgba(28,8,56,.28);
+  --color-card: #1c0838;
+  --color-card-border: #1c0838;
+  --card-border-width: 2px;
+  --color-card-text: #ffffff;
+  --color-card-text-dim: #d6cdea;
+  --color-accent: #ffe14d;
+  --color-magenta: #ff8fcf;
+  --btn-primary-bg: #1c0838;
+  --btn-primary-text: #ffe14d;
+  --btn-primary-filter: drop-shadow(4px 4px 0 #ffe14d);
+  --gradient-name: linear-gradient(90deg,#1c0838 0%,#4a0a63 55%,#7a003d 100%);
+  --glitch-a: rgba(255,225,77,.95);
+  --glitch-b: rgba(255,143,207,.95);
+  --card-filter: drop-shadow(7px 7px 0 #1c0838);
+  --chip-bg: rgba(255,225,77,.10);
+  --chip-border: 1px solid rgba(255,225,77,.45);
+  --chip-text: #ffe14d;
+  --header-bg: rgba(255,106,26,.92);
+  --color-status: #ffe14d;
+  --gradient-frame: linear-gradient(135deg,#ffe14d,#ff8fcf 50%,#c4a3ff);
+  --color-surface-deep: #2a0e52;
+  --glow-a: rgba(255,225,77,.60);
+  --glow-b: rgba(255,143,207,.50);
+  --color-floor: rgba(28,8,56,.32);
+  --color-scanline: transparent;
+  --color-outline-text: rgba(28,8,56,.30);
+  --tape-bg: #1c0838;
+  --tape-text: #ffe14d;
+  --tape2-bg: #ffe14d;
+  --tape2-text: #1c0838;
+  --tape-shadow: 6px 6px 0 rgba(28,8,56,.35);
+  --code-keyword: #ffe14d;
+  --code-string: #ff8fcf;
+  --code-number: #c4a3ff;
+  --code-comment: #b9aed6;
+  --mock-line: rgba(255,255,255,.14);
+  --mock-fill: rgba(255,255,255,.06);
+  --line-glow: none;
+  --color-mono-1: #ffe14d;
+  --color-mono-2: #ff8fcf;
+  --color-mono-3: #c4a3ff;
+  color-scheme: light;
+}
+
+/* ---------- Утилиты-примитивы ---------- */
+.chamfer-s  { clip-path: polygon(0 0, calc(100% - var(--chamfer-s)) 0, 100% var(--chamfer-s), 100% 100%, var(--chamfer-s) 100%, 0 calc(100% - var(--chamfer-s))); }
+.chamfer-m  { clip-path: polygon(0 0, calc(100% - var(--chamfer-m)) 0, 100% var(--chamfer-m), 100% 100%, var(--chamfer-m) 100%, 0 calc(100% - var(--chamfer-m))); }
+.chamfer-l  { clip-path: polygon(0 0, calc(100% - var(--chamfer-l)) 0, 100% var(--chamfer-l), 100% 100%, var(--chamfer-l) 100%, 0 calc(100% - var(--chamfer-l))); }
+.chamfer-xl { clip-path: polygon(0 0, calc(100% - var(--chamfer-xl)) 0, 100% var(--chamfer-xl), 100% 100%, var(--chamfer-xl) 100%, 0 calc(100% - var(--chamfer-xl))); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+
+/* Легенда переменных темы:
+ *   --color-bg: фон страницы
+ *   --color-grid: линии фоновой сетки
+ *   --color-text: основной текст
+ *   --color-text-dim: вторичный текст
+ *   --color-mark: акцент UI: метки секций, номера, курсор
+ *   --color-line: разделители
+ *   --color-card: фон карточек
+ *   --color-card-border: обводка карточек (фон обёртки со скошенными углами)
+ *   --card-border-width: толщина обводки карточки
+ *   --color-card-text: текст на карточке
+ *   --color-card-text-dim: вторичный текст на карточке
+ *   --color-accent: акцент на карточках, CTA
+ *   --color-magenta: второй акцент
+ *   --btn-primary-bg: фон основной кнопки
+ *   --btn-primary-text: текст основной кнопки
+ *   --btn-primary-filter: filter: свечение/жёсткая тень кнопки
+ *   --gradient-name: градиент имени и акцентных заголовков
+ *   --glitch-a: глитч-слой 1
+ *   --glitch-b: глитч-слой 2
+ *   --card-filter: filter: свечение/тень карточек
+ *   --chip-bg: фон чипов/тегов
+ *   --chip-border: обводка чипов
+ *   --chip-text: текст чипов
+ *   --header-bg: фон шапки (с blur)
+ *   --color-status: точка «онлайн»
+ *   --gradient-frame: градиентная рамка (фото, активный слайд, иконки)
+ *   --color-surface-deep: глубокая подложка (фото, мокапы)
+ *   --glow-a: световое пятно 1
+ *   --glow-b: световое пятно 2
+ *   --color-floor: перспективный «пол» в hero
+ *   --color-scanline: скан-линии поверх страницы
+ *   --color-outline-text: контурные номера секций
+ *   --tape-bg: бегущая лента: фон
+ *   --tape-text: бегущая лента: текст
+ *   --tape2-bg: вторая лента: фон
+ *   --tape2-text: вторая лента: текст
+ *   --tape-shadow: тень ленты
+ *   --code-keyword: подсветка кода: ключевые слова
+ *   --code-string: строки
+ *   --code-number: числа/литералы
+ *   --code-comment: комментарии
+ *   --mock-line: линии в мини-мокапах
+ *   --mock-fill: заливка в мини-мокапах
+ *   --line-glow: box-shadow свечения линий
+ *   --color-mono-1..3: цвета монограмм в плитках навыков
+ */

@@ -1,0 +1,23 @@
+// Временный вид для этапа 0; дизайн переключателя — этап 1
+.langSwitch {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid var(--color-line);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: var(--ls-label);
+  text-decoration: none;
+
+  &[aria-current='true'] {
+    border-color: var(--color-mark);
+    color: var(--color-mark);
+  }
+}
