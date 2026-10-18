@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Заголовки: появление из помех</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@800&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}a{color:inherit}a:hover{opacity:.85}</style>
+</helmet>
+<div style="width: 1280px; height: 620px; box-sizing: border-box; padding: 48px; background: #08061c; background-image: linear-gradient(rgba(145,94,255,.09) 1px, transparent 1px), linear-gradient(90deg, rgba(145,94,255,.09) 1px, transparent 1px); background-size: 40px 40px; color: #ffffff; display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; align-items: center; gap: 14px; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #00e5ff">heading.decode() // раскадровка<span style="flex: 1; height: 1px; background: rgba(145,94,255,.28)"></span></div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px">
+
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="height: 170px; border: 1px solid rgba(145,94,255,.38); background: #120d2e; display: flex; align-items: center; padding: 0 22px; font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: 40px; letter-spacing: -.03em; white-space: nowrap; overflow: hidden">
+<span style="color: #ff3dd8">▓</span><span style="color: #00e5ff">#</span><span style="color: #b18cff">&amp;</span><span style="color: #00e5ff">&#160;</span><span style="color: #ff3dd8">░</span><span style="color: #00e5ff">%</span><span style="color: #b18cff">@</span><span style="color: #ff3dd8">/</span>
+</div>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #a9a4c9"><span style="color: #00e5ff">0 мс</span> · только помехи</span>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="height: 170px; border: 1px solid rgba(145,94,255,.38); background: #120d2e; display: flex; align-items: center; padding: 0 22px; font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: 40px; letter-spacing: -.03em; white-space: nowrap; overflow: hidden">
+<span>О</span><span style="color: #00e5ff">б</span><span style="color: #ff3dd8">0</span><span>&#160;</span><span style="color: #b18cff">▒</span><span style="color: #00e5ff">н</span><span style="color: #ff3dd8">&lt;</span><span style="color: #00e5ff">.</span>
+</div>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #a9a4c9"><span style="color: #00e5ff">120 мс</span> · фиксируется 1-й символ</span>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="height: 170px; border: 1px solid rgba(145,94,255,.38); background: #120d2e; display: flex; align-items: center; padding: 0 22px; font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: 40px; letter-spacing: -.03em; white-space: nowrap; overflow: hidden">
+<span>Обо</span><span>&#160;</span><span>м</span><span style="color: #ff3dd8">▓</span><span style="color: #00e5ff">e</span><span style="color: #b18cff">;</span>
+</div>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #a9a4c9"><span style="color: #00e5ff">260 мс</span> · фронт идёт слева направо</span>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="position: relative; height: 170px; border: 1px solid #00e5ff; box-shadow: 0 0 28px rgba(0,229,255,.35); background: #120d2e; display: flex; align-items: center; padding: 0 22px; font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: 40px; letter-spacing: -.03em; white-space: nowrap; overflow: hidden">
+<span aria-hidden="true" style="position: absolute; left: 19px; color: rgba(0,229,255,.55)">Обо мне.</span>
+<span aria-hidden="true" style="position: absolute; left: 25px; color: rgba(255,61,216,.55)">Обо мне.</span>
+<span style="position: relative">Обо мне.</span>
+</div>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #a9a4c9"><span style="color: #00e5ff">≈ 420 мс</span> · финал + короткий глитч-сдвиг</span>
+</div>
+
+</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; padding-top: 24px; border-top: 1px solid rgba(145,94,255,.28); font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.6; color: #b3aed3">
+<div><div style="color: #00e5ff; margin-bottom: 6px">// триггер</div>whileInView, 40% секции в зоне видимости, один раз</div>
+<div><div style="color: #00e5ff; margin-bottom: 6px">// ритм</div>~35 мс на символ; каждый символ 3–4 раза меняет случайный глиф</div>
+<div><div style="color: #00e5ff; margin-bottom: 6px">// глифы</div>▓ ▒ ░ # % &amp; @ 0 1 &lt; &gt; / ;</div>
+<div><div style="color: #00e5ff; margin-bottom: 6px">// доступность</div>aria-label = итоговый текст; reduced-motion → сразу финал</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":620}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

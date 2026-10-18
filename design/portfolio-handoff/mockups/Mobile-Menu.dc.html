@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Roman Cox — mobile, меню открыто</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;800&amp;family=Onest:wght@400;500&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:inherit;text-decoration:none}a:hover{opacity:.85}
+button{font:inherit;cursor:pointer}
+@keyframes rc-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes rc-spin{to{transform:rotate(360deg)}}
+@keyframes rc-bob{0%,100%{transform:translateY(-3px)}50%{transform:translateY(5px)}}
+.rc-mq{animation:rc-marquee 48s linear infinite}
+.rc-mq-rev{animation:rc-marquee 56s linear infinite reverse}
+.rc-mq:hover,.rc-mq-rev:hover{animation-play-state:paused}
+.rc-spin{animation:rc-spin 16s linear infinite}
+.rc-bob{animation:rc-bob 1.6s ease-in-out infinite}
+@media (prefers-reduced-motion: reduce){.rc-mq,.rc-mq-rev,.rc-spin,.rc-bob{animation:none}}
+</style>
+</helmet>
+<div style="position: relative; isolation: isolate; overflow-x: clip; background: {{t.bg}}; color: {{t.text}}; font-family: 'Onest', system-ui, sans-serif; font-size: 16px; line-height: 1.6; min-height: 100vh">
+<div aria-hidden="true" style="position: fixed; inset: 0; z-index: -1; pointer-events: none; background-image: linear-gradient({{t.grid}} 1px, transparent 1px), linear-gradient(90deg, {{t.grid}} 1px, transparent 1px); background-size: 56px 56px; background-position: -1px -1px">
+<canvas ref="{{pulseRef}}" data-pulse="{{pulseCols}}" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
+</div>
+
+
+<div aria-hidden="true" style="position: absolute; inset: 0; z-index: 40; pointer-events: none; background: repeating-linear-gradient(0deg, {{t.scan}} 0px, {{t.scan}} 1px, transparent 1px, transparent 3px)"></div>
+
+<header style="position: sticky; top: 0; z-index: 30; background: {{t.headerBg}}; backdrop-filter: blur(14px); border-bottom: 1px solid {{t.line}}">
+<div style="padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<a href="#top" aria-label="Roman Cox" style="display: flex; align-items: center; gap: 10px">
+<span style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: {{t.btnBg}}; color: {{t.btnText}}; clip-path: {{chS}}; font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: 16px; letter-spacing: -.04em">RC</span>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: {{t.dim}}">roman<span style="color: {{t.mark}}">_</span>cox</span>
+</a>
+<button type="button" onClick="{{menuToggle}}" aria-label="{{s.menu.open}}" aria-expanded="{{menuExpanded}}" style="width: 48px; height: 48px; padding: 0; border: 1px solid {{t.border}}; background: {{t.card}}; clip-path: {{chS}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px">
+<span style="width: 22px; height: 2px; background: {{t.mark}}; box-shadow: {{t.lineGlow}}"></span>
+<span style="width: 22px; height: 2px; background: {{t.text}}; transform: translateX(-4px)"></span>
+<span style="width: 22px; height: 2px; background: {{t.mark}}; box-shadow: {{t.lineGlow}}"></span>
+</button>
+</div>
+</header>
+
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+<div role="dialog" aria-modal="true" aria-label="{{s.menu.title}}" style="position: fixed; inset: 0; z-index: 60; overflow-y: auto; background-color: {{t.bg}}; background-image: linear-gradient({{t.grid}} 1px, transparent 1px), linear-gradient(90deg, {{t.grid}} 1px, transparent 1px); background-size: 40px 40px; color: {{t.text}}; display: flex; flex-direction: column">
+<div aria-hidden="true" style="position: absolute; top: -120px; right: -140px; width: 360px; height: 360px; border-radius: 50%; background: {{t.glowA}}; filter: blur(90px); pointer-events: none"></div>
+<div aria-hidden="true" style="position: absolute; bottom: -140px; left: -120px; width: 320px; height: 320px; border-radius: 50%; background: {{t.glowB}}; filter: blur(90px); pointer-events: none"></div>
+
+<div style="position: relative; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid {{t.line}}">
+<span style="display: flex; align-items: center; gap: 10px">
+<span style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: {{t.btnBg}}; color: {{t.btnText}}; clip-path: {{chS}}; font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: 16px; letter-spacing: -.04em">RC</span>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: {{t.mark}}">&gt; menu.open()</span>
+</span>
+<button type="button" onClick="{{menuClose}}" aria-label="{{s.menu.close}}" style="width: 48px; height: 48px; padding: 0; border: 1px solid {{t.mark}}; background: transparent; color: {{t.mark}}; clip-path: {{chS}}; display: flex; align-items: center; justify-content: center">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+</button>
+</div>
+
+<nav aria-label="{{s.menu.title}}" style="position: relative; padding: 16px 16px 8px; display: flex; flex-direction: column">
+<sc-for list="{{navItems}}" as="n" hint-placeholder-count="5">
+<a href="{{n.href}}" onClick="{{menuClose}}" style="display: flex; align-items: baseline; gap: 14px; padding: 14px 0; border-bottom: 1px solid {{t.line}}; color: {{t.text}}">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: {{t.mark}}">{{n.num}}</span>
+<span style="flex: 1; font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: 28px; letter-spacing: -.04em; line-height: 1.1">{{n.label}}</span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{t.dim}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg>
+</a>
+</sc-for>
+</nav>
+
+<div style="position: relative; padding: 16px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: {{t.dim}}">// {{s.menu.lang}}</span>
+<div role="group" aria-label="{{s.menu.lang}}" style="display: flex; border: 1px solid {{t.line}}; clip-path: {{chS}}">
+<sc-for list="{{langs}}" as="l" hint-placeholder-count="3">
+<button type="button" onClick="{{l.pick}}" aria-pressed="{{l.on}}" style="height: 44px; min-width: 52px; padding: 0 10px; border: 0; background: {{l.bg}}; color: {{l.fg}}; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700">{{l.label}}</button>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: {{t.dim}}">// {{s.menu.theme}}</span>
+<div role="group" aria-label="{{s.menu.theme}}" style="display: flex; gap: 6px">
+<sc-for list="{{themes}}" as="th" hint-placeholder-count="3">
+<button type="button" onClick="{{th.pick}}" aria-pressed="{{th.on}}" aria-label="{{th.label}}" style="height: 44px; padding: 0 12px; border: {{th.border}}; background: transparent; color: {{t.text}}; clip-path: {{chS}}; display: flex; align-items: center; gap: 8px; font-size: 13px">
+<span aria-hidden="true" style="width: 14px; height: 14px; background: {{th.swatch}}; transform: rotate(45deg)"></span>{{th.label}}</button>
+</sc-for>
+</div>
+</div>
+</div>
+
+<div style="position: relative; margin-top: auto; padding: 16px 16px 24px; display: flex; flex-direction: column; gap: 14px">
+<span style="display: flex; filter: {{t.btnGlow}}">
+<a href="Resume.dc.html" style="flex: 1; height: 56px; display: flex; align-items: center; justify-content: center; gap: 10px; background: {{t.btnBg}}; color: {{t.btnText}}; clip-path: {{chM}}; font-weight: 500; font-size: 16px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M5 21h14"></path></svg>{{s.nav.cv}}</a>
+</span>
+<div style="display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 13px">
+<a href="https://t.me/romancox" style="padding: 10px 0; color: {{t.mark}}">tg @romancox</a>
+<a href="https://github.com/RomanCox" style="padding: 10px 0; color: {{t.mark}}">gh RomanCox</a>
+</div>
+</div>
+</div>
+</sc-if>
+
+
+<section id="projects" style="position: relative; max-width: 1200px; margin: 0 auto; padding: 56px 24px 32px; display: flex; flex-direction: column; gap: 32px">
+<div aria-hidden="true" style="position: absolute; top: 20px; right: 16px; font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: 220px; line-height: 1; color: transparent; -webkit-text-stroke: 1px {{t.outline}}">04</div>
+<div style="position: relative; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; gap: 14px; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: {{t.mark}}">[04] // {{s.projTag}}<span style="flex: 1; height: 1px; background: {{t.line}}"></span></div>
+<h2 style="margin: 0; font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: clamp(36px, 5.5vw, 64px); letter-spacing: -.045em; line-height: 1.02">{{s.projTitle}}</h2>
+</div>
+<div style="position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr)); gap: 24px">
+<sc-for list="{{projects}}" as="p" hint-placeholder-count="3">
+<article style="grid-column: {{p.span}}; filter: {{t.drop}}">
+<div style="background: {{t.border}}; padding: {{t.bw}}; clip-path: {{chL}}; height: 100%; box-sizing: border-box">
+<div style="background: {{t.card}}; color: {{t.cardText}}; clip-path: {{chL}}; height: 100%; box-sizing: border-box; display: flex; flex-wrap: wrap; flex-direction: {{p.dir}}">
+<div style="flex: 1 1 480px; min-width: 0; padding: 22px; background: {{t.avatarBg}}; background-image: linear-gradient({{t.grid}} 1px, transparent 1px), linear-gradient(90deg, {{t.grid}} 1px, transparent 1px); background-size: 24px 24px">
+<div style="border: 1px solid {{t.mockLine}}; background: {{t.card}}; box-shadow: 0 18px 40px rgba(0,0,0,.25)">
+<div style="display: flex; align-items: center; gap: 6px; padding: 9px 12px; border-bottom: 1px solid {{t.mockLine}}">
+<span style="width: 9px; height: 9px; border-radius: 50%; background: {{t.magenta}}"></span><span style="width: 9px; height: 9px; border-radius: 50%; background: {{t.accent}}"></span><span style="width: 9px; height: 9px; border-radius: 50%; background: {{t.codeNum}}"></span>
+<span style="flex: 1; margin-left: 10px; padding: 3px 10px; background: {{t.mockFill}}; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: {{t.cardDim}}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{p.url}}</span>
+</div>
+<div style="height: {{p.mockH}}; padding: 16px; box-sizing: border-box; overflow: hidden">
+<sc-if value="{{p.isTodo}}" hint-placeholder-val="{{ true }}">
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; height: 100%">
+<sc-for list="{{todoCols}}" as="col" hint-placeholder-count="3">
+<div style="background: {{t.mockFill}}; border: 1px solid {{t.mockLine}}; padding: 12px; display: flex; flex-direction: column; gap: 10px">
+<span style="height: 9px; width: {{col.w}}; background: {{col.head}}"></span>
+<sc-for list="{{col.rows}}" as="r" hint-placeholder-count="3">
+<div style="display: flex; align-items: center; gap: 8px"><span style="flex: 0 0 12px; height: 12px; border: 1.5px solid {{r.boxBorder}}; background: {{r.boxBg}}"></span><span style="height: 6px; width: {{r.w}}; background: {{t.mockLine}}"></span></div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{p.isSocial}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; gap: 12px; height: 100%">
+<div style="flex: 0 0 26%; display: flex; flex-direction: column; gap: 9px; padding-top: 4px"><span style="height: 7px; width: 80%; background: {{t.accent}}"></span><span style="height: 7px; width: 65%; background: {{t.mockLine}}"></span><span style="height: 7px; width: 72%; background: {{t.mockLine}}"></span><span style="height: 7px; width: 55%; background: {{t.mockLine}}"></span></div>
+<div style="flex: 1; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; gap: 10px; padding: 10px; background: {{t.mockFill}}; border: 1px solid {{t.mockLine}}"><span style="width: 34px; height: 34px; border-radius: 50%; background: {{t.frame}}"></span><span style="display: flex; flex-direction: column; gap: 6px; flex: 1"><span style="height: 7px; width: 45%; background: {{t.cardDim}}"></span><span style="height: 6px; width: 70%; background: {{t.mockLine}}"></span></span></div>
+<div style="padding: 10px; background: {{t.mockFill}}; border: 1px solid {{t.mockLine}}; display: flex; flex-direction: column; gap: 6px"><span style="height: 6px; width: 90%; background: {{t.mockLine}}"></span><span style="height: 6px; width: 60%; background: {{t.mockLine}}"></span><span style="height: 6px; width: 30%; background: {{t.magenta}}"></span></div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{p.isClient}}" hint-placeholder-val="{{ false }}">
+<div style="height: 100%; border: 1px dashed {{t.mockLine}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: {{t.cardDim}}; text-align: center">
+<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M12 2v6M12 16v6M2 12h6M16 12h6"></path><circle cx="12" cy="12" r="3"></circle></svg>[СКРИНШОТ ПРОЕКТА]</div>
+</sc-if>
+</div>
+</div>
+</div>
+<div style="flex: 1 1 320px; min-width: 0; padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: {{t.cardDim}}">{{p.num}}</span>
+<span style="padding: 4px 10px; border: 1px solid {{p.badgeColor}}; color: {{p.badgeColor}}; font-family: 'JetBrains Mono', monospace; font-size: 12px; white-space: nowrap">{{p.badge}}</span>
+</div>
+<h3 style="margin: 0; font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: {{p.titleSize}}; letter-spacing: -.035em; line-height: 1.05">{{p.title}}</h3>
+<p style="margin: 0; font-size: 15px; color: {{t.cardDim}}; flex: 1">{{p.desc}}</p>
+<div style="display: flex; flex-wrap: wrap; gap: 6px"><sc-for list="{{p.tags}}" as="tg" hint-placeholder-count="3"><span style="padding: 4px 9px; background: {{t.chipBg}}; color: {{t.chipText}}; font-family: 'JetBrains Mono', monospace; font-size: 12px">#{{tg}}</span></sc-for></div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px">
+<sc-if value="{{p.hasLive}}" hint-placeholder-val="{{ true }}">
+<a href="{{p.live}}" style="height: 44px; display: inline-flex; align-items: center; gap: 8px; padding: 0 18px; background: {{t.accent}}; color: {{t.card}}; font-size: 14px; font-weight: 500; clip-path: {{chS}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg>{{s.live}}</a>
+</sc-if>
+<a href="https://github.com/RomanCox" style="height: 44px; display: inline-flex; align-items: center; gap: 8px; padding: 0 18px; border: 1px solid {{t.cardDim}}; color: {{t.cardText}}; font-size: 14px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 8-4 4 4 4"></path><path d="m16 8 4 4-4 4"></path></svg>{{s.code}}</a>
+</div>
+</div>
+</div>
+</div>
+</article>
+</sc-for>
+</div>
+<div style="display: flex; justify-content: center; margin-top: 16px">
+<span style="display: inline-flex; filter: {{t.btnGlow}}">
+<a href="#all-projects" style="height: 68px; display: inline-flex; align-items: center; gap: 18px; padding: 0 34px; background: {{t.btnBg}}; color: {{t.btnText}}; clip-path: {{chM}}; font-family: 'Unbounded', sans-serif; font-weight: 600; font-size: 18px; letter-spacing: -.02em">{{s.allProjects}}
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; opacity: .75">[N]</span>
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+</span>
+</div>
+</section>
+
+<section id="cv" style="position: relative; max-width: 1200px; margin: 0 auto; padding: 56px 24px 32px; display: flex; flex-direction: column; gap: 32px">
+<div aria-hidden="true" style="position: absolute; top: 20px; right: 16px; font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: 220px; line-height: 1; color: transparent; -webkit-text-stroke: 1px {{t.outline}}">05</div>
+<div style="position: relative; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; gap: 14px; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: {{t.mark}}">[05] // {{s.cvTag}}<span style="flex: 1; height: 1px; background: {{t.line}}"></span></div>
+<h2 style="margin: 0; font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: clamp(36px, 5.5vw, 64px); letter-spacing: -.045em; line-height: 1.02">{{s.cvHeading}}</h2>
+</div>
+<div style="position: relative; filter: {{t.drop}}">
+<div style="background: {{t.frame}}; padding: 2px; clip-path: {{chXL}}">
+<div style="background: {{t.card}}; color: {{t.cardText}}; clip-path: {{chXL}}; padding: 52px 52px 0; display: flex; flex-wrap: wrap; align-items: flex-end; gap: 32px; position: relative; overflow: hidden; background-image: linear-gradient({{t.grid}} 1px, transparent 1px), linear-gradient(90deg, {{t.grid}} 1px, transparent 1px); background-size: 32px 32px">
+<div style="flex: 1 1 440px; display: flex; flex-direction: column; gap: 16px; padding-bottom: 52px">
+<h3 style="margin: 0; font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: clamp(26px, 3.4vw, 40px); letter-spacing: -.04em; line-height: 1.08">{{s.cvTitle}}</h3>
+<p style="margin: 0; font-size: 17px; color: {{t.cardDim}}; max-width: 520px">{{s.cvText}}</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px">
+<a href="Resume.dc.html" style="height: 52px; display: inline-flex; align-items: center; gap: 10px; padding: 0 24px; background: {{t.accent}}; color: {{t.card}}; font-weight: 500; clip-path: {{chS}}">{{s.cvOpen}}<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+<a href="#download-ru" style="height: 52px; display: inline-flex; align-items: center; gap: 8px; padding: 0 18px; border: 1px solid {{t.cardDim}}; color: {{t.cardText}}; font-family: 'JetBrains Mono', monospace; font-size: 14px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M5 21h14"></path></svg>PDF · RU</a>
+<a href="#download-en" style="height: 52px; display: inline-flex; align-items: center; gap: 8px; padding: 0 18px; border: 1px solid {{t.cardDim}}; color: {{t.cardText}}; font-family: 'JetBrains Mono', monospace; font-size: 14px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M5 21h14"></path></svg>PDF · EN</a>
+</div>
+</div>
+<div aria-hidden="true" style="flex: 0 0 300px; height: 300px; position: relative">
+<div style="position: absolute; left: 10px; bottom: -30px; width: 210px; height: 290px; background: #ffffff; transform: rotate(-8deg); opacity: .55; box-shadow: 0 20px 40px rgba(0,0,0,.3)"></div>
+<div style="position: absolute; left: 70px; bottom: -40px; width: 220px; height: 300px; background: #ffffff; transform: rotate(5deg); box-shadow: 0 24px 50px rgba(0,0,0,.35); display: flex; flex-direction: column; overflow: hidden">
+<span style="height: 7px; background: linear-gradient(90deg, #00b8d4, #6d3fe0 50%, #d4148f)"></span>
+<div style="padding: 16px 18px; display: flex; flex-direction: column; gap: 8px">
+<span style="height: 13px; width: 70%; background: #14112b"></span><span style="height: 7px; width: 45%; background: #6d3fe0"></span><span style="height: 1px; width: 100%; background: #e3e1ee; margin: 6px 0"></span>
+<span style="height: 5px; width: 100%; background: #d9d6e8"></span><span style="height: 5px; width: 92%; background: #d9d6e8"></span><span style="height: 5px; width: 80%; background: #d9d6e8"></span>
+<span style="height: 7px; width: 35%; background: #00799a; margin-top: 8px"></span><span style="height: 5px; width: 96%; background: #d9d6e8"></span><span style="height: 5px; width: 74%; background: #d9d6e8"></span>
+</div>
+<span style="position: absolute; top: 18px; right: 14px; padding: 3px 8px; background: #d4148f; color: #ffffff; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700">PDF</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="contact" style="position: relative; max-width: 1200px; margin: 0 auto; padding: 56px 24px 48px; display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; align-items: center; gap: 14px; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: {{t.mark}}">[06] // {{s.contactTag}}<span style="flex: 1; height: 1px; background: {{t.line}}"></span></div>
+<h2 style="margin: 0; font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: clamp(40px, 7vw, 92px); letter-spacing: -.05em; line-height: .98">
+<span style="display: block">{{s.contactLine1}}</span>
+<span style="display: block; background: {{t.nameGrad}}; -webkit-background-clip: text; background-clip: text; color: transparent">{{s.contactLine2}}</span>
+</h2>
+<p style="margin: 0; max-width: 620px; font-size: 18px; color: {{t.dim}}">{{s.contactText}}</p>
+<div style="display: flex; flex-direction: column; border-top: 1px solid {{t.line}}">
+<sc-for list="{{contacts}}" as="ct" hint-placeholder-count="3">
+<a href="{{ct.href}}" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; padding: 26px 0; border-bottom: 1px solid {{t.line}}; color: {{t.text}}">
+<span style="flex: 0 0 140px; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: {{t.mark}}">{{ct.label}}</span>
+<span style="flex: 1 1 300px; font-family: 'Unbounded', sans-serif; font-weight: 600; font-size: clamp(22px, 3vw, 36px); letter-spacing: -.03em">{{ct.value}}</span>
+<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg>
+</a>
+</sc-for>
+</div>
+</section>
+
+<footer style="position: relative; border-top: 1px solid {{t.line}}; overflow: hidden">
+<div aria-hidden="true" style="max-width: 1200px; margin: 0 auto; padding: 36px 24px 0; font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: clamp(56px, 13vw, 190px); line-height: .9; letter-spacing: -.05em; white-space: nowrap; color: transparent; -webkit-text-stroke: 1px {{t.outline}}">ROMAN COX</div>
+<div style="max-width: 1200px; margin: 0 auto; padding: 24px 24px 32px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: {{t.dim}}">
+<span>© 2026 Roman Cox</span><span>{{s.footer}}</span><span style="color: {{t.mark}}">// end of transmission_</span>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["neon","light","citrus"],"default":"neon"},"lang":{"editor":"enum","options":["ru","en","be"],"default":"ru"},"menuOpen":{"editor":"boolean","default":true},"$preview":{"width":390,"height":844}}'>
+var THEMES = {
+  neon: { bg:'#08061c', grid:'rgba(145,94,255,.09)', text:'#ffffff', dim:'#a9a4c9', mark:'#00e5ff', line:'rgba(145,94,255,.28)', card:'#120d2e', border:'rgba(145,94,255,.55)', bw:'1px', cardText:'#ffffff', cardDim:'#b3aed3', accent:'#00e5ff', magenta:'#ff3dd8', btnBg:'#00e5ff', btnText:'#07061a', btnGlow:'drop-shadow(0 0 16px rgba(0,229,255,.55))', nameGrad:'linear-gradient(90deg,#b18cff 0%,#ff3dd8 50%,#00e5ff 100%)', glitchA:'rgba(0,229,255,.55)', glitchB:'rgba(255,61,216,.55)', drop:'drop-shadow(0 0 22px rgba(155,107,255,.28))', chipBg:'rgba(0,229,255,.08)', chipBorder:'1px solid rgba(0,229,255,.30)', chipText:'#bff9ff', headerBg:'rgba(8,6,28,.78)', dot:'#39ff88', frame:'linear-gradient(135deg,#00e5ff,#9b6bff 50%,#ff3dd8)', avatarBg:'#19123f', glowA:'rgba(124,58,255,.55)', glowB:'rgba(255,61,216,.32)', floor:'rgba(0,229,255,.45)', scan:'rgba(255,255,255,.028)', outline:'rgba(145,94,255,.30)', tapeBg:'#00e5ff', tapeText:'#07061a', tape2Bg:'#ff3dd8', tape2Text:'#07061a', tapeShadow:'0 0 40px rgba(0,229,255,.45)', codeKey:'#b18cff', codeStr:'#ff7ae6', codeNum:'#00e5ff', codeCom:'#8d88b3', mockLine:'rgba(255,255,255,.12)', mockFill:'rgba(255,255,255,.04)', lineGlow:'0 0 12px rgba(0,229,255,.6)', mono:['#00e5ff','#ff3dd8','#b18cff'] },
+  light: { bg:'#f3f2fa', grid:'rgba(91,46,224,.06)', text:'#14112b', dim:'#4d4870', mark:'#00799a', line:'rgba(20,17,43,.12)', card:'#ffffff', border:'rgba(20,17,43,.14)', bw:'1px', cardText:'#14112b', cardDim:'#4d4870', accent:'#00799a', magenta:'#c0127f', btnBg:'#14112b', btnText:'#ffffff', btnGlow:'none', nameGrad:'linear-gradient(90deg,#5b2ee0 0%,#c0127f 55%,#00799a 100%)', glitchA:'rgba(0,121,154,.30)', glitchB:'rgba(192,18,127,.30)', drop:'drop-shadow(0 14px 26px rgba(20,17,43,.08))', chipBg:'rgba(0,121,154,.07)', chipBorder:'1px solid rgba(0,121,154,.28)', chipText:'#005a73', headerBg:'rgba(243,242,250,.86)', dot:'#0a8f4f', frame:'linear-gradient(135deg,#00799a,#5b2ee0 50%,#c0127f)', avatarBg:'#e9e6f8', glowA:'rgba(91,46,224,.18)', glowB:'rgba(192,18,127,.12)', floor:'rgba(91,46,224,.28)', scan:'transparent', outline:'rgba(20,17,43,.10)', tapeBg:'#14112b', tapeText:'#ffffff', tape2Bg:'#00799a', tape2Text:'#ffffff', tapeShadow:'none', codeKey:'#5b2ee0', codeStr:'#c0127f', codeNum:'#00799a', codeCom:'#6b6690', mockLine:'rgba(20,17,43,.12)', mockFill:'rgba(20,17,43,.04)', lineGlow:'none', mono:['#00799a','#c0127f','#5b2ee0'] },
+  citrus: { bg:'#ff6a1a', grid:'rgba(28,8,56,.10)', text:'#1c0838', dim:'#3a1650', mark:'#1c0838', line:'rgba(28,8,56,.28)', card:'#1c0838', border:'#1c0838', bw:'2px', cardText:'#ffffff', cardDim:'#d6cdea', accent:'#ffe14d', magenta:'#ff8fcf', btnBg:'#1c0838', btnText:'#ffe14d', btnGlow:'drop-shadow(4px 4px 0 #ffe14d)', nameGrad:'linear-gradient(90deg,#1c0838 0%,#4a0a63 55%,#7a003d 100%)', glitchA:'rgba(255,225,77,.95)', glitchB:'rgba(255,143,207,.95)', drop:'drop-shadow(7px 7px 0 #1c0838)', chipBg:'rgba(255,225,77,.10)', chipBorder:'1px solid rgba(255,225,77,.45)', chipText:'#ffe14d', headerBg:'rgba(255,106,26,.92)', dot:'#ffe14d', frame:'linear-gradient(135deg,#ffe14d,#ff8fcf 50%,#c4a3ff)', avatarBg:'#2a0e52', glowA:'rgba(255,225,77,.60)', glowB:'rgba(255,143,207,.50)', floor:'rgba(28,8,56,.32)', scan:'transparent', outline:'rgba(28,8,56,.30)', tapeBg:'#1c0838', tapeText:'#ffe14d', tape2Bg:'#ffe14d', tape2Text:'#1c0838', tapeShadow:'6px 6px 0 rgba(28,8,56,.35)', codeKey:'#ffe14d', codeStr:'#ff8fcf', codeNum:'#c4a3ff', codeCom:'#b9aed6', mockLine:'rgba(255,255,255,.14)', mockFill:'rgba(255,255,255,.06)', lineGlow:'none', mono:['#ffe14d','#ff8fcf','#c4a3ff'] }
+};
+var SWATCH = { neon:'linear-gradient(135deg,#00e5ff,#ff3dd8)', light:'linear-gradient(135deg,#ffffff,#b9b0ee)', citrus:'linear-gradient(135deg,#ff6a1a,#ffe14d)' };
+var CH = function (n) { return 'polygon(0 0, calc(100% - ' + n + 'px) 0, 100% ' + n + 'px, 100% 100%, ' + n + 'px 100%, 0 calc(100% - ' + n + 'px))'; };
+
+var I18N = {
+  ru: {
+    menu:{ open:'Открыть меню', close:'Закрыть меню', title:'Меню', lang:'язык', theme:'тема' },
+    nav: { about:'Обо мне', skills:'Навыки', exp:'Опыт', projects:'Проекты', contact:'Контакты', cv:'Резюме' },
+    themeNames: { neon:'Неон', light:'Светлая', citrus:'Цитрус' },
+    status:'Открыт к фрилансу и предложениям',
+    hi:'Привет, я', name:'Роман Кокс', role:'front-end разработчик', city:'Минск',
+    lead:'Делаю быстрые и аккуратные интерфейсы на React и TypeScript — от вёрстки до логики состояния.',
+    cueRing:'листай вниз · scroll down · ', scrollAria:'Прокрутить к разделу «Обо мне»',
+    stats: [ { v:'[N]+', l:'лет в разработке' }, { v:'[N]', l:'проектов в портфолио' } ],
+    aboutTag:'обо мне', aboutTitle:'Обо мне.', codeComment:'// коротко обо мне', focus:'интерфейсы, которые приятно трогать',
+    slides: [
+      { n:'01', icon:'~$', tag:'кто я', title:'Front-end из Минска', text:'Пишу на React, TypeScript и Redux, верстаю на SASS и styled-components. [1–2 предложения о том, что тебе интересно и чем ты полезен команде.]', points:['Минск · UTC+3 · работаю удалённо','Открыт к фрилансу и предложениям','[Ещё один факт о себе]'] },
+      { n:'02', icon:'</>', tag:'вёрстка', title:'Вёрстка', text:'Семантичная разметка и адаптив от 320px до широких экранов — без «поехавших» блоков.', points:['HTML5, CSS3, SASS','CSS Modules, styled-components','Адаптив и кроссбраузерность'] },
+      { n:'03', icon:'{ }', tag:'приложения', title:'React-приложения', text:'Компонентная архитектура, роутинг, глобальное состояние и строгая типизация.', points:['React + TypeScript','Redux, React Router','[Тесты? Next.js?]'] },
+      { n:'04', icon:'~*', tag:'анимации', title:'Живые интерфейсы', text:'Анимации и микровзаимодействия, которые не просаживают производительность.', points:['CSS-анимации и переходы','Canvas API','[Motion / GSAP?]'] }
+    ],
+    aboutText:'Front-end разработчик из Минска. Пишу на React, TypeScript и Redux, верстаю на SASS и styled-components. [1–2 предложения о том, что тебе интересно и чем ты полезен команде.]',
+    cards: [
+      { icon:'</>', title:'Вёрстка', text:'Семантичная разметка, адаптив от 320px до широких экранов.' },
+      { icon:'{ }', title:'React-приложения', text:'Компоненты, роутинг, Redux, строгая типизация.' },
+      { icon:'~*', title:'Живые интерфейсы', text:'Анимации, Canvas API, микровзаимодействия.' },
+      { icon:'[ ]', title:'[Навык 4]', text:'[Короткое пояснение.]' },
+      { icon:'[ ]', title:'[Навык 5]', text:'[Короткое пояснение.]' }
+    ],
+    ab: {
+      locTag:'локация', locText:'Работаю удалённо, на связи в рабочие часы по Минску. [Готов к релокации?]',
+      flowTag:'процесс', flowTitle:'Как я работаю',
+      flow:[ { n:'01', t:'Разбираюсь в задаче и макете' }, { n:'02', t:'Верстаю и собираю компоненты' }, { n:'03', t:'Подключаю логику и данные' }, { n:'04', t:'Тестирую и деплою' } ],
+      nowTag:'сейчас', nowTitle:'Что прокачиваю', nowText:'[Одной фразой: зачем и куда растёшь.]',
+      now:[ { t:'[Технология 1]', p:'70%' }, { t:'[Технология 2]', p:'45%' }, { t:'[Технология 3]', p:'25%' } ],
+      offTag:'вне кода', offTitle:'Когда не пишу код', offText:'[Хобби и интересы — фото или пара строк о том, чем живёшь вне работы]'
+    },
+    skillsTag:'навыки', skillsTitle:'Навыки.',
+    rows:{ core:'// ядро', style:'// разметка и стили', tools:'// инструменты' },
+    expTag:'опыт работы', expTitle:'Опыт.', expDid:'// что делал', expStack:'// стек',
+    jobs: [
+      { company:'[Компания]', role:'[Должность]', loc:'[Город] · [офис / удалённо]', period:'[мес. ГГГГ] — сейчас', dur:'[N] г. [N] мес.', summary:'[Одним абзацем: что за продукт и твоя зона ответственности.]', bullets:['[Задача и результат в цифрах]','[Фича или модуль, за который отвечал]','[Что улучшил: скорость, процессы, качество]','[Взаимодействие с дизайном, бэкендом, QA]'], stack:['React','TypeScript','Redux','[…]'] },
+      { company:'Фриланс', role:'Front-end разработчик', loc:'Минск · удалённо', period:'[ГГГГ] — сейчас', dur:'[N] г.', summary:'[Для кого делал сайты и интерфейсы, сколько проектов.]', bullets:['[Проект 1: задача клиента и результат]','[Проект 2: задача клиента и результат]','[Что повторяется: адаптив, анимации, интеграции]'], stack:['React','SASS','Vite','Vercel'] },
+      { company:'[Курс / обучение]', role:'[Студент / стажёр]', loc:'[Город / онлайн]', period:'[ГГГГ] — [ГГГГ]', dur:'[N] мес.', summary:'[Чему научился и какой итоговый проект.]', bullets:['[Ключевой навык 1]','[Ключевой навык 2]','[Итоговый проект]'], stack:['JavaScript','React','[…]'] }
+    ],
+    projTag:'проекты', projTitle:'Проекты.', allProjects:'Все проекты',
+    badges: { work:'коммерция', wip:'в работе', featured:'избранное' },
+    projects: { todo:'Менеджер задач со списками, фильтрами и состоянием на Redux. [Ключевые фичи и самое сложное.]', social:'Социальная сеть: профили, лента, сообщения. [Уточни функционал.]', client:'[Коммерческий проект: задача клиента, твоя роль, результат.]' },
+    live:'Демо', code:'Код',
+    cvTag:'резюме', cvHeading:'Резюме.', cvTitle:'Всё обо мне — на одной странице.',
+    cvText:'Опыт, навыки и проекты в аккуратном формате. Смотри онлайн или скачай PDF.', cvOpen:'Открыть резюме',
+    contactTag:'контакты', contactLine1:'Есть проект?', contactLine2:'Давай обсудим.',
+    contactText:'Открыт для фриланса и интересных задач — пиши в любой канал.', footer:'Минск · сделано вручную'
+  },
+  en: {
+    menu:{ open:'Open menu', close:'Close menu', title:'Menu', lang:'language', theme:'theme' },
+    nav: { about:'About', skills:'Skills', exp:'Experience', projects:'Projects', contact:'Contact', cv:'Resume' },
+    themeNames: { neon:'Neon', light:'Light', citrus:'Citrus' },
+    status:'Open to freelance & offers',
+    hi:'Hi, I’m', name:'Roman Cox', role:'front-end developer', city:'Minsk',
+    lead:'I build fast, tidy interfaces with React and TypeScript — from layout to state logic.',
+    cueRing:'scroll down · scroll down · ', scrollAria:'Scroll to the About section',
+    stats: [ { v:'[N]+', l:'years of coding' }, { v:'[N]', l:'portfolio projects' } ],
+    aboutTag:'about', aboutTitle:'About.', codeComment:'// in short', focus:'interfaces that feel good',
+    slides: [
+      { n:'01', icon:'~$', tag:'who', title:'Front-end from Minsk', text:'I write React, TypeScript and Redux, and style with SASS and styled-components. [1–2 sentences on what drives you and what you bring to a team.]', points:['Minsk · UTC+3 · remote','Open to freelance and offers','[One more fact about you]'] },
+      { n:'02', icon:'</>', tag:'layout', title:'Layout', text:'Semantic markup and responsive layouts from 320px to wide screens — nothing drifting out of place.', points:['HTML5, CSS3, SASS','CSS Modules, styled-components','Responsive and cross-browser'] },
+      { n:'03', icon:'{ }', tag:'apps', title:'React apps', text:'Component architecture, routing, global state and strict typing.', points:['React + TypeScript','Redux, React Router','[Testing? Next.js?]'] },
+      { n:'04', icon:'~*', tag:'motion', title:'Living interfaces', text:'Animation and micro-interactions that don’t hurt performance.', points:['CSS animation and transitions','Canvas API','[Motion / GSAP?]'] }
+    ],
+    aboutText:'Front-end developer from Minsk. I write React, TypeScript and Redux, and style with SASS and styled-components. [1–2 sentences on what drives you and what you bring to a team.]',
+    cards: [
+      { icon:'</>', title:'Layout', text:'Semantic markup, responsive from 320px to wide screens.' },
+      { icon:'{ }', title:'React apps', text:'Components, routing, Redux, strict typing.' },
+      { icon:'~*', title:'Living interfaces', text:'Animation, Canvas API, micro-interactions.' },
+      { icon:'[ ]', title:'[Skill 4]', text:'[Short note.]' },
+      { icon:'[ ]', title:'[Skill 5]', text:'[Short note.]' }
+    ],
+    ab: {
+      locTag:'location', locText:'Working remotely, available during Minsk business hours. [Open to relocation?]',
+      flowTag:'process', flowTitle:'How I work',
+      flow:[ { n:'01', t:'Understand the task and design' }, { n:'02', t:'Build layout and components' }, { n:'03', t:'Wire up logic and data' }, { n:'04', t:'Test and deploy' } ],
+      nowTag:'now', nowTitle:'Leveling up', nowText:'[One line: where you’re heading and why.]',
+      now:[ { t:'[Technology 1]', p:'70%' }, { t:'[Technology 2]', p:'45%' }, { t:'[Technology 3]', p:'25%' } ],
+      offTag:'off-code', offTitle:'When I’m not coding', offText:'[Hobbies and interests — a photo or a couple of lines about life outside work]'
+    },
+    skillsTag:'skills', skillsTitle:'Skills.',
+    rows:{ core:'// core', style:'// markup & styles', tools:'// tooling' },
+    expTag:'work experience', expTitle:'Experience.', expDid:'// what I did', expStack:'// stack',
+    jobs: [
+      { company:'[Company]', role:'[Position]', loc:'[City] · [office / remote]', period:'[Mon YYYY] — now', dur:'[N] yr [N] mo', summary:'[One paragraph: the product and your area of ownership.]', bullets:['[Task and measurable result]','[Feature or module you owned]','[What you improved: speed, process, quality]','[Work with design, backend, QA]'], stack:['React','TypeScript','Redux','[…]'] },
+      { company:'Freelance', role:'Front-end developer', loc:'Minsk · remote', period:'[YYYY] — now', dur:'[N] yr', summary:'[Who you built sites and interfaces for, and how many.]', bullets:['[Project 1: client goal and result]','[Project 2: client goal and result]','[Recurring work: responsive, animation, integrations]'], stack:['React','SASS','Vite','Vercel'] },
+      { company:'[Course / education]', role:'[Student / intern]', loc:'[City / online]', period:'[YYYY] — [YYYY]', dur:'[N] mo', summary:'[What you learned and the final project.]', bullets:['[Key skill 1]','[Key skill 2]','[Final project]'], stack:['JavaScript','React','[…]'] }
+    ],
+    projTag:'projects', projTitle:'Projects.', allProjects:'All projects',
+    badges: { work:'commercial', wip:'in progress', featured:'featured' },
+    projects: { todo:'Task manager with lists, filters and Redux state. [Key features and the hardest part.]', social:'Social network: profiles, feed, messages. [Clarify the feature set.]', client:'[Commercial project: client’s goal, your role, the outcome.]' },
+    live:'Live', code:'Code',
+    cvTag:'resume', cvHeading:'Resume.', cvTitle:'Everything about me on one page.',
+    cvText:'Experience, skills and projects in a clean format. View online or download a PDF.', cvOpen:'Open resume',
+    contactTag:'contact', contactLine1:'Got a project?', contactLine2:'Let’s talk.',
+    contactText:'Open to freelance and interesting problems — reach out on any channel.', footer:'Minsk · handmade'
+  },
+  be: {
+    menu:{ open:'Адкрыць меню', close:'Закрыць меню', title:'Меню', lang:'мова', theme:'тэма' },
+    nav: { about:'Пра мяне', skills:'Навыкі', exp:'Досвед', projects:'Праекты', contact:'Кантакты', cv:'Рэзюмэ' },
+    themeNames: { neon:'Неон', light:'Светлая', citrus:'Цытрус' },
+    status:'Адкрыты да фрылансу і прапаноў',
+    hi:'Прывітанне, я', name:'Раман Кокс', role:'front-end распрацоўшчык', city:'Мінск',
+    lead:'Раблю хуткія і акуратныя інтэрфейсы на React і TypeScript — ад вёрсткі да логікі стану.',
+    cueRing:'гартай уніз · scroll down · ', scrollAria:'Пракруціць да раздзела «Пра мяне»',
+    stats: [ { v:'[N]+', l:'гадоў у распрацоўцы' }, { v:'[N]', l:'праектаў у партфоліа' } ],
+    aboutTag:'пра мяне', aboutTitle:'Пра мяне.', codeComment:'// коратка пра мяне', focus:'інтэрфейсы, якія прыемна чапаць',
+    slides: [
+      { n:'01', icon:'~$', tag:'хто я', title:'Front-end з Мінска', text:'Пішу на React, TypeScript і Redux, вярстаю на SASS і styled-components. [1–2 сказы пра тое, што табе цікава.]', points:['Мінск · UTC+3 · працую аддалена','Адкрыты да фрылансу і прапаноў','[Яшчэ адзін факт пра сябе]'] },
+      { n:'02', icon:'</>', tag:'вёрстка', title:'Вёрстка', text:'Семантычная разметка і адаптыў ад 320px да шырокіх экранаў.', points:['HTML5, CSS3, SASS','CSS Modules, styled-components','Адаптыў і кросбраўзернасць'] },
+      { n:'03', icon:'{ }', tag:'праграмы', title:'React-праграмы', text:'Кампанентная архітэктура, маршрутызацыя, глабальны стан і строгая тыпізацыя.', points:['React + TypeScript','Redux, React Router','[Тэсты? Next.js?]'] },
+      { n:'04', icon:'~*', tag:'анімацыі', title:'Жывыя інтэрфейсы', text:'Анімацыі і мікравзаемадзеянні без страты прадукцыйнасці.', points:['CSS-анімацыі і пераходы','Canvas API','[Motion / GSAP?]'] }
+    ],
+    aboutText:'Front-end распрацоўшчык з Мінска. Пішу на React, TypeScript і Redux, вярстаю на SASS і styled-components. [1–2 сказы пра тое, што табе цікава.]',
+    cards: [
+      { icon:'</>', title:'Вёрстка', text:'Семантычная разметка, адаптыў ад 320px да шырокіх экранаў.' },
+      { icon:'{ }', title:'React-праграмы', text:'Кампаненты, маршрутызацыя, Redux, строгая тыпізацыя.' },
+      { icon:'~*', title:'Жывыя інтэрфейсы', text:'Анімацыі, Canvas API, мікравзаемадзеянні.' },
+      { icon:'[ ]', title:'[Навык 4]', text:'[Кароткае тлумачэнне.]' },
+      { icon:'[ ]', title:'[Навык 5]', text:'[Кароткае тлумачэнне.]' }
+    ],
+    ab: {
+      locTag:'лакацыя', locText:'Працую аддалена, на сувязі ў працоўныя гадзіны па Мінску. [Гатовы да рэлакацыі?]',
+      flowTag:'працэс', flowTitle:'Як я працую',
+      flow:[ { n:'01', t:'Разбіраюся ў задачы і макеце' }, { n:'02', t:'Вярстаю і збіраю кампаненты' }, { n:'03', t:'Падключаю логіку і даныя' }, { n:'04', t:'Тэстую і дэплою' } ],
+      nowTag:'зараз', nowTitle:'Што прапампоўваю', nowText:'[Адной фразай: куды і навошта расцеш.]',
+      now:[ { t:'[Тэхналогія 1]', p:'70%' }, { t:'[Тэхналогія 2]', p:'45%' }, { t:'[Тэхналогія 3]', p:'25%' } ],
+      offTag:'па-за кодам', offTitle:'Калі не пішу код', offText:'[Хобі і інтарэсы — фота або пара радкоў пра жыццё па-за працай]'
+    },
+    skillsTag:'навыкі', skillsTitle:'Навыкі.',
+    rows:{ core:'// ядро', style:'// разметка і стылі', tools:'// інструменты' },
+    expTag:'досвед працы', expTitle:'Досвед.', expDid:'// што рабіў', expStack:'// стэк',
+    jobs: [
+      { company:'[Кампанія]', role:'[Пасада]', loc:'[Горад] · [офіс / аддалена]', period:'[мес. ГГГГ] — зараз', dur:'[N] г. [N] мес.', summary:'[Адным абзацам: што за прадукт і твая зона адказнасці.]', bullets:['[Задача і вынік у лічбах]','[Фіча або модуль, за які адказваў]','[Што палепшыў: хуткасць, працэсы, якасць]','[Праца з дызайнам, бэкендам, QA]'], stack:['React','TypeScript','Redux','[…]'] },
+      { company:'Фрыланс', role:'Front-end распрацоўшчык', loc:'Мінск · аддалена', period:'[ГГГГ] — зараз', dur:'[N] г.', summary:'[Для каго рабіў сайты і інтэрфейсы, колькі праектаў.]', bullets:['[Праект 1: задача кліента і вынік]','[Праект 2: задача кліента і вынік]','[Што паўтараецца: адаптыў, анімацыі, інтэграцыі]'], stack:['React','SASS','Vite','Vercel'] },
+      { company:'[Курс / навучанне]', role:'[Студэнт / стажор]', loc:'[Горад / онлайн]', period:'[ГГГГ] — [ГГГГ]', dur:'[N] мес.', summary:'[Чаму навучыўся і які выніковы праект.]', bullets:['[Ключавы навык 1]','[Ключавы навык 2]','[Выніковы праект]'], stack:['JavaScript','React','[…]'] }
+    ],
+    projTag:'праекты', projTitle:'Праекты.', allProjects:'Усе праекты',
+    badges: { work:'камерцыя', wip:'у рабоце', featured:'выбранае' },
+    projects: { todo:'Менеджар задач са спісамі, фільтрамі і станам на Redux. [Ключавыя фічы і самае складанае.]', social:'Сацыяльная сетка: профілі, стужка, паведамленні. [Удакладні функцыянал.]', client:'[Камерцыйны праект: задача, твая роля, вынік.]' },
+    live:'Дэма', code:'Код',
+    cvTag:'рэзюмэ', cvHeading:'Рэзюмэ.', cvTitle:'Усё пра мяне — на адной старонцы.',
+    cvText:'Досвед, навыкі і праекты ў акуратным фармаце. Глядзі онлайн або спампуй PDF.', cvOpen:'Адкрыць рэзюмэ',
+    contactTag:'кантакты', contactLine1:'Ёсць праект?', contactLine2:'Давай абмяркуем.',
+    contactText:'Адкрыты для фрылансу і цікавых задач — пішы ў любы канал.', footer:'Мінск · зроблена ўручную'
+  }
+};
+
+/* ---- Site-wide living background: grid pulses born at the cursor ---- */
+function startPulseBg(me) {
+  var cv = me.pulseCv; if (!cv) return null;
+  if ((window.innerHeight || 0) > 1600) return null; /* canvas view of the editor: static grid only */
+  var ctx = cv.getContext('2d'), CELL = 56, OFF = -1, W = 0, H = 0, dpr = 1;
+  var DIRS = [[1, 0], [-1, 0], [0, 1], [0, -1]], pulses = [], flashes = [], acc = 0, raf = 0, prev = performance.now();
+  var mouse = null, speed = 0, touch = window.matchMedia && window.matchMedia('(hover: none)').matches;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var resize = function () { dpr = Math.min(window.devicePixelRatio || 1, 2); W = window.innerWidth; H = window.innerHeight; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
+  var onMove = function (e) { var m = { x: e.clientX, y: e.clientY, t: performance.now() }; if (mouse) { var dt = Math.max(1, m.t - mouse.t); speed = speed * 0.6 + (Math.hypot(m.x - mouse.x, m.y - mouse.y) / dt) * 0.4; } mouse = m; };
+  var onLeave = function () { mouse = null; speed = 0; };
+  var cols = function () { return (cv.getAttribute('data-pulse') || '0,229,255|255,61,216|177,140,255').split('|'); };
+  var spawn = function (x, y) {
+    if (pulses.length > 46) return;
+    var c = cols();
+    var gx = Math.round((x - OFF) / CELL) * CELL + OFF, gy = Math.round((y - OFF) / CELL) * CELL + OFF, d = DIRS[Math.floor(Math.random() * 4)];
+    pulses.push({ x: gx, y: gy, dx: d[0], dy: d[1], sp: 0.22 + Math.random() * 0.16, c: c[Math.floor(Math.random() * c.length)], trail: [[gx, gy]], travelled: 0, max: 380 + Math.random() * 520, toNode: CELL });
+    flashes.push({ x: gx, y: gy, a: 1, c: c[0] });
+  };
+  var frame = function (now) {
+    raf = requestAnimationFrame(frame);
+    var dt = Math.min(50, now - prev); prev = now;
+    if (document.hidden) return;
+    speed *= 0.92;
+    ctx.clearRect(0, 0, W, H);
+    if (reduce) return;
+    var inHero = (window.scrollY || 0) < H * 0.8;
+    ctx.globalAlpha = inHero ? 1 : 0.55;
+    var interval = mouse && !touch ? Math.max(45, 900 / (1 + speed * 9)) : (touch ? 2600 : (inHero ? 1700 : 3200));
+    acc += dt;
+    while (acc >= interval) { acc -= interval; if (mouse && !touch) spawn(mouse.x, mouse.y); else spawn(Math.random() * W, Math.random() * H); }
+    for (var i = pulses.length - 1; i >= 0; i--) {
+      var p = pulses[i], step = p.sp * dt;
+      while (step > 0) { var s = Math.min(step, p.toNode); p.x += p.dx * s; p.y += p.dy * s; p.toNode -= s; step -= s; p.travelled += s;
+        if (p.toNode <= 0.001) { p.toNode = CELL; p.trail.push([p.x, p.y]); if (Math.random() < 0.3) { var tn = Math.random() < 0.5 ? 1 : -1, nx = p.dy * tn, ny = -p.dx * tn; p.dx = nx; p.dy = ny; } } }
+      var fade = p.travelled > p.max ? Math.max(0, 1 - (p.travelled - p.max) / 160) : 1;
+      if (fade <= 0 || p.x < -200 || p.x > W + 200 || p.y < -200 || p.y > H + 200) { pulses.splice(i, 1); continue; }
+      var pts = p.trail.concat([[p.x, p.y]]), len = 0, TAIL = 150;
+      ctx.lineWidth = 1.5; ctx.lineCap = 'square';
+      for (var k = pts.length - 1; k > 0 && len < TAIL; k--) {
+        var ax = pts[k][0], ay = pts[k][1], bx = pts[k - 1][0], by = pts[k - 1][1], seg = Math.hypot(ax - bx, ay - by), use = Math.min(seg, TAIL - len);
+        var ex = ax + (bx - ax) * (use / (seg || 1)), ey = ay + (by - ay) * (use / (seg || 1)), g = ctx.createLinearGradient(ax, ay, ex, ey);
+        g.addColorStop(0, 'rgba(' + p.c + ',' + (0.95 * (1 - len / TAIL) * fade).toFixed(3) + ')');
+        g.addColorStop(1, 'rgba(' + p.c + ',' + (0.95 * (1 - (len + use) / TAIL) * fade).toFixed(3) + ')');
+        ctx.strokeStyle = g; ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(ex, ey); ctx.stroke(); len += use;
+      }
+      ctx.fillStyle = 'rgba(' + p.c + ',' + fade.toFixed(3) + ')'; ctx.fillRect(p.x - 1.5, p.y - 1.5, 3, 3);
+      if (p.trail.length > 12) p.trail.splice(0, p.trail.length - 12);
+    }
+    for (var j = flashes.length - 1; j >= 0; j--) { var f = flashes[j]; f.a -= dt / 500; if (f.a <= 0) { flashes.splice(j, 1); continue; } var sz = 4 + (1 - f.a) * 10; ctx.strokeStyle = 'rgba(' + f.c + ',' + f.a.toFixed(3) + ')'; ctx.lineWidth = 1; ctx.strokeRect(f.x - sz / 2, f.y - sz / 2, sz, sz); }
+    ctx.globalAlpha = 1;
+  };
+  resize();
+  window.addEventListener('resize', resize); window.addEventListener('mousemove', onMove); document.addEventListener('mouseleave', onLeave);
+  raf = requestAnimationFrame(frame);
+  return function () { cancelAnimationFrame(raf); window.removeEventListener('resize', resize); window.removeEventListener('mousemove', onMove); document.removeEventListener('mouseleave', onLeave); };
+}
+var PULSE_COLS = { neon: '0,229,255|255,61,216|177,140,255', light: '0,121,154|192,18,127|91,46,224', citrus: '28,8,56|74,10,99|255,240,160' };
+
+class Component extends DCLogic {
+  componentDidMount() {
+    var me = this;
+    this._pulseT = setTimeout(function () { me._pulseOff = startPulseBg(me); }, 80);
+    this._tick = function () {
+      if (me._raf) return;
+      me._raf = requestAnimationFrame(function () { me._raf = 0; me.measure(); });
+    };
+    this._onScroll = function (e) {
+      var tg = e && e.target;
+      var pageScroll = !tg || tg === document || tg === document.documentElement || tg === document.body || (tg.contains && me.outerEl && tg.contains(me.outerEl));
+      if (pageScroll) me._scrolled = true;
+      me._tick();
+    };
+    document.addEventListener('scroll', this._onScroll, true);
+    window.addEventListener('resize', this._tick);
+    this._t = setTimeout(this._tick, 400);
+    this._tick();
+  }
+  componentWillUnmount() {
+    clearTimeout(this._pulseT); if (this._pulseOff) this._pulseOff();
+    document.removeEventListener('scroll', this._onScroll, true);
+    window.removeEventListener('resize', this._tick);
+    clearTimeout(this._t);
+    if (this._raf) cancelAnimationFrame(this._raf);
+  }
+  measure() {
+    var outer = this.outerEl, track = this.trackEl, view = this.viewEl;
+    if (!outer || !track || !view) return;
+    var vh = window.innerHeight || 0;
+    var pin = !!this._scrolled && window.innerWidth >= 900 && vh > 500 && vh < 1400;
+    var vw = view.clientWidth;
+    var nS = track.children.length || 1;
+    var W = vw - 72, G = 24, startX0 = vw - 0.3 * W;
+    var dist = Math.max(0, Math.round(startX0 + (nS - 1) * (W + G) - G));
+    var p = 0;
+    if (pin && dist > 0) {
+      var r = outer.getBoundingClientRect();
+      var total = r.height - vh;
+      p = total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 0;
+    }
+    var st = this.state || {};
+    if (st.pin !== pin || st.dist !== dist || st.vh !== vh || st.vw !== vw || Math.abs((st.p || 0) - p) > 0.0008) {
+      this.setState({ pin: pin, dist: dist, vh: vh, vw: vw, p: p });
+    }
+  }
+  renderVals() {
+    var st = this.state || {};
+    var me = this;
+    if (!this._refs) {
+      this._refs = {
+        outer: function (el) { me.outerEl = el; },
+        view: function (el) { me.viewEl = el; },
+        track: function (el) { me.trackEl = el; }
+      };
+    }
+    var theme = st.theme || this.props.theme || 'neon';
+    var lang = st.lang || this.props.lang || 'ru';
+    var t = THEMES[theme] || THEMES.neon;
+    var s = I18N[lang] || I18N.ru;
+
+    var pin = !!st.pin, dist = st.dist || 0, p = st.p || 0, vh = st.vh || 0;
+    var ab = {
+      outerH: pin ? (vh + dist) + 'px' : 'auto',
+      pos: pin ? 'sticky' : 'relative',
+      innerH: pin ? vh + 'px' : 'auto',
+      pad: pin ? '88px 0 24px' : '56px 0 32px',
+      ovf: pin ? 'hidden' : 'auto',
+      tx: 'translate3d(' + (-p * dist).toFixed(1) + 'px, 0, 0)',
+      pw: Math.round(p * 100) + '%',
+      idx: Math.min(5, 1 + Math.floor(p * 4.999))
+    };
+
+    var langs = ['ru', 'en', 'be'].map(function (code) {
+      var on = code === lang;
+      return { label: code.toUpperCase(), on: on ? 'true' : 'false', bg: on ? t.btnBg : 'transparent', fg: on ? t.btnText : t.dim, pick: function () { me.setState({ lang: code }); } };
+    });
+    var themes = ['neon', 'light', 'citrus'].map(function (id) {
+      var on = id === theme;
+      return { label: s.themeNames[id], on: on ? 'true' : 'false', swatch: SWATCH[id], border: on ? '2px solid ' + t.mark : '1px solid ' + t.line, pick: function () { me.setState({ theme: id }); } };
+    });
+    var navItems = [
+      { num:'01', href:'#about', label:s.nav.about }, { num:'02', href:'#skills', label:s.nav.skills },
+      { num:'03', href:'#exp', label:s.nav.exp }, { num:'04', href:'#projects', label:s.nav.projects },
+      { num:'06', href:'#contact', label:s.nav.contact }
+    ];
+
+    var mk = function (names, ci) {
+      var list = names.map(function (n, i) { return { n: n, m: n.replace(/[^A-Za-zА-Яа-я+]/g, '').slice(0, 2) || '··', c: t.mono[(ci + i) % 3] }; });
+      return list.concat(list);
+    };
+    var skillRows = [
+      { title: s.rows.core, arrow: '← ← ←', cls: 'rc-mq', items: mk(['React','TypeScript','JavaScript','Redux','React Router','HTML5','[+ ещё]','[+ ещё]'], 0) },
+      { title: s.rows.style, arrow: '→ → →', cls: 'rc-mq-rev', items: mk(['CSS3','SASS','CSS Modules','styled-components','[Tailwind?]','[Анимации]','[+ ещё]','[+ ещё]'], 1) },
+      { title: s.rows.tools, arrow: '← ← ←', cls: 'rc-mq', items: mk(['Vite','Git','GitHub','Vercel','Canvas API','[Figma?]','[npm]','[+ ещё]'], 2) }
+    ];
+
+    var jobs = s.jobs.map(function (j, i) { return Object.assign({ num: '0' + (i + 1) + ' / 0' + s.jobs.length }, j); });
+
+    var all = [
+      { num:'/001', title:'TodoList', desc:s.projects.todo, tags:['react','typescript','redux'], badge:s.badges.featured, badgeColor:t.accent, hasLive:true, live:'https://todolist-xi-seven.vercel.app', url:'todolist-xi-seven.vercel.app', isTodo:true, isSocial:false, isClient:false, featured:true },
+      { num:'/002', title:'Social Network', desc:s.projects.social, tags:['react','redux','router'], badge:s.badges.wip, badgeColor:t.magenta, hasLive:false, live:'', url:'localhost:5173/profile', isTodo:false, isSocial:true, isClient:false, featured:false },
+      { num:'/003', title:'[Client project]', desc:s.projects.client, tags:['[stack]'], badge:s.badges.work, badgeColor:t.cardDim, hasLive:true, live:'#', url:'[client-domain]', isTodo:false, isSocial:false, isClient:true, featured:false }
+    ];
+    var projects = all.map(function (p) {
+      return Object.assign({}, p, { span: p.featured ? '1 / -1' : 'auto', dir: p.featured ? 'row' : 'column', mockH: p.featured ? '300px' : '200px', titleSize: p.featured ? '40px' : '26px' });
+    });
+    var box = function (done) { return { boxBorder: done ? t.accent : t.mockLine, boxBg: done ? t.accent : 'transparent' }; };
+    var todoCols = [
+      { w:'55%', head:t.accent, rows:[Object.assign({ w:'70%' }, box(true)), Object.assign({ w:'55%' }, box(true)), Object.assign({ w:'80%' }, box(false)), Object.assign({ w:'45%' }, box(false))] },
+      { w:'40%', head:t.magenta, rows:[Object.assign({ w:'60%' }, box(false)), Object.assign({ w:'75%' }, box(true)), Object.assign({ w:'50%' }, box(false))] },
+      { w:'65%', head:t.codeKey, rows:[Object.assign({ w:'80%' }, box(true)), Object.assign({ w:'40%' }, box(false)), Object.assign({ w:'65%' }, box(false)), Object.assign({ w:'55%' }, box(true))] }
+    ];
+
+    var base = ['React','TypeScript','Redux','SASS','styled-components','Vite','Canvas API','Vercel','Git','React Router'];
+    var contacts = [
+      { label:'Telegram', value:'@romancox', href:'https://t.me/romancox' },
+      { label:'GitHub', value:'RomanCox', href:'https://github.com/RomanCox' },
+      { label:'Email', value:'[EMAIL]', href:'mailto:' }
+    ];
+
+    // Deck: slides enter from behind the right edge (first one ~30% visible),
+    // stop at rest = gap from the left, then recede (scale down + fade) while the next one covers them.
+    var nS = s.slides.length;
+    var vw = st.vw || 640, W = vw - 72, G = 24, REST = G, startX0 = vw - 0.3 * W, step = W + G;
+    var sc = pin ? p * (st.dist || 0) : (startX0 - REST);
+    var act = 0;
+    var slides = s.slides.map(function (sl, i) {
+      var reachAt = startX0 + i * step - REST;
+      var x = Math.max(REST, startX0 + i * step - sc);
+      var depth = Math.max(0, (sc - reachAt) / step);
+      if (sc >= reachAt - step / 2) act = i;
+      var dd = Math.min(depth, 2);
+      var xx = x - dd * 11;
+      return Object.assign({}, sl, {
+        z: i + 1,
+        fx: 'brightness(' + (1 - dd * 0.3).toFixed(3) + ')',
+        tf: 'translate3d(' + xx.toFixed(1) + 'px, 0, 0) scale(' + (1 - dd * 0.07).toFixed(4) + ')'
+      });
+    });
+    slides = slides.map(function (sl, i) {
+      return Object.assign(sl, { edge: i === act ? t.frame : t.border, bw: i === act ? '2px' : t.bw });
+    });
+    var slideTabs = s.slides.map(function (sl, i) {
+      var on = i === act;
+      return { n: sl.n, t: sl.tag, c: on ? t.mark : t.dim, glow: on ? t.lineGlow : 'none' };
+    });
+    var menuOpen = st.menu !== undefined ? !!st.menu : !!this.props.menuOpen;
+    if (!this._pulseRefFn) this._pulseRefFn = function (el) { me.pulseCv = el; };
+    return {
+      pulseRef: this._pulseRefFn, pulseCols: PULSE_COLS[theme] || PULSE_COLS.neon,
+      menuOpen:menuOpen, menuExpanded: menuOpen ? 'true' : 'false',
+      menuToggle: function () { me.setState({ menu: !menuOpen }); },
+      menuClose: function () { me.setState({ menu: false }); },
+      slides:slides, slideTabs:slideTabs, slideCount:'0' + nS,
+      t:t, s:s, ab:ab, refs:this._refs, langs:langs, themes:themes, navItems:navItems,
+      skillRows:skillRows, jobs:jobs, projects:projects, todoCols:todoCols,
+      tape: base.concat(base),
+      tapeB: ['Front-end','UI','React','Minsk','Remote','Freelance','TypeScript','Pixel-perfect','Front-end','UI','React','Minsk','Remote','Freelance'],
+      contacts:contacts,
+      chS:CH(10), chM:CH(18), chL:CH(26), chXL:CH(40)
+    };
+  }
+}
+</script>
+</body>
+</html>

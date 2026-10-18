@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Живой фон — три варианта</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&amp;family=Onest:wght@400&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:inherit}a:hover{opacity:.85}
+@keyframes bg-pulse-x{from{transform:translateX(-220px)}to{transform:translateX(1600px)}}
+@keyframes bg-pulse-y{from{transform:translateY(-220px)}to{transform:translateY(700px)}}
+@keyframes bg-node{0%,100%{opacity:.15;transform:scale(.6)}50%{opacity:1;transform:scale(1)}}
+@keyframes bg-drift-a{0%{transform:translate(0,0) scale(1)}50%{transform:translate(260px,80px) scale(1.15)}100%{transform:translate(0,0) scale(1)}}
+@keyframes bg-drift-b{0%{transform:translate(0,0) scale(1.1)}50%{transform:translate(-300px,-60px) scale(.9)}100%{transform:translate(0,0) scale(1.1)}}
+@keyframes bg-drift-c{0%{transform:translate(0,0)}50%{transform:translate(140px,-90px)}100%{transform:translate(0,0)}}
+@keyframes bg-fade{0%,100%{opacity:.35}50%{opacity:.85}}
+@media (prefers-reduced-motion: reduce){.bg-anim{animation:none!important}}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1640px; box-sizing: border-box; padding: 40px 32px; background: #08061c; color: #ffffff; font-family: 'Onest', system-ui, sans-serif; display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; align-items: baseline; justify-content: space-between">
+<h1 style="margin: 0; font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: 40px; letter-spacing: -.04em">Живой фон — 3 варианта</h1>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #a9a4c9">вместо клетки в hero · анимация видна в Play</span>
+</div>
+
+<section style="position: relative; height: 460px; overflow: hidden; border: 1px solid rgba(145,94,255,.38); background: #08061c">
+<div aria-hidden="true" style="position: absolute; inset: 0; background-image: linear-gradient(rgba(145,94,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(145,94,255,.05) 1px, transparent 1px); background-size: 56px 56px; background-position: -1px -1px"></div>
+<div aria-hidden="true" style="position: absolute; top: -160px; left: -120px; width: 520px; height: 520px; background: radial-gradient(circle, rgba(124,58,255,.35), transparent 65%)"></div>
+<canvas ref="{{refA}}" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
+<div style="position: relative; height: 100%; box-sizing: border-box; padding: 48px 56px; display: flex; flex-direction: column; justify-content: space-between; pointer-events: none">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #00e5ff">A // импульсы из курсора · поводи мышью</span>
+<div>
+<div style="font-family: 'Unbounded', sans-serif; font-weight: 600; font-size: 28px; letter-spacing: -.02em">Привет, я</div>
+<div style="font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: 84px; line-height: 1; letter-spacing: -.045em; background: linear-gradient(90deg,#b18cff 0%,#ff3dd8 50%,#00e5ff 100%); -webkit-background-clip: text; background-clip: text; color: transparent">Роман Кокс</div>
+</div>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #a9a4c9">Импульсы рождаются в узле сетки под курсором и бегут по линиям, сворачивая на перекрёстках. Курсор стоит — редко, движется — чаще, частота растёт со скоростью мыши.</span>
+</div>
+</section>
+
+<section style="position: relative; height: 460px; overflow: hidden; border: 1px solid rgba(145,94,255,.38); background: #08061c">
+<div class="bg-anim" aria-hidden="true" style="position: absolute; top: -260px; left: -160px; width: 760px; height: 760px; background: radial-gradient(circle, rgba(124,58,255,.55), transparent 62%); animation: bg-drift-a 26s ease-in-out infinite"></div>
+<div class="bg-anim" aria-hidden="true" style="position: absolute; top: -120px; right: -240px; width: 720px; height: 720px; background: radial-gradient(circle, rgba(255,61,216,.38), transparent 62%); animation: bg-drift-b 32s ease-in-out infinite"></div>
+<div class="bg-anim" aria-hidden="true" style="position: absolute; bottom: -360px; left: 420px; width: 680px; height: 680px; background: radial-gradient(circle, rgba(0,229,255,.28), transparent 62%); animation: bg-drift-c 22s ease-in-out infinite, bg-fade 11s ease-in-out infinite"></div>
+<svg aria-hidden="true" width="100%" height="100%" style="position: absolute; inset: 0; opacity: .09; mix-blend-mode: overlay"><filter id="bg-grain"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" stitchTiles="stitch"></feTurbulence></filter><rect width="100%" height="100%" filter="url(#bg-grain)"></rect></svg>
+<div style="position: relative; height: 100%; box-sizing: border-box; padding: 48px 56px; display: flex; flex-direction: column; justify-content: space-between; pointer-events: none">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #00e5ff">B // дрейф туманностей</span>
+<div>
+<div style="font-family: 'Unbounded', sans-serif; font-weight: 600; font-size: 28px; letter-spacing: -.02em">Привет, я</div>
+<div style="font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: 84px; line-height: 1; letter-spacing: -.045em; background: linear-gradient(90deg,#b18cff 0%,#ff3dd8 50%,#00e5ff 100%); -webkit-background-clip: text; background-clip: text; color: transparent">Роман Кокс</div>
+</div>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #a9a4c9">Три цветных пятна медленно плывут (22–32 с цикл), голубое дышит яркостью; сверху статичное зерно. Пятна — radial-gradient, без blur.</span>
+</div>
+</section>
+
+<section style="position: relative; height: 460px; overflow: hidden; border: 1px solid rgba(145,94,255,.38); background: #08061c">
+<canvas ref="{{refC}}" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
+<div aria-hidden="true" style="position: absolute; top: -200px; right: -120px; width: 560px; height: 560px; background: radial-gradient(circle, rgba(255,61,216,.22), transparent 65%); pointer-events: none"></div>
+<div style="position: relative; height: 100%; box-sizing: border-box; padding: 48px 56px; display: flex; flex-direction: column; justify-content: space-between; pointer-events: none">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #00e5ff">C // созвездие · отталкивается от курсора</span>
+<div>
+<div style="font-family: 'Unbounded', sans-serif; font-weight: 600; font-size: 28px; letter-spacing: -.02em">Привет, я</div>
+<div style="font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: 84px; line-height: 1; letter-spacing: -.045em; background: linear-gradient(90deg,#b18cff 0%,#ff3dd8 50%,#00e5ff 100%); -webkit-background-clip: text; background-clip: text; color: transparent">Роман Кокс</div>
+</div>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #a9a4c9">~70 ромбов медленно плывут и соединяются линиями; курсор расталкивает их, потом они возвращаются к спокойному дрейфу. Пауза вне экрана.</span>
+</div>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1640}}'>
+var COLS = ['0,229,255', '255,61,216', '177,140,255'];
+
+function setupCanvas(cv, draw) {
+  var host = cv.parentNode, ctx = cv.getContext('2d');
+  var st = { W: 0, H: 0, dpr: 1, mouse: null, last: null, speed: 0, visible: true, raf: 0 };
+  var resize = function () {
+    st.dpr = Math.min(window.devicePixelRatio || 1, 2);
+    st.W = host.clientWidth; st.H = host.clientHeight;
+    cv.width = Math.round(st.W * st.dpr); cv.height = Math.round(st.H * st.dpr);
+    ctx.setTransform(st.dpr, 0, 0, st.dpr, 0, 0);
+  };
+  resize();
+  var onMove = function (e) {
+    var r = cv.getBoundingClientRect();
+    var m = { x: e.clientX - r.left, y: e.clientY - r.top, t: performance.now() };
+    if (st.mouse) { var dt = Math.max(1, m.t - st.mouse.t); var v = Math.hypot(m.x - st.mouse.x, m.y - st.mouse.y) / dt; st.speed = st.speed * 0.6 + v * 0.4; }
+    st.mouse = m;
+  };
+  var onLeave = function () { st.mouse = null; st.speed = 0; };
+  host.addEventListener('mousemove', onMove); host.addEventListener('mouseleave', onLeave);
+  window.addEventListener('resize', resize);
+  var io = window.IntersectionObserver ? new IntersectionObserver(function (en) { st.visible = en[0].isIntersecting; }) : null;
+  if (io) io.observe(cv);
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var prev = performance.now();
+  var loop = function (now) {
+    st.raf = requestAnimationFrame(loop);
+    var dt = Math.min(50, now - prev); prev = now;
+    if (!st.visible || document.hidden) return;
+    st.speed *= 0.92;
+    draw(ctx, st, dt, reduce);
+  };
+  st.raf = requestAnimationFrame(loop);
+  return function () { cancelAnimationFrame(st.raf); host.removeEventListener('mousemove', onMove); host.removeEventListener('mouseleave', onLeave); window.removeEventListener('resize', resize); if (io) io.disconnect(); };
+}
+
+/* A: pulses born at the grid node under the cursor; rate grows with cursor speed */
+function makePulses() {
+  var CELL = 56, OFF = -1, pulses = [], flashes = [], acc = 0;
+  var DIRS = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+  var spawn = function (st, x, y) {
+    if (pulses.length > 46) return;
+    var gx = Math.round((x - OFF) / CELL) * CELL + OFF, gy = Math.round((y - OFF) / CELL) * CELL + OFF;
+    var d = DIRS[Math.floor(Math.random() * 4)];
+    pulses.push({ x: gx, y: gy, dx: d[0], dy: d[1], sp: 0.22 + Math.random() * 0.16, c: COLS[Math.floor(Math.random() * 3)], trail: [[gx, gy]], life: 1, travelled: 0, max: 380 + Math.random() * 520, toNode: CELL });
+    flashes.push({ x: gx, y: gy, a: 1, c: COLS[0] });
+  };
+  return function (ctx, st, dt, reduce) {
+    ctx.clearRect(0, 0, st.W, st.H);
+    if (reduce) return;
+    // spawn rate: idle cursor ~1 per 900ms, moving: up to ~1 per 45ms, proportional to speed (px/ms)
+    var interval;
+    if (st.mouse) interval = Math.max(45, 900 / (1 + st.speed * 9));
+    else interval = 1700;
+    acc += dt;
+    while (acc >= interval) {
+      acc -= interval;
+      if (st.mouse) spawn(st, st.mouse.x, st.mouse.y);
+      else spawn(st, Math.random() * st.W, Math.random() * st.H);
+    }
+    for (var i = pulses.length - 1; i >= 0; i--) {
+      var p = pulses[i], step = p.sp * dt;
+      while (step > 0) {
+        var s = Math.min(step, p.toNode);
+        p.x += p.dx * s; p.y += p.dy * s; p.toNode -= s; step -= s; p.travelled += s;
+        if (p.toNode <= 0.001) {
+          p.toNode = CELL; p.trail.push([p.x, p.y]);
+          if (Math.random() < 0.3) { var turn = Math.random() < 0.5 ? 1 : -1; var ndx = p.dy * turn, ndy = -p.dx * turn; p.dx = ndx; p.dy = ndy; }
+        }
+      }
+      var fade = p.travelled > p.max ? Math.max(0, 1 - (p.travelled - p.max) / 160) : 1;
+      if (fade <= 0 || p.x < -200 || p.x > st.W + 200 || p.y < -200 || p.y > st.H + 200) { pulses.splice(i, 1); continue; }
+      // draw tail: last 150px along trail
+      var pts = p.trail.concat([[p.x, p.y]]), len = 0, TAIL = 150;
+      ctx.lineWidth = 1.5; ctx.lineCap = 'square';
+      for (var k = pts.length - 1; k > 0 && len < TAIL; k--) {
+        var ax = pts[k][0], ay = pts[k][1], bx = pts[k - 1][0], by = pts[k - 1][1];
+        var seg = Math.hypot(ax - bx, ay - by); var use = Math.min(seg, TAIL - len);
+        var ex = ax + (bx - ax) * (use / (seg || 1)), ey = ay + (by - ay) * (use / (seg || 1));
+        var g = ctx.createLinearGradient(ax, ay, ex, ey);
+        g.addColorStop(0, 'rgba(' + p.c + ',' + (0.95 * (1 - len / TAIL) * fade).toFixed(3) + ')');
+        g.addColorStop(1, 'rgba(' + p.c + ',' + (0.95 * (1 - (len + use) / TAIL) * fade).toFixed(3) + ')');
+        ctx.strokeStyle = g; ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(ex, ey); ctx.stroke();
+        len += use;
+      }
+      ctx.fillStyle = 'rgba(255,255,255,' + fade.toFixed(3) + ')';
+      ctx.shadowColor = 'rgba(' + p.c + ',1)'; ctx.shadowBlur = 10;
+      ctx.fillRect(p.x - 1.5, p.y - 1.5, 3, 3);
+      ctx.shadowBlur = 0;
+      if (p.trail.length > 12) p.trail.splice(0, p.trail.length - 12);
+    }
+    for (var j = flashes.length - 1; j >= 0; j--) {
+      var f = flashes[j]; f.a -= dt / 500; if (f.a <= 0) { flashes.splice(j, 1); continue; }
+      var sz = 4 + (1 - f.a) * 10;
+      ctx.strokeStyle = 'rgba(' + f.c + ',' + f.a.toFixed(3) + ')'; ctx.lineWidth = 1;
+      ctx.strokeRect(f.x - sz / 2, f.y - sz / 2, sz, sz);
+    }
+  };
+}
+
+/* C: constellation that is pushed away by the cursor; points are diamonds */
+function makeConstellation() {
+  var pts = null, R = 150;
+  return function (ctx, st, dt, reduce) {
+    if (!pts) { pts = []; for (var i = 0; i < 72; i++) { var a = Math.random() * 6.283, v = 0.1 + Math.random() * 0.12; pts.push({ x: Math.random() * st.W, y: Math.random() * st.H, bx: Math.cos(a) * v, by: Math.sin(a) * v, vx: 0, vy: 0, c: COLS[i % 3], s: 2 + Math.random() * 1.6 }); } }
+    ctx.clearRect(0, 0, st.W, st.H);
+    var m = st.mouse, k = dt / 16.7;
+    for (var i = 0; i < pts.length; i++) {
+      var p = pts[i];
+      if (!reduce) {
+        if (m) {
+          var dx = p.x - m.x, dy = p.y - m.y, d = Math.hypot(dx, dy);
+          if (d < R && d > 0.01) { var f = (1 - d / R) * 0.9; p.vx += dx / d * f * k; p.vy += dy / d * f * k; }
+        }
+        p.vx *= Math.pow(0.9, k); p.vy *= Math.pow(0.9, k);
+        p.x += (p.bx + p.vx) * k; p.y += (p.by + p.vy) * k;
+        if (p.x < 0) { p.x = 0; p.bx = Math.abs(p.bx); } if (p.x > st.W) { p.x = st.W; p.bx = -Math.abs(p.bx); }
+        if (p.y < 0) { p.y = 0; p.by = Math.abs(p.by); } if (p.y > st.H) { p.y = st.H; p.by = -Math.abs(p.by); }
+      }
+    }
+    ctx.lineWidth = 1;
+    for (var a2 = 0; a2 < pts.length; a2++) for (var b2 = a2 + 1; b2 < pts.length; b2++) {
+      var P = pts[a2], Q = pts[b2], dd = Math.hypot(P.x - Q.x, P.y - Q.y);
+      if (dd < 120) { ctx.strokeStyle = 'rgba(145,94,255,' + (0.3 * (1 - dd / 120)).toFixed(3) + ')'; ctx.beginPath(); ctx.moveTo(P.x, P.y); ctx.lineTo(Q.x, Q.y); ctx.stroke(); }
+    }
+    for (var n = 0; n < pts.length; n++) {
+      var q = pts[n];
+      ctx.save(); ctx.translate(q.x, q.y); ctx.rotate(Math.PI / 4);
+      ctx.fillStyle = 'rgba(' + q.c + ',.95)'; ctx.fillRect(-q.s / 2, -q.s / 2, q.s, q.s);
+      ctx.restore();
+    }
+    if (m) {
+      var sz = 18;
+      ctx.strokeStyle = 'rgba(0,229,255,.35)'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(m.x - sz, m.y); ctx.lineTo(m.x - 6, m.y); ctx.moveTo(m.x + 6, m.y); ctx.lineTo(m.x + sz, m.y);
+      ctx.moveTo(m.x, m.y - sz); ctx.lineTo(m.x, m.y - 6); ctx.moveTo(m.x, m.y + 6); ctx.lineTo(m.x, m.y + sz); ctx.stroke();
+    }
+  };
+}
+
+class Component extends DCLogic {
+  componentDidMount() {
+    var me = this;
+    this._t = setTimeout(function () {
+      if (me.cvA && !me._offA) me._offA = setupCanvas(me.cvA, makePulses());
+      if (me.cvC && !me._offC) me._offC = setupCanvas(me.cvC, makeConstellation());
+    }, 60);
+  }
+  componentWillUnmount() {
+    clearTimeout(this._t);
+    if (this._offA) this._offA();
+    if (this._offC) this._offC();
+  }
+  renderVals() {
+    var me = this;
+    if (!this._refs) this._refs = { a: function (el) { me.cvA = el; }, c: function (el) { me.cvC = el; } };
+    return { refA: this._refs.a, refC: this._refs.c };
+  }
+}
+</script>
+</body>
+</html>

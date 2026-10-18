@@ -1,0 +1,262 @@
+{
+  "nav": {
+    "about": "About",
+    "skills": "Skills",
+    "exp": "Experience",
+    "projects": "Projects",
+    "contact": "Contact",
+    "cv": "Resume"
+  },
+  "themeNames": {
+    "neon": "Neon",
+    "light": "Light",
+    "citrus": "Citrus"
+  },
+  "status": "Open to freelance & offers",
+  "hi": "Hi, I’m",
+  "name": "Roman Cox",
+  "role": "front-end developer",
+  "city": "Minsk",
+  "lead": "I build fast, tidy interfaces with React and TypeScript — from layout to state logic.",
+  "cueRing": "scroll down · scroll down · ",
+  "scrollAria": "Scroll to the About section",
+  "stats": [
+    {
+      "v": "[N]+",
+      "l": "years of coding"
+    },
+    {
+      "v": "[N]",
+      "l": "portfolio projects"
+    }
+  ],
+  "aboutTag": "about",
+  "aboutTitle": "About.",
+  "codeComment": "// in short",
+  "focus": "interfaces that feel good",
+  "slides": [
+    {
+      "n": "01",
+      "icon": "~$",
+      "tag": "who",
+      "title": "Front-end from Minsk",
+      "text": "I write React, TypeScript and Redux, and style with SASS and styled-components. [1–2 sentences on what drives you and what you bring to a team.]",
+      "points": [
+        "Minsk · UTC+3 · remote",
+        "Open to freelance and offers",
+        "[One more fact about you]"
+      ]
+    },
+    {
+      "n": "02",
+      "icon": "</>",
+      "tag": "layout",
+      "title": "Layout",
+      "text": "Semantic markup and responsive layouts from 320px to wide screens — nothing drifting out of place.",
+      "points": [
+        "HTML5, CSS3, SASS",
+        "CSS Modules, styled-components",
+        "Responsive and cross-browser"
+      ]
+    },
+    {
+      "n": "03",
+      "icon": "{ }",
+      "tag": "apps",
+      "title": "React apps",
+      "text": "Component architecture, routing, global state and strict typing.",
+      "points": [
+        "React + TypeScript",
+        "Redux, React Router",
+        "[Testing? Next.js?]"
+      ]
+    },
+    {
+      "n": "04",
+      "icon": "~*",
+      "tag": "motion",
+      "title": "Living interfaces",
+      "text": "Animation and micro-interactions that don’t hurt performance.",
+      "points": [
+        "CSS animation and transitions",
+        "Canvas API",
+        "[Motion / GSAP?]"
+      ]
+    }
+  ],
+  "aboutText": "Front-end developer from Minsk. I write React, TypeScript and Redux, and style with SASS and styled-components. [1–2 sentences on what drives you and what you bring to a team.]",
+  "cards": [
+    {
+      "icon": "</>",
+      "title": "Layout",
+      "text": "Semantic markup, responsive from 320px to wide screens."
+    },
+    {
+      "icon": "{ }",
+      "title": "React apps",
+      "text": "Components, routing, Redux, strict typing."
+    },
+    {
+      "icon": "~*",
+      "title": "Living interfaces",
+      "text": "Animation, Canvas API, micro-interactions."
+    },
+    {
+      "icon": "[ ]",
+      "title": "[Skill 4]",
+      "text": "[Short note.]"
+    },
+    {
+      "icon": "[ ]",
+      "title": "[Skill 5]",
+      "text": "[Short note.]"
+    }
+  ],
+  "ab": {
+    "locTag": "location",
+    "locText": "Working remotely, available during Minsk business hours. [Open to relocation?]",
+    "flowTag": "process",
+    "flowTitle": "How I work",
+    "flow": [
+      {
+        "n": "01",
+        "t": "Understand the task and design"
+      },
+      {
+        "n": "02",
+        "t": "Build layout and components"
+      },
+      {
+        "n": "03",
+        "t": "Wire up logic and data"
+      },
+      {
+        "n": "04",
+        "t": "Test and deploy"
+      }
+    ],
+    "nowTag": "now",
+    "nowTitle": "Leveling up",
+    "nowText": "[One line: where you’re heading and why.]",
+    "now": [
+      {
+        "t": "[Technology 1]",
+        "p": "70%"
+      },
+      {
+        "t": "[Technology 2]",
+        "p": "45%"
+      },
+      {
+        "t": "[Technology 3]",
+        "p": "25%"
+      }
+    ],
+    "offTag": "off-code",
+    "offTitle": "When I’m not coding",
+    "offText": "[Hobbies and interests — a photo or a couple of lines about life outside work]"
+  },
+  "skillsTag": "skills",
+  "skillsTitle": "Skills.",
+  "rows": {
+    "core": "// core",
+    "style": "// markup & styles",
+    "tools": "// tooling"
+  },
+  "expTag": "work experience",
+  "expTitle": "Experience.",
+  "expDid": "// what I did",
+  "expStack": "// stack",
+  "jobs": [
+    {
+      "company": "[Company]",
+      "role": "[Position]",
+      "loc": "[City] · [office / remote]",
+      "period": "[Mon YYYY] — now",
+      "dur": "[N] yr [N] mo",
+      "summary": "[One paragraph: the product and your area of ownership.]",
+      "bullets": [
+        "[Task and measurable result]",
+        "[Feature or module you owned]",
+        "[What you improved: speed, process, quality]",
+        "[Work with design, backend, QA]"
+      ],
+      "stack": [
+        "React",
+        "TypeScript",
+        "Redux",
+        "[…]"
+      ]
+    },
+    {
+      "company": "Freelance",
+      "role": "Front-end developer",
+      "loc": "Minsk · remote",
+      "period": "[YYYY] — now",
+      "dur": "[N] yr",
+      "summary": "[Who you built sites and interfaces for, and how many.]",
+      "bullets": [
+        "[Project 1: client goal and result]",
+        "[Project 2: client goal and result]",
+        "[Recurring work: responsive, animation, integrations]"
+      ],
+      "stack": [
+        "React",
+        "SASS",
+        "Vite",
+        "Vercel"
+      ]
+    },
+    {
+      "company": "[Course / education]",
+      "role": "[Student / intern]",
+      "loc": "[City / online]",
+      "period": "[YYYY] — [YYYY]",
+      "dur": "[N] mo",
+      "summary": "[What you learned and the final project.]",
+      "bullets": [
+        "[Key skill 1]",
+        "[Key skill 2]",
+        "[Final project]"
+      ],
+      "stack": [
+        "JavaScript",
+        "React",
+        "[…]"
+      ]
+    }
+  ],
+  "projTag": "projects",
+  "projTitle": "Projects.",
+  "allProjects": "All projects",
+  "badges": {
+    "work": "commercial",
+    "wip": "in progress",
+    "featured": "featured"
+  },
+  "projects": {
+    "todo": "Task manager with lists, filters and Redux state. [Key features and the hardest part.]",
+    "social": "Social network: profiles, feed, messages. [Clarify the feature set.]",
+    "client": "[Commercial project: client’s goal, your role, the outcome.]"
+  },
+  "live": "Live",
+  "code": "Code",
+  "cvTag": "resume",
+  "cvHeading": "Resume.",
+  "cvTitle": "Everything about me on one page.",
+  "cvText": "Experience, skills and projects in a clean format. View online or download a PDF.",
+  "cvOpen": "Open resume",
+  "contactTag": "contact",
+  "contactLine1": "Got a project?",
+  "contactLine2": "Let’s talk.",
+  "contactText": "Open to freelance and interesting problems — reach out on any channel.",
+  "footer": "Minsk · handmade",
+  "menu": {
+    "open": "Open menu",
+    "close": "Close menu",
+    "title": "Menu",
+    "lang": "language",
+    "theme": "theme"
+  },
+  "statusShort": "Open to freelance"
+}
