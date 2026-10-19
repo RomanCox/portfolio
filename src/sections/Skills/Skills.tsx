@@ -6,6 +6,7 @@ import { monogram, SKILL_ICONS, SKILL_ROWS } from '@/data/skills'
 import { ScrollMarquee } from '@/effects/ScrollMarquee/ScrollMarquee'
 import { classNames } from '@/shared/lib/classNames/classNames'
 import cls from './Skills.module.scss'
+import { SkillsArrow } from './SkillsArrow'
 
 // Цвет монограммы чередуется по ряду и позиции, как в макете
 const MONO_COLORS = [cls.mono1, cls.mono2, cls.mono3]
@@ -31,9 +32,7 @@ export function Skills({ className }: SkillsProps) {
           <div key={row.key} className={cls.row}>
             <div className={cls.rowHead}>
               <h3 className={cls.rowTitle}>{t(`rows.${row.key}`)}</h3>
-              <span className={cls.rowArrow} aria-hidden="true">
-                {row.direction === 'left' ? '← ← ←' : '→ → →'}
-              </span>
+              <SkillsArrow direction={row.direction} />
             </div>
             <div className={cls.viewport}>
               <ScrollMarquee className={cls.track} direction={row.direction}>

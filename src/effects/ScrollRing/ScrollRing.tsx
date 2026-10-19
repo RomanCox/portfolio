@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from 'motion/react'
 import { ArrowDownIcon } from '@/components/icons/icons'
 import { classNames } from '@/shared/lib/classNames/classNames'
+import { scrollToAnchor } from '@/shared/lib/smoothScroll/smoothScroll'
 import cls from './ScrollRing.module.scss'
 
 // Окружность для подписи: радиус по базовой линии букв из макета (кольцо 140px)
@@ -29,7 +30,7 @@ export function ScrollRing({ className, href, label, text }: ScrollRingProps) {
   const still = useReducedMotion()
 
   return (
-    <a href={href} aria-label={label} className={classNames(cls.scrollRing, {}, [className])}>
+    <a href={href} aria-label={label} className={classNames(cls.scrollRing, {}, [className])} onClick={(event) => scrollToAnchor(event, href.slice(1))}>
       <motion.svg
         className={cls.ring}
         viewBox="0 0 140 140"

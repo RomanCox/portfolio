@@ -46,6 +46,12 @@
 
 .rowArrow {
   color: var(--color-mark);
+  // глубина для переворота стрелок (rotateY)
+  perspective: 160px;
+}
+
+.rowArrowGlyphs {
+  display: inline-block;
 }
 
 .viewport {

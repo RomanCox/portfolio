@@ -5,12 +5,19 @@ import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { classNames } from '@/shared/lib/classNames/classNames'
 import cls from './DecodeText.module.scss'
 
-// Раскадровка (артборд «Заголовки»): 0 мс — только помехи, 120 мс — фиксируется 1-й символ,
-// дальше ~35 мс на символ слева направо, в конце короткий глитч-сдвиг
+// Раскадровка (по артборду «Заголовки», медленнее): сначала только помехи,
+// через FIRST_SETTLE_MS фиксируется 1-й символ, дальше по STEP_MS на символ слева направо,
+// в конце короткий глитч-сдвиг. «Навыки.» — ~0,9 с; длинные строки укладываются в MAX_TOTAL_MS
+// (буквы фиксируются чаще).
 const GLYPHS = '▓▒░#%&@01<>/;'
-const FIRST_SETTLE_MS = 120
-const STEP_MS = 35
-const GLITCH_MS = 120
+const FIRST_SETTLE_MS = 300
+const STEP_MS = 80
+const GLITCH_MS = 150
+const MAX_TOTAL_MS = 1200
+// как часто символ помехи меняет глиф (не зависит от скорости фиксации)
+const NOISE_MS = 120
+// запуск, когда в зоне видимости эта доля текста
+const TRIGGER_AMOUNT = 0.4
 const NOISE_COLORS = [cls.noise1, cls.noise2, cls.noise3]
 
 const noopSubscribe = () => () => {}
@@ -34,7 +41,7 @@ interface DecodeTextProps {
 export function DecodeText({ className, textClassName, text }: DecodeTextProps) {
   const ref = useRef<HTMLSpanElement>(null)
   const reduceMotion = useReducedMotion()
-  const inView = useInView(ref, { once: true, amount: 0.4 })
+  const inView = useInView(ref, { once: true, amount: TRIGGER_AMOUNT })
   // false на сервере и при гидрации: до неё — обычный текст (без JS заголовок виден)
   const hydrated = useSyncExternalStore(noopSubscribe, () => true, () => false)
   // null — анимация ещё не началась
@@ -42,7 +49,9 @@ export function DecodeText({ className, textClassName, text }: DecodeTextProps) 
   const [finished, setFinished] = useState(false)
 
   const chars = Array.from(text)
-  const settleEnd = FIRST_SETTLE_MS + (chars.length - 1) * STEP_MS
+  const gaps = Math.max(1, chars.length - 1)
+  const stepMs = Math.min(STEP_MS, (MAX_TOTAL_MS - FIRST_SETTLE_MS - GLITCH_MS) / gaps)
+  const settleEnd = FIRST_SETTLE_MS + (chars.length - 1) * stepMs
   const total = settleEnd + GLITCH_MS
 
   useEffect(() => {
@@ -76,10 +85,10 @@ export function DecodeText({ className, textClassName, text }: DecodeTextProps) 
         {glitching
           ? text
           : chars.map((char, i) => {
-              const settleAt = FIRST_SETTLE_MS + i * STEP_MS
+              const settleAt = FIRST_SETTLE_MS + i * stepMs
               if (char === ' ' || time >= settleAt) return char
-              // каждый символ до фиксации меняет глиф 3–4 раза
-              const step = Math.floor(time / (settleAt / (3 + (i % 2))))
+              // глиф меняется раз в NOISE_MS; сдвиг по индексу — символы меняются не все разом
+              const step = Math.floor((time + i * (NOISE_MS / 3)) / NOISE_MS)
               return (
                 <span key={i} className={NOISE_COLORS[(i + step) % NOISE_COLORS.length]}>
                   {noiseGlyph(i, step)}

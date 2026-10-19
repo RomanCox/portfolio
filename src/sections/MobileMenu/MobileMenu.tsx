@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, type RefObject } from 'react'
+import { useEffect, useRef, type MouseEvent, type RefObject } from 'react'
 import { AnimatePresence, motion, useReducedMotion, type Variants } from 'motion/react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
@@ -13,6 +13,7 @@ import { Link } from '@/i18n/navigation'
 import { classNames } from '@/shared/lib/classNames/classNames'
 import { getFocusable, inertOutside, trapTabKey } from '@/shared/lib/focusTrap/focusTrap'
 import { lockScroll, unlockScroll } from '@/shared/lib/scrollLock/scrollLock'
+import { scrollToAnchor } from '@/shared/lib/smoothScroll/smoothScroll'
 import cls from './MobileMenu.module.scss'
 
 // Меню существует только ниже десктопа; при расширении окна закрывается
@@ -71,6 +72,11 @@ export function MobileMenu({ className, id, open, onClose, returnFocusRef }: Mob
     onClose()
   }
 
+  const onNavigateTo = (event: MouseEvent<HTMLAnchorElement>, id: string) => {
+    onNavigate()
+    scrollToAnchor(event, id)
+  }
+
   const duration = reduceMotion ? 0 : 0.28
   const stagger = reduceMotion ? 0 : 0.04
 
@@ -120,7 +126,11 @@ export function MobileMenu({ className, id, open, onClose, returnFocusRef }: Mob
           <nav className={cls.nav} aria-label={t('menu.title')}>
             {NAV_ITEMS.map((item) => (
               <motion.div key={item.id} variants={itemVariants}>
-                <Link href={{ pathname: '/', hash: item.id }} className={cls.navLink} onClick={onNavigate}>
+                <Link
+                  href={{ pathname: '/', hash: item.id }}
+                  className={cls.navLink}
+                  onClick={(event) => onNavigateTo(event, item.id)}
+                >
                   <span className={cls.navNum}>{item.num}</span>
                   <span className={cls.navLabel}>{t(`nav.${item.key}`)}</span>
                   <ArrowUpRightIcon size={18} className={cls.navArrow} />

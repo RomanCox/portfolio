@@ -11,6 +11,7 @@ import { NAV_ITEMS } from '@/data/navigation'
 import { Link } from '@/i18n/navigation'
 import { MobileMenu } from '@/sections/MobileMenu/MobileMenu'
 import { classNames } from '@/shared/lib/classNames/classNames'
+import { scrollToAnchor } from '@/shared/lib/smoothScroll/smoothScroll'
 import cls from './Header.module.scss'
 
 const MENU_ID = 'mobile-menu'
@@ -39,7 +40,12 @@ export function Header({ className }: HeaderProps) {
 
           <nav className={cls.nav} aria-label={t('menu.title')}>
             {NAV_ITEMS.map((item) => (
-              <Link key={item.id} href={{ pathname: '/', hash: item.id }} className={cls.navLink}>
+              <Link
+                key={item.id}
+                href={{ pathname: '/', hash: item.id }}
+                className={cls.navLink}
+                onClick={(event) => scrollToAnchor(event, item.id)}
+              >
                 <span className={cls.navNum}>{item.num}</span>
                 {t(`nav.${item.key}`)}
               </Link>
