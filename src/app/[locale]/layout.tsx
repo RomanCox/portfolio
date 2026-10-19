@@ -5,6 +5,8 @@ import { hasLocale, NextIntlClientProvider } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import { ThemeScript } from '@/components/ThemeScript/ThemeScript'
 import { ThemeSync } from '@/components/ThemeScript/ThemeSync'
+import { PulseBackground } from '@/effects/PulseBackground/PulseBackground'
+import { Scanlines } from '@/effects/Scanlines/Scanlines'
 import { routing } from '@/i18n/routing'
 import { Header } from '@/sections/Header/Header'
 import { classNames } from '@/shared/lib/classNames/classNames'
@@ -62,8 +64,10 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
       <body>
         <NextIntlClientProvider>
           <ThemeSync />
+          <PulseBackground />
           <Header />
           {children}
+          <Scanlines />
         </NextIntlClientProvider>
       </body>
     </html>

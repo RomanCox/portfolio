@@ -1,0 +1,63 @@
+@use 'mixins' as *;
+
+// mobile 112px, tablet/desktop 140px; подпись — один SVG, масштабируется вместе с кольцом
+.scrollRing {
+  position: relative;
+  display: block;
+  flex: 0 0 auto;
+  width: 112px;
+  height: 112px;
+  color: var(--color-text);
+
+  @include tablet {
+    width: 140px;
+    height: 140px;
+  }
+}
+
+.ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.text {
+  fill: var(--color-mark);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  // хвостовой пробел строки задаёт зазор между повторами
+  white-space: pre;
+}
+
+// Свечение кнопки — filter на обёртке, срез — на кнопке.
+// Отступ в процентах (34 / 140 по макету), чтобы кнопка ужималась вместе с кольцом
+.core {
+  position: absolute;
+  inset: 24.3%;
+  display: flex;
+  filter: var(--btn-primary-filter);
+}
+
+.button {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  @include chamfer(m);
+}
+
+.arrow {
+  width: 24px;
+  height: 24px;
+
+  @include tablet {
+    width: 30px;
+    height: 30px;
+  }
+}

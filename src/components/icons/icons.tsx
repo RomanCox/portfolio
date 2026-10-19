@@ -42,6 +42,24 @@ export function CloseIcon(props: IconProps) {
   )
 }
 
+export function ArrowDownIcon(props: IconProps) {
+  return (
+    <Svg strokeWidth={2.2} {...props}>
+      <path d="M12 4v15" />
+      <path d="m6 13 6 6 6-6" />
+    </Svg>
+  )
+}
+
+export function UserIcon(props: IconProps) {
+  return (
+    <Svg strokeWidth={1} {...props}>
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" />
+    </Svg>
+  )
+}
+
 export function ArrowUpRightIcon(props: IconProps) {
   return (
     <Svg {...props}>

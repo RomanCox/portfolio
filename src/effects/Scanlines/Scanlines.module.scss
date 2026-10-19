@@ -1,0 +1,15 @@
+// В макете слой absolute на всю страницу; здесь fixed размером с окно —
+// узор тот же, а слой не растёт вместе со страницей
+.scanlines {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-scanlines);
+  background: repeating-linear-gradient(
+    0deg,
+    var(--color-scanline) 0,
+    var(--color-scanline) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+}

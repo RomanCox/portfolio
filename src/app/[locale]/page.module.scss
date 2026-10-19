@@ -1,8 +1,8 @@
 @use 'mixins' as *;
 
-// Временные стили этапа 1
+// Временные стили: заглушки секций до этапа 3
 
-.page {
+.placeholders {
   max-width: calc(var(--container) + 2 * var(--gutter));
   margin: 0 auto;
   padding: 0 var(--gutter-mobile);
@@ -14,32 +14,6 @@
   @include desktop {
     padding-inline: var(--gutter);
   }
-}
-
-.intro {
-  display: grid;
-  align-content: center;
-  gap: var(--space-6);
-  min-height: calc(100svh - var(--header-h));
-}
-
-.label {
-  font-family: var(--font-mono);
-  font-size: var(--fs-label);
-  letter-spacing: var(--ls-label);
-  text-transform: uppercase;
-  color: var(--color-mark);
-}
-
-.title {
-  font-size: var(--fs-h2);
-  font-weight: 800;
-}
-
-.lead {
-  max-width: 60ch;
-  font-size: var(--fs-lead);
-  color: var(--color-text-dim);
 }
 
 .section {

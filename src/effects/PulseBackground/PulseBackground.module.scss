@@ -1,0 +1,19 @@
+// Слой размером с окно под всем контентом (у body — isolation: isolate)
+.pulseBackground {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(var(--color-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+  background-position: -1px -1px;
+  background-size: 56px 56px;
+  pointer-events: none;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
