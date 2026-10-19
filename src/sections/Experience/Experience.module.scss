@@ -1,0 +1,178 @@
+@use 'mixins' as *;
+
+.experience {
+  @include container;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  padding-block: var(--section-pad-y) 32px;
+}
+
+.number {
+  top: 20px;
+  right: 16px;
+}
+
+.jobs {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+
+// mobile — друг под другом; tablet 250px + карточка, desktop 360px + карточка.
+// Сетка вместо flex-wrap макета: на 768–833 колонки иначе переносятся.
+.job {
+  display: grid;
+  align-items: start;
+  gap: 28px;
+
+  @include tablet {
+    grid-template-columns: 250px minmax(0, 1fr);
+    gap: 48px;
+  }
+
+  @include desktop {
+    grid-template-columns: 360px minmax(0, 1fr);
+  }
+}
+
+.company {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.companyTop {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo {
+  display: flex;
+  flex: 0 0 60px;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  background: var(--gradient-frame);
+  color: var(--btn-primary-text);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  @include chamfer(s);
+}
+
+.counter {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  color: var(--color-text-dim);
+}
+
+.companyName {
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+
+  @include tablet-only {
+    font-size: 26px;
+    line-height: 1.1;
+  }
+}
+
+.role {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  color: var(--color-magenta);
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 0 0;
+  border-top: 1px solid var(--color-line);
+  list-style: none;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  color: var(--color-text-dim);
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.metaIcon {
+  flex-shrink: 0;
+  color: var(--color-mark);
+}
+
+// ---------- Карточка «что делал» ----------
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  min-height: 460px;
+  padding: 34px 34px 38px;
+
+  @include mobile-only {
+    min-height: 0;
+    padding: 28px 24px 30px;
+  }
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.blockLabel {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  color: var(--color-accent);
+}
+
+.summary {
+  font-size: var(--fs-body);
+}
+
+.bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 0;
+  list-style: none;
+}
+
+.bullet {
+  display: flex;
+  gap: 14px;
+  font-size: var(--fs-small);
+  color: var(--color-card-text-dim);
+
+  &::before {
+    content: '';
+    @include diamond(8px);
+  }
+}
+
+.stack {
+  margin-top: auto;
+  padding-top: 22px;
+  border-top: 1px solid var(--mock-line);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+}

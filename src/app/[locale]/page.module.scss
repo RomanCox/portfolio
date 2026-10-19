@@ -1,28 +1,5 @@
-@use 'mixins' as *;
-
-// Временные стили: заглушки секций до этапа 3
-
-.placeholders {
-  max-width: calc(var(--container) + 2 * var(--gutter));
-  margin: 0 auto;
-  padding: 0 var(--gutter-mobile);
-
-  @include tablet {
-    padding-inline: var(--gutter-tablet);
-  }
-
-  @include desktop {
-    padding-inline: var(--gutter);
-  }
-}
-
-.section {
-  min-height: 80svh;
-  padding: var(--section-pad-y) 0 32px;
-  border-top: 1px dashed var(--color-line);
-}
-
-.sectionTitle {
-  font-size: var(--fs-h2);
-  font-weight: 800;
+// Контурные номера секций и косые ленты шире экрана.
+// clip, а не hidden: не ломает sticky («Опыт», этап 4)
+.main {
+  overflow-x: clip;
 }

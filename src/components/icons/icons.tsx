@@ -68,3 +68,57 @@ export function ArrowUpRightIcon(props: IconProps) {
     </Svg>
   )
 }
+
+export function ArrowRightIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M5 12h14" />
+      <path d="m13 6 6 6-6 6" />
+    </Svg>
+  )
+}
+
+export function CodeIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="m8 8-4 4 4 4" />
+      <path d="m16 8 4 4-4 4" />
+    </Svg>
+  )
+}
+
+export function MapPinIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z" />
+      <circle cx="12" cy="10" r="2.5" />
+    </Svg>
+  )
+}
+
+export function CalendarIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <rect x="3" y="5" width="18" height="16" rx="1" />
+      <path d="M3 10h18M8 3v4M16 3v4" />
+    </Svg>
+  )
+}
+
+export function ClockIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v5l3 2" />
+    </Svg>
+  )
+}
+
+export function CrosshairIcon(props: IconProps) {
+  return (
+    <Svg strokeWidth={1.5} {...props}>
+      <path d="M12 2v6M12 16v6M2 12h6M16 12h6" />
+      <circle cx="12" cy="12" r="3" />
+    </Svg>
+  )
+}

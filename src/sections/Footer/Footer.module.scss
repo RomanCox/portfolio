@@ -1,0 +1,38 @@
+@use 'mixins' as *;
+
+.footer {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--color-line);
+}
+
+// Огромное контурное имя; как в макете, правый край уходит за экран
+.wordmark {
+  @include container;
+  padding-top: 36px;
+  font-family: var(--font-display);
+  font-size: clamp(56px, 13vw, 190px);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-outline-text);
+  user-select: none;
+}
+
+.bottom {
+  @include container;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  padding-block: 24px 32px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  color: var(--color-text-dim);
+}
+
+.end {
+  color: var(--color-mark);
+}

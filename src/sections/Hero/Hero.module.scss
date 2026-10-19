@@ -230,6 +230,11 @@
   padding: 10px 13px;
   font-size: 11px;
   line-height: 1.6;
+
+  // на узких экранах строка кода шире чипа — переносим
+  .codeLine {
+    white-space: normal;
+  }
 }
 
 .codeFloat {

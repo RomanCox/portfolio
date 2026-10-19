@@ -1,0 +1,260 @@
+@use 'sass:list';
+
+.projectMock {
+  padding: 22px;
+  background-color: var(--color-surface-deep);
+  background-image:
+    linear-gradient(var(--color-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.window {
+  border: 1px solid var(--mock-line);
+  background: var(--color-card);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--mock-line);
+}
+
+.dot {
+  flex: 0 0 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.dotMagenta {
+  background: var(--color-magenta);
+}
+
+.dotAccent {
+  background: var(--color-accent);
+}
+
+.dotNumber {
+  background: var(--code-number);
+}
+
+.url {
+  flex: 1;
+  min-width: 0;
+  margin-left: 10px;
+  padding: 3px 10px;
+  overflow: hidden;
+  background: var(--mock-fill);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-card-text-dim);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.screen {
+  height: 200px;
+  padding: 16px;
+  overflow: hidden;
+}
+
+.large .screen {
+  height: 300px;
+}
+
+// ---------- TodoList ----------
+
+.todo {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  height: 100%;
+}
+
+.todoCol {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--mock-line);
+  background: var(--mock-fill);
+}
+
+.todoHead {
+  height: 9px;
+}
+
+.todoRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.todoBox {
+  flex: 0 0 12px;
+  height: 12px;
+  border: 1.5px solid var(--mock-line);
+}
+
+.todoDone {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+}
+
+.todoLine {
+  height: 6px;
+  background: var(--mock-line);
+}
+
+// Ширины и цвета из макета: заголовок колонки, затем полоски задач
+$todo-columns: (
+  (55%, var(--color-accent), (70%, 55%, 80%, 45%)),
+  (40%, var(--color-magenta), (60%, 75%, 50%)),
+  (65%, var(--code-keyword), (80%, 40%, 65%, 55%))
+);
+
+@for $i from 1 through list.length($todo-columns) {
+  $column: list.nth($todo-columns, $i);
+  $rows: list.nth($column, 3);
+
+  .todoCol:nth-child(#{$i}) {
+    .todoHead {
+      width: list.nth($column, 1);
+      background: list.nth($column, 2);
+    }
+
+    // первый ребёнок колонки — заголовок, поэтому строки с +1
+    @for $r from 1 through list.length($rows) {
+      .todoRow:nth-child(#{$r + 1}) .todoLine {
+        width: list.nth($rows, $r);
+      }
+    }
+  }
+}
+
+// ---------- Social Network ----------
+
+.social {
+  display: flex;
+  gap: 12px;
+  height: 100%;
+}
+
+.socialNav {
+  display: flex;
+  flex: 0 0 26%;
+  flex-direction: column;
+  gap: 9px;
+  padding-top: 4px;
+
+  span {
+    height: 7px;
+    background: var(--mock-line);
+  }
+
+  span:nth-child(1) {
+    width: 80%;
+    background: var(--color-accent);
+  }
+
+  span:nth-child(2) {
+    width: 65%;
+  }
+
+  span:nth-child(3) {
+    width: 72%;
+  }
+
+  span:nth-child(4) {
+    width: 55%;
+  }
+}
+
+.socialFeed {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.socialProfile,
+.socialPost {
+  padding: 10px;
+  border: 1px solid var(--mock-line);
+  background: var(--mock-fill);
+}
+
+.socialProfile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.socialAvatar {
+  flex: 0 0 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--gradient-frame);
+}
+
+.socialLines {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 6px;
+
+  span:nth-child(1) {
+    width: 45%;
+    height: 7px;
+    background: var(--color-card-text-dim);
+  }
+
+  span:nth-child(2) {
+    width: 70%;
+    height: 6px;
+    background: var(--mock-line);
+  }
+}
+
+.socialPost {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  span {
+    height: 6px;
+    background: var(--mock-line);
+  }
+
+  span:nth-child(1) {
+    width: 90%;
+  }
+
+  span:nth-child(2) {
+    width: 60%;
+  }
+
+  span:nth-child(3) {
+    width: 30%;
+    background: var(--color-magenta);
+  }
+}
+
+// ---------- Клиентский проект ----------
+
+.client {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 100%;
+  border: 1px dashed var(--mock-line);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-card-text-dim);
+  text-align: center;
+}

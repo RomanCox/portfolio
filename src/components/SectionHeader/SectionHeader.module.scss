@@ -1,0 +1,28 @@
+.sectionHeader {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--color-mark);
+}
+
+.line {
+  flex: 1;
+  height: 1px;
+  background: var(--color-line);
+}
+
+.title {
+  font-size: var(--fs-h2);
+  font-weight: 800;
+}

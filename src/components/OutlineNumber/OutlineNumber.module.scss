@@ -1,0 +1,11 @@
+.outlineNumber {
+  position: absolute;
+  font-family: var(--font-display);
+  font-size: 220px;
+  font-weight: 800;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-outline-text);
+  pointer-events: none;
+  user-select: none;
+}

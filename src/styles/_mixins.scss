@@ -135,3 +135,30 @@ $breakpoints: (
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
+
+// Контейнер контента: 1200px + поля (mobile 20 — как в hero, tablet 32, desktop 24)
+@mixin container {
+  width: 100%;
+  max-width: calc(var(--container) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: 20px;
+
+  @include tablet {
+    max-width: calc(var(--container) + 2 * var(--gutter-tablet));
+    padding-inline: var(--gutter-tablet);
+  }
+
+  @include desktop {
+    max-width: calc(var(--container) + 2 * var(--gutter));
+    padding-inline: var(--gutter);
+  }
+}
+
+// Ромб-маркер пункта списка
+@mixin diamond($size: 8px) {
+  flex: 0 0 $size;
+  height: $size;
+  margin-top: 8px;
+  background: var(--color-accent);
+  transform: rotate(45deg);
+}

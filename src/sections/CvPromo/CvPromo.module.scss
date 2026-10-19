@@ -1,0 +1,211 @@
+@use 'mixins' as *;
+
+.cvPromo {
+  @include container;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding-block: var(--section-pad-y) 32px;
+}
+
+.number {
+  top: 20px;
+  right: 16px;
+}
+
+.panelBody {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 32px;
+  padding: 52px 52px 0;
+  overflow: hidden;
+  background-image:
+    linear-gradient(var(--color-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+  background-size: 32px 32px;
+
+  // в макете mobile не адаптирован (поля 52px); ужимаем
+  @include mobile-only {
+    padding: 32px 24px 0;
+  }
+}
+
+.text {
+  display: flex;
+  flex: 1 1 440px;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  padding-bottom: 52px;
+
+  @include mobile-only {
+    flex-basis: 100%;
+    padding-bottom: 8px;
+  }
+}
+
+.title {
+  font-size: clamp(26px, 3.4vw, 40px);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.lead {
+  max-width: 520px;
+  font-size: 17px;
+  color: var(--color-card-text-dim);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.open,
+.pdf {
+  display: inline-flex;
+  align-items: center;
+  height: 52px;
+  text-decoration: none;
+  transition: opacity var(--dur-fast) ease;
+
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
+.open {
+  --frame-fill: var(--color-accent);
+  @include chamfer-frame(s);
+  gap: 10px;
+  padding: 0 24px;
+  color: var(--color-card);
+  font-weight: 500;
+}
+
+.pdf {
+  gap: 8px;
+  padding: 0 18px;
+  border: 1px solid var(--color-card-text-dim);
+  color: var(--color-card-text);
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+
+// ---------- Стопка листов (рисунок PDF, цвета печатного листа — из макета) ----------
+
+.sheets {
+  position: relative;
+  flex: 0 0 300px;
+  height: 300px;
+
+  @include mobile-only {
+    flex-basis: 100%;
+    height: 260px;
+  }
+}
+
+.sheetBack,
+.sheet {
+  position: absolute;
+  background: #ffffff;
+}
+
+.sheetBack {
+  bottom: -30px;
+  left: 10px;
+  width: 210px;
+  height: 290px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  opacity: 0.55;
+  transform: rotate(-8deg);
+}
+
+.sheet {
+  bottom: -40px;
+  left: 70px;
+  display: flex;
+  flex-direction: column;
+  width: 220px;
+  height: 300px;
+  overflow: hidden;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35);
+  transform: rotate(5deg);
+}
+
+.sheetStripe {
+  height: 7px;
+  background: linear-gradient(90deg, #00b8d4, #6d3fe0 50%, #d4148f);
+}
+
+.sheetLines {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 18px;
+
+  span {
+    height: 5px;
+    background: #d9d6e8;
+  }
+
+  span:nth-child(1) {
+    width: 70%;
+    height: 13px;
+    background: #14112b;
+  }
+
+  span:nth-child(2) {
+    width: 45%;
+    height: 7px;
+    background: #6d3fe0;
+  }
+
+  span:nth-child(3) {
+    height: 1px;
+    margin: 6px 0;
+    background: #e3e1ee;
+  }
+
+  span:nth-child(5) {
+    width: 92%;
+  }
+
+  span:nth-child(6) {
+    width: 80%;
+  }
+
+  span:nth-child(7) {
+    width: 35%;
+    height: 7px;
+    margin-top: 8px;
+    background: #00799a;
+  }
+
+  span:nth-child(8) {
+    width: 96%;
+  }
+
+  span:nth-child(9) {
+    width: 74%;
+  }
+}
+
+.sheetBadge {
+  position: absolute;
+  top: 18px;
+  right: 14px;
+  padding: 3px 8px;
+  background: #d4148f;
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.6;
+}

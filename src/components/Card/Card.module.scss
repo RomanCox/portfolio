@@ -1,0 +1,38 @@
+@use 'mixins' as *;
+
+.card {
+  --card-frame: var(--color-card-border);
+  --card-frame-width: var(--card-border-width);
+  display: flex;
+  min-width: 0;
+  filter: var(--card-filter);
+}
+
+.accent {
+  --card-frame: var(--gradient-frame);
+  --card-frame-width: 2px;
+}
+
+.frame {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  padding: var(--card-frame-width);
+  background: var(--card-frame);
+}
+
+.body {
+  flex: 1;
+  min-width: 0;
+  background-color: var(--color-card);
+  color: var(--color-card-text);
+}
+
+@each $size in (s, m, l, xl) {
+  .#{$size} {
+    .frame,
+    .body {
+      @include chamfer($size);
+    }
+  }
+}

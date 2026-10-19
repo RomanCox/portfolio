@@ -1,0 +1,116 @@
+@use 'mixins' as *;
+
+.skills {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  padding-block: var(--section-pad-y) 32px;
+}
+
+.number {
+  top: 20px;
+  right: 40px;
+}
+
+.header {
+  @include container;
+}
+
+.rows {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rowHead {
+  @include container;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  color: var(--color-text-dim);
+}
+
+.rowTitle {
+  font: inherit;
+  letter-spacing: normal;
+}
+
+.rowArrow {
+  color: var(--color-mark);
+}
+
+.viewport {
+  padding: 10px 0 14px;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+
+.track,
+.list {
+  display: flex;
+  gap: 16px;
+}
+
+.track {
+  width: max-content;
+}
+
+.list {
+  padding: 0;
+  list-style: none;
+}
+
+.tile {
+  flex: 0 0 136px;
+  height: 136px;
+}
+
+.tileBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.monogram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border: 1px dashed var(--mock-line);
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.mono1 {
+  color: var(--color-mono-1);
+}
+
+.mono2 {
+  color: var(--color-mono-2);
+}
+
+.mono3 {
+  color: var(--color-mono-3);
+}
+
+.name {
+  padding: 0 8px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.25;
+  text-align: center;
+}
