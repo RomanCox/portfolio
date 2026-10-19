@@ -2,7 +2,8 @@ import { useTranslations } from 'next-intl'
 import { Card } from '@/components/Card/Card'
 import { OutlineNumber } from '@/components/OutlineNumber/OutlineNumber'
 import { SectionHeader } from '@/components/SectionHeader/SectionHeader'
-import { monogram, SKILL_ROWS } from '@/data/skills'
+import { monogram, SKILL_ICONS, SKILL_ROWS } from '@/data/skills'
+import { ScrollMarquee } from '@/effects/ScrollMarquee/ScrollMarquee'
 import { classNames } from '@/shared/lib/classNames/classNames'
 import cls from './Skills.module.scss'
 
@@ -13,7 +14,10 @@ interface SkillsProps {
   className?: string
 }
 
-// Три ряда плиток. Дорожка — список + его копия (aria-hidden) под бегущую строку этапа 4.
+// Копии списка в дорожке: первая — для скринридеров, остальные aria-hidden
+const COPIES = [false, true, true]
+
+// Три ряда плиток, движутся от прокрутки, направления чередуются
 export function Skills({ className }: SkillsProps) {
   const t = useTranslations()
 
@@ -32,20 +36,29 @@ export function Skills({ className }: SkillsProps) {
               </span>
             </div>
             <div className={cls.viewport}>
-              <div className={cls.track}>
-                {[false, true].map((copy) => (
-                  <ul key={String(copy)} className={cls.list} aria-hidden={copy || undefined}>
-                    {row.items.map((name, i) => (
-                      <Card key={i} as="li" chamfer="m" className={cls.tile} bodyClassName={cls.tileBody}>
-                        <span className={classNames(cls.monogram, {}, [MONO_COLORS[(rowIndex + i) % 3]])} aria-hidden="true">
-                          {monogram(name)}
-                        </span>
-                        <span className={cls.name}>{name}</span>
-                      </Card>
-                    ))}
+              <ScrollMarquee className={cls.track} direction={row.direction}>
+                {COPIES.map((copy, copyIndex) => (
+                  <ul key={copyIndex} className={cls.list} aria-hidden={copy || undefined}>
+                    {row.items.map((name, i) => {
+                      const icon = SKILL_ICONS[name]
+                      return (
+                        <Card key={i} as="li" chamfer="m" className={cls.tile} bodyClassName={cls.tileBody}>
+                          <span className={classNames(cls.monogram, {}, [MONO_COLORS[(rowIndex + i) % 3]])} aria-hidden="true">
+                            {icon ? (
+                              <svg className={cls.logo} viewBox="0 0 24 24" focusable="false">
+                                <path d={icon.path} />
+                              </svg>
+                            ) : (
+                              monogram(name)
+                            )}
+                          </span>
+                          <span className={cls.name}>{name}</span>
+                        </Card>
+                      )
+                    })}
                   </ul>
                 ))}
-              </div>
+              </ScrollMarquee>
             </div>
           </div>
         ))}

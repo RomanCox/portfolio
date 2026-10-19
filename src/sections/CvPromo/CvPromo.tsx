@@ -3,6 +3,7 @@ import { Card } from '@/components/Card/Card'
 import { ArrowRightIcon, DownloadIcon } from '@/components/icons/icons'
 import { OutlineNumber } from '@/components/OutlineNumber/OutlineNumber'
 import { SectionHeader } from '@/components/SectionHeader/SectionHeader'
+import { Reveal, RevealItem } from '@/effects/Reveal/Reveal'
 import { Link } from '@/i18n/navigation'
 import { classNames } from '@/shared/lib/classNames/classNames'
 import cls from './CvPromo.module.scss'
@@ -27,10 +28,14 @@ export function CvPromo({ className }: CvPromoProps) {
       <SectionHeader num="05" tag={t('cvTag')} title={t('cvHeading')} />
 
       <Card chamfer="xl" accent className={cls.panel} bodyClassName={cls.panelBody}>
-        <div className={cls.text}>
-          <h3 className={cls.title}>{t('cvTitle')}</h3>
-          <p className={cls.lead}>{t('cvText')}</p>
-          <div className={cls.actions}>
+        <Reveal className={cls.text}>
+          <RevealItem>
+            <h3 className={cls.title}>{t('cvTitle')}</h3>
+          </RevealItem>
+          <RevealItem>
+            <p className={cls.lead}>{t('cvText')}</p>
+          </RevealItem>
+          <RevealItem className={cls.actions}>
             <Link href="/resume" className={cls.open}>
               {t('cvOpen')}
               <ArrowRightIcon size={18} />
@@ -41,8 +46,8 @@ export function CvPromo({ className }: CvPromoProps) {
                 {pdf.label}
               </a>
             ))}
-          </div>
-        </div>
+          </RevealItem>
+        </Reveal>
 
         <div className={cls.sheets} aria-hidden="true">
           <span className={cls.sheetBack} />

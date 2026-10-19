@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl'
 import { ArrowUpRightIcon } from '@/components/icons/icons'
 import { SectionHeader } from '@/components/SectionHeader/SectionHeader'
+import { DecodeText } from '@/effects/DecodeText/DecodeText'
 import { CONTACTS } from '@/data/navigation'
 import { classNames } from '@/shared/lib/classNames/classNames'
 import cls from './Contact.module.scss'
@@ -22,8 +23,12 @@ export function Contact({ className }: ContactProps) {
         tag={t('contactTag')}
         title={
           <>
-            <span className={cls.line1}>{t('contactLine1')}</span>
-            <span className={cls.line2}>{t('contactLine2')}</span>
+            <span className={cls.line1}>
+              <DecodeText text={t('contactLine1')} />
+            </span>
+            <span className={cls.line2}>
+              <DecodeText text={t('contactLine2')} textClassName={cls.gradient} />
+            </span>
           </>
         }
       />

@@ -1,0 +1,52 @@
+// inline-block: помехи поверх переносятся так же, как итоговый текст
+.decodeText {
+  position: relative;
+  display: inline-block;
+}
+
+// Итоговый текст держит место в потоке (Unbounded не моноширинный — слово не прыгает)
+.hidden {
+  opacity: 0;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+}
+
+// Помехи не выходят за место итогового текста (иначе переносятся и наезжают на соседей);
+// запас — для глитч-сдвига и выносных элементов букв
+.noise {
+  overflow: clip;
+  overflow-clip-margin: 8px;
+}
+
+// Глифов помех (▓▒░) нет в Unbounded — моноширинный шрифт ближе по ширине, чем запасной
+.noise1,
+.noise2,
+.noise3 {
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+.noise1 {
+  color: var(--color-mono-1);
+}
+
+.noise2 {
+  color: var(--color-mono-2);
+}
+
+.noise3 {
+  color: var(--color-mono-3);
+}
+
+.glitchA {
+  color: var(--glitch-a);
+  transform: translate(-3px, 2px);
+}
+
+.glitchB {
+  color: var(--glitch-b);
+  transform: translate(3px, -2px);
+}

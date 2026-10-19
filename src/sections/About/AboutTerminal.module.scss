@@ -69,4 +69,12 @@
   margin-left: 4px;
   vertical-align: -3px;
   background: var(--color-accent);
+  // при prefers-reduced-motion анимации гасит общее правило в tokens.css
+  animation: blink 1.1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
 }

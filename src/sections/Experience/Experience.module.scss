@@ -38,11 +38,18 @@
   }
 }
 
+// ≥ 768: колонка компании липнет под шапкой, пока идёт её карточка;
+// следующая статья выталкивает предыдущую (sticky ограничен своей строкой сетки)
 .company {
   display: flex;
   flex-direction: column;
   gap: 14px;
   min-width: 0;
+
+  @include tablet {
+    position: sticky;
+    top: calc(var(--header-h) + 35px);
+  }
 }
 
 .companyTop {
@@ -63,6 +70,11 @@
   font-size: 11px;
   font-weight: 700;
   @include chamfer(s);
+
+  // жёлтый текст на жёлто-розовом градиенте не читается
+  :global(:root[data-theme='citrus']) & {
+    color: var(--color-card);
+  }
 }
 
 .counter {
@@ -87,6 +99,11 @@
   font-family: var(--font-mono);
   font-size: var(--fs-small);
   color: var(--color-magenta);
+
+  // розовый на оранжевом — контраст ~1.6:1; в цитрусе — цвет текста
+  :global(:root[data-theme='citrus']) & {
+    color: var(--color-text);
+  }
 }
 
 .meta {

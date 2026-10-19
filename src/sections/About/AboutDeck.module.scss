@@ -1,0 +1,206 @@
+@use 'mixins' as *;
+
+.aboutDeck {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+}
+
+// ---------- Метки слайдов (кнопки: ведут к слайду) ----------
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 22px;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+  transition: color var(--dur-fast) ease;
+
+  &:hover {
+    color: var(--color-text);
+  }
+}
+
+.tabLine {
+  width: 18px;
+  height: 2px;
+  background: currentColor;
+}
+
+.tabActive {
+  color: var(--color-mark);
+
+  &:hover {
+    color: var(--color-mark);
+  }
+
+  .tabLine {
+    box-shadow: var(--line-glow);
+  }
+}
+
+// ---------- Ряд слайдов ----------
+
+// По умолчанию — карусель со свайпом (mobile, prefers-reduced-motion, низкий экран).
+// Отступ по вертикали — место для свечения карточек внутри прокручиваемого ряда.
+.view {
+  display: flex;
+  gap: 16px;
+  margin-block: -24px;
+  padding-block: 24px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @include tablet {
+    gap: 24px;
+    padding-left: 24px;
+    scroll-padding-left: 24px;
+  }
+}
+
+.slide {
+  flex: 0 0 86%;
+  scroll-snap-align: start;
+
+  @include tablet {
+    flex-basis: calc(100% - 72px);
+    height: 470px;
+  }
+}
+
+// Колода (GSAP): слайды друг на друге, положение и глубину задаёт прокрутка.
+// Без свечения: filter занят brightness, а тень на движущихся слайдах просаживает FPS.
+.view[data-deck='on'] {
+  position: relative;
+  display: block;
+  height: 470px;
+  margin-block: 0;
+  padding: 0;
+  overflow: hidden;
+  // иначе браузер «доводит» ряд до точки привязки карусели и сдвигает всю колоду
+  scroll-snap-type: none;
+
+  .slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100% - 72px);
+    transform-origin: 0% 50%;
+    will-change: transform;
+  }
+}
+
+// ---------- Слайд ----------
+
+.slideBody {
+  display: flex;
+  flex-direction: column;
+}
+
+.slideHead {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  height: 150px;
+  padding: 0 28px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--mock-line);
+  background-color: var(--color-surface-deep);
+  background-image:
+    linear-gradient(var(--color-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.slideNum {
+  position: absolute;
+  top: -18px;
+  right: 18px;
+  font-family: var(--font-display);
+  font-size: 150px;
+  font-weight: 800;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-outline-text);
+}
+
+.slideIcon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 76px;
+  background: var(--gradient-frame);
+  color: var(--btn-primary-text);
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 700;
+  @include chamfer(m);
+}
+
+.slideContent {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 26px 28px 30px;
+}
+
+.slideMeta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-accent);
+}
+
+.slideTitle {
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+}
+
+.slideText {
+  font-size: 15px;
+  color: var(--color-card-text-dim);
+}
+
+.points {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-top: 4px;
+  padding: 0;
+  list-style: none;
+}
+
+.point {
+  display: flex;
+  gap: 12px;
+  font-size: 14px;
+
+  &::before {
+    content: '';
+    @include diamond(7px);
+  }
+}
