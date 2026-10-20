@@ -4,9 +4,8 @@ import { useEffect, useRef, type MouseEvent, type RefObject } from 'react'
 import { AnimatePresence, motion, useReducedMotion, type Variants } from 'motion/react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
-import { ArrowUpRightIcon, CloseIcon, DownloadIcon } from '@/components/icons/icons'
+import { ArrowUpRightIcon, DownloadIcon } from '@/components/icons/icons'
 import { LangSwitch } from '@/components/LangSwitch/LangSwitch'
-import { LogoMark } from '@/components/LogoMark/LogoMark'
 import { ThemeSwitch } from '@/components/ThemeSwitch/ThemeSwitch'
 import { NAV_ITEMS, SOCIAL_LINKS } from '@/data/navigation'
 import { Link } from '@/i18n/navigation'
@@ -24,21 +23,24 @@ interface MobileMenuProps {
   id: string
   open: boolean
   onClose: () => void
+  // шапка остаётся поверх меню: её кнопка закрывает меню, фокус ходит по шапке и меню
+  headerRef: RefObject<HTMLElement | null>
   returnFocusRef: RefObject<HTMLElement | null>
 }
 
-export function MobileMenu({ className, id, open, onClose, returnFocusRef }: MobileMenuProps) {
+export function MobileMenu({ className, id, open, onClose, headerRef, returnFocusRef }: MobileMenuProps) {
   const t = useTranslations()
   const dialogRef = useRef<HTMLDivElement>(null)
   const reduceMotion = useReducedMotion()
 
   useEffect(() => {
     const dialog = dialogRef.current
-    if (!open || !dialog) return
+    const header = headerRef.current
+    if (!open || !dialog || !header) return
 
     const returnFocusTo = returnFocusRef.current
     lockScroll()
-    const restoreInert = inertOutside(dialog)
+    const restoreInert = inertOutside([header, dialog])
     getFocusable(dialog)[0]?.focus()
 
     const onKeyDown = (event: KeyboardEvent) => {
@@ -47,7 +49,7 @@ export function MobileMenu({ className, id, open, onClose, returnFocusRef }: Mob
         onClose()
         return
       }
-      trapTabKey(event, dialog)
+      trapTabKey(event, [header, dialog])
     }
 
     const desktop = window.matchMedia(DESKTOP_QUERY)
@@ -64,7 +66,7 @@ export function MobileMenu({ className, id, open, onClose, returnFocusRef }: Mob
       // на десктопе бургер скрыт — фокус на него не вернуть
       if (returnFocusTo && returnFocusTo.getClientRects().length > 0) returnFocusTo.focus()
     }
-  }, [open, onClose, returnFocusRef])
+  }, [open, onClose, headerRef, returnFocusRef])
 
   // Переход по разделу: снять блокировку до навигации, иначе якорь не прокрутится
   const onNavigate = () => {
@@ -97,8 +99,9 @@ export function MobileMenu({ className, id, open, onClose, returnFocusRef }: Mob
         <motion.div
           ref={dialogRef}
           id={id}
+          // без aria-modal: он спрятал бы от скринридера кнопку закрытия в шапке;
+          // модальность даёт inert на остальной странице
           role="dialog"
-          aria-modal="true"
           aria-label={t('menu.title')}
           className={classNames(cls.mobileMenu, {}, [className])}
           variants={dialogVariants}
@@ -111,17 +114,8 @@ export function MobileMenu({ className, id, open, onClose, returnFocusRef }: Mob
             <div className={cls.glowB} />
           </div>
 
-          <div className={cls.top}>
-            <span className={cls.brand}>
-              <LogoMark />
-              <span className={cls.prompt} aria-hidden="true">
-                {'> menu.open()'}
-              </span>
-            </span>
-            <button type="button" className={cls.close} aria-label={t('menu.close')} onClick={onClose}>
-              <CloseIcon size={22} />
-            </button>
-          </div>
+          {/* место под шапку, которая лежит поверх меню */}
+          <div className={cls.headerSpace} aria-hidden="true" />
 
           <nav className={cls.nav} aria-label={t('menu.title')}>
             {NAV_ITEMS.map((item) => (

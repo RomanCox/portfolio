@@ -13,8 +13,12 @@ import { MobileMenu } from '@/sections/MobileMenu/MobileMenu'
 import { classNames } from '@/shared/lib/classNames/classNames'
 import { scrollToAnchor } from '@/shared/lib/smoothScroll/smoothScroll'
 import cls from './Header.module.scss'
+import { useScramble } from './useScramble'
 
 const MENU_ID = 'mobile-menu'
+// Подпись у логотипа: обычная ↔ при открытом меню (расшифровка из помех)
+const WORDMARK = 'roman_cox'
+const WORDMARK_MENU = '> menu.open()'
 
 interface HeaderProps {
   className?: string
@@ -23,18 +27,34 @@ interface HeaderProps {
 export function Header({ className }: HeaderProps) {
   const t = useTranslations()
   const [menuOpen, setMenuOpen] = useState(false)
+  const headerRef = useRef<HTMLElement>(null)
   const burgerRef = useRef<HTMLButtonElement>(null)
+  const { text: wordmark, scrambleTo } = useScramble(WORDMARK)
 
-  const closeMenu = useCallback(() => setMenuOpen(false), [])
+  const toggleMenu = useCallback(
+    (open: boolean) => {
+      setMenuOpen(open)
+      scrambleTo(open ? WORDMARK_MENU : WORDMARK)
+    },
+    [scrambleTo],
+  )
+  const closeMenu = useCallback(() => toggleMenu(false), [toggleMenu])
 
   return (
     <>
-      <header className={classNames(cls.header, {}, [className])}>
+      {/* Шапка остаётся поверх открытого меню: её кнопка превращается в крестик */}
+      <header ref={headerRef} className={classNames(cls.header, { [cls.headerMenuOpen]: menuOpen }, [className])}>
         <div className={cls.inner}>
-          <Link href="/" className={cls.logo} aria-label="Roman Cox">
+          <Link href="/" className={cls.logo} aria-label="Roman Cox" onClick={menuOpen ? closeMenu : undefined}>
             <LogoMark />
-            <span className={cls.wordmark} aria-hidden="true">
-              roman<span className={cls.underscore}>_</span>cox
+            <span className={classNames(cls.wordmark, { [cls.wordmarkMenu]: menuOpen })} aria-hidden="true">
+              {wordmark === WORDMARK ? (
+                <>
+                  roman<span className={cls.underscore}>_</span>cox
+                </>
+              ) : (
+                wordmark
+              )}
             </span>
           </Link>
 
@@ -61,21 +81,23 @@ export function Header({ className }: HeaderProps) {
           <button
             ref={burgerRef}
             type="button"
-            className={cls.burger}
-            aria-label={t('menu.open')}
+            className={classNames(cls.burger, { [cls.burgerOpen]: menuOpen })}
+            aria-label={t(menuOpen ? 'menu.close' : 'menu.open')}
             aria-expanded={menuOpen}
             aria-controls={MENU_ID}
-            onClick={() => setMenuOpen(true)}
+            onClick={() => toggleMenu(!menuOpen)}
           >
-            <span className={cls.burgerLine} />
-            <span className={cls.burgerLine} />
-            <span className={cls.burgerLine} />
+            <span className={cls.burgerLines} aria-hidden="true">
+              <span className={cls.burgerLine} />
+              <span className={cls.burgerLine} />
+              <span className={cls.burgerLine} />
+            </span>
           </button>
         </div>
       </header>
 
       {/* Вне <header>: backdrop-filter шапки ломает position: fixed у потомков */}
-      <MobileMenu id={MENU_ID} open={menuOpen} onClose={closeMenu} returnFocusRef={burgerRef} />
+      <MobileMenu id={MENU_ID} open={menuOpen} onClose={closeMenu} headerRef={headerRef} returnFocusRef={burgerRef} />
     </>
   )
 }

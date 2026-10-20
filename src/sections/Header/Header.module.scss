@@ -4,10 +4,23 @@
   position: sticky;
   top: 0;
   z-index: var(--z-header);
-  background: var(--header-bg);
+  background-color: var(--header-bg);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--color-line);
+  transition:
+    background-color 0.4s var(--ease-out),
+    border-color 0.4s,
+    // при закрытии — опустить под меню только после того, как оно растает
+    z-index 0s 0.2s;
+}
+
+// Открыто меню: шапка поверх него (z 30 → 70) и становится плашкой цвета карточки
+.headerMenuOpen {
+  z-index: calc(var(--z-menu) + 10);
+  background-color: var(--color-card);
+  border-bottom-color: var(--color-card-border);
+  transition-delay: 0s, 0s, 0s;
 }
 
 .inner {
@@ -50,7 +63,9 @@
   font-family: var(--font-mono);
   font-size: 14px;
   line-height: 1;
+  white-space: pre;
   color: var(--color-text-dim);
+  transition: color 0.3s;
 
   // 1024–1279: в одну строку не помещается, подпись прячем — остаётся плашка RC
   @include desktop {
@@ -59,6 +74,23 @@
 
   @include wide {
     display: inline;
+  }
+}
+
+.wordmarkMenu {
+  color: var(--color-mark);
+}
+
+// Цитрус: на оранжевой шапке --color-text-dim слишком бледный; при открытом меню шапка
+// становится цвета --color-mark (#1c0838) — подпись жёлтая, как текст кнопок
+:global(:root[data-theme='citrus']) {
+  .wordmark {
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  .wordmarkMenu {
+    color: var(--btn-primary-text);
   }
 }
 
@@ -109,41 +141,116 @@
   }
 }
 
+// Кнопка меню: бургер ↔ несимметричный крестик (ТЗ, «Открытие / закрытие меню»)
 .burger {
   --frame-border: var(--color-card-border);
   --frame-width: 1px;
   --frame-fill: var(--color-card);
   @include chamfer-frame(s);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
+  flex-shrink: 0;
   width: 48px;
   height: 48px;
   padding: 0;
   border: 0;
   background: transparent;
 
+  &::before,
+  &::after {
+    transition: background-color 0.35s var(--ease-out);
+  }
+
   @include desktop {
     display: none;
   }
 }
 
+.burgerOpen {
+  --frame-border: var(--btn-primary-bg);
+  --frame-fill: var(--btn-primary-bg);
+}
+
+.burgerLines {
+  position: absolute;
+  top: 16px;
+  left: 13px;
+  width: 24px;
+  height: 16px;
+}
+
 .burgerLine {
+  position: absolute;
+  left: 0;
   width: 22px;
   height: 2px;
-  background: var(--color-mark);
+  background-color: var(--color-mark);
   box-shadow: var(--line-glow);
-  transition: transform var(--dur-base) var(--ease-out);
+  transform-origin: 50% 50%;
+  transition:
+    transform 0.45s var(--ease-out),
+    width 0.45s var(--ease-out),
+    background-color 0.3s,
+    box-shadow 0.35s;
+
+  &:nth-child(1) {
+    top: 0;
+  }
 
   &:nth-child(2) {
-    background: var(--color-text);
+    top: 7px;
+    background-color: var(--color-text);
     box-shadow: none;
     transform: translateX(-4px);
+    transform-origin: 0% 50%;
+    transition:
+      transform 0.3s var(--ease-out),
+      opacity 0.2s,
+      background-color 0.3s;
+  }
+
+  &:nth-child(3) {
+    top: 14px;
+    transition-delay: 0.04s, 0s, 0s, 0s;
   }
 }
 
-.burger:hover .burgerLine:nth-child(2) {
-  transform: translateX(4px);
+// только с мышью: на тач-экране :hover «залипает» после касания
+@media (hover: hover) {
+  .burger:not(.burgerOpen):hover .burgerLine:nth-child(2) {
+    transform: translateX(4px);
+  }
+}
+
+// Цитрус: кнопка тёмная (--color-card), а --color-mark / --color-text того же цвета — линии жёлтые.
+// Открытое меню: кнопка сливается с шапкой того же цвета — жёлтая обводка показывает её границу.
+:global(:root[data-theme='citrus']) {
+  .burgerLine,
+  .burgerLine:nth-child(2) {
+    background-color: var(--btn-primary-text);
+  }
+
+  .burgerOpen {
+    --frame-border: var(--btn-primary-text);
+  }
+}
+
+// Крестик намеренно слегка несимметричный
+.burgerOpen .burgerLine {
+  background-color: var(--btn-primary-text);
+  box-shadow: none;
+
+  &:nth-child(1) {
+    width: 25px;
+    transform: translate(-1px, 7px) rotate(43deg);
+  }
+
+  &:nth-child(2) {
+    background-color: var(--btn-primary-text);
+    opacity: 0;
+    transform: translateX(4px) scaleX(0.15);
+  }
+
+  &:nth-child(3) {
+    width: 20px;
+    transform: translate(3px, -7px) rotate(-38deg);
+  }
 }

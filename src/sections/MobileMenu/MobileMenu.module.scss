@@ -48,45 +48,8 @@
   background: var(--glow-b);
 }
 
-.top {
-  position: relative;
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px var(--gutter-mobile);
-  border-bottom: 1px solid var(--color-line);
-
-  @include tablet {
-    padding: 12px var(--gutter-tablet);
-  }
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.prompt {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  color: var(--color-mark);
-}
-
-.close {
-  --frame-border: var(--color-mark);
-  --frame-width: 1px;
-  @include chamfer-frame(s);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: var(--color-mark);
+.headerSpace {
+  flex: 0 0 var(--header-h);
 }
 
 .nav {

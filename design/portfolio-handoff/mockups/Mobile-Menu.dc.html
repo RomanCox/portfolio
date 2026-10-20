@@ -33,16 +33,23 @@ button{font:inherit;cursor:pointer}
 
 <div aria-hidden="true" style="position: absolute; inset: 0; z-index: 40; pointer-events: none; background: repeating-linear-gradient(0deg, {{t.scan}} 0px, {{t.scan}} 1px, transparent 1px, transparent 3px)"></div>
 
-<header style="position: sticky; top: 0; z-index: 30; background: {{t.headerBg}}; backdrop-filter: blur(14px); border-bottom: 1px solid {{t.line}}">
+<header style="position: sticky; top: 0; z-index: {{headerZ}}; background-color: {{hdrBg}}; backdrop-filter: blur(14px); border-bottom: 1px solid {{hdrLine}}; transition: background-color .4s cubic-bezier(.16,1,.3,1), border-color .4s">
 <div style="padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px">
 <a href="#top" aria-label="Roman Cox" style="display: flex; align-items: center; gap: 10px">
 <span style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: {{t.btnBg}}; color: {{t.btnText}}; clip-path: {{chS}}; font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: 16px; letter-spacing: -.04em">RC</span>
+<sc-if value="{{logoIdle}}" hint-placeholder-val="{{ true }}">
 <span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: {{t.dim}}">roman<span style="color: {{t.mark}}">_</span>cox</span>
+</sc-if>
+<sc-if value="{{logoBusy}}" hint-placeholder-val="{{ false }}">
+<span aria-hidden="true" style="font-family: 'JetBrains Mono', monospace; font-size: 14px; white-space: pre; color: {{logoColor}}; transition: color .3s">{{logoText}}</span>
+</sc-if>
 </a>
-<button type="button" onClick="{{menuToggle}}" aria-label="{{s.menu.open}}" aria-expanded="{{menuExpanded}}" style="width: 48px; height: 48px; padding: 0; border: 1px solid {{t.border}}; background: {{t.card}}; clip-path: {{chS}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px">
-<span style="width: 22px; height: 2px; background: {{t.mark}}; box-shadow: {{t.lineGlow}}"></span>
-<span style="width: 22px; height: 2px; background: {{t.text}}; transform: translateX(-4px)"></span>
-<span style="width: 22px; height: 2px; background: {{t.mark}}; box-shadow: {{t.lineGlow}}"></span>
+<button type="button" onClick="{{menuToggle}}" aria-label="{{burgerLabel}}" aria-expanded="{{menuExpanded}}" style="position: relative; width: 48px; height: 48px; padding: 0; border: 1px solid {{bur.border}}; background: {{bur.bg}}; clip-path: {{chS}}; transition: background .35s cubic-bezier(.16,1,.3,1), border-color .35s">
+<span aria-hidden="true" style="position: absolute; left: 13px; top: 16px; width: 24px; height: 16px; display: block">
+<span style="position: absolute; left: 0; top: 0; height: 2px; width: {{bur.w1}}; background: {{bur.c1}}; box-shadow: {{bur.g}}; transform: {{bur.t1}}; transform-origin: 50% 50%; transition: transform .45s cubic-bezier(.16,1,.3,1), width .45s cubic-bezier(.16,1,.3,1), background .3s"></span>
+<span style="position: absolute; left: 0; top: 7px; height: 2px; width: 22px; background: {{bur.c2}}; opacity: {{bur.o2}}; transform: {{bur.t2}}; transform-origin: 0% 50%; transition: transform .3s cubic-bezier(.16,1,.3,1), opacity .2s, background .3s"></span>
+<span style="position: absolute; left: 0; top: 14px; height: 2px; width: {{bur.w3}}; background: {{bur.c3}}; box-shadow: {{bur.g}}; transform: {{bur.t3}}; transform-origin: 50% 50%; transition: transform .45s cubic-bezier(.16,1,.3,1) .04s, width .45s cubic-bezier(.16,1,.3,1), background .3s"></span>
+</span>
 </button>
 </div>
 </header>
@@ -52,15 +59,7 @@ button{font:inherit;cursor:pointer}
 <div aria-hidden="true" style="position: absolute; top: -120px; right: -140px; width: 360px; height: 360px; border-radius: 50%; background: {{t.glowA}}; filter: blur(90px); pointer-events: none"></div>
 <div aria-hidden="true" style="position: absolute; bottom: -140px; left: -120px; width: 320px; height: 320px; border-radius: 50%; background: {{t.glowB}}; filter: blur(90px); pointer-events: none"></div>
 
-<div style="position: relative; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid {{t.line}}">
-<span style="display: flex; align-items: center; gap: 10px">
-<span style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: {{t.btnBg}}; color: {{t.btnText}}; clip-path: {{chS}}; font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: 16px; letter-spacing: -.04em">RC</span>
-<span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: {{t.mark}}">&gt; menu.open()</span>
-</span>
-<button type="button" onClick="{{menuClose}}" aria-label="{{s.menu.close}}" style="width: 48px; height: 48px; padding: 0; border: 1px solid {{t.mark}}; background: transparent; color: {{t.mark}}; clip-path: {{chS}}; display: flex; align-items: center; justify-content: center">
-<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg>
-</button>
-</div>
+<div aria-hidden="true" style="flex: 0 0 69px"></div>
 
 <nav aria-label="{{s.menu.title}}" style="position: relative; padding: 16px 16px 8px; display: flex; flex-direction: column">
 <sc-for list="{{navItems}}" as="n" hint-placeholder-count="5">
@@ -609,11 +608,46 @@ class Component extends DCLogic {
     });
     var menuOpen = st.menu !== undefined ? !!st.menu : !!this.props.menuOpen;
     if (!this._pulseRefFn) this._pulseRefFn = function (el) { me.pulseCv = el; };
+    var me2 = this;
+    var GLYPHS = '▓▒░#%&@01<>/;_';
+    var LOGO_CLOSED = 'roman_cox', LOGO_OPEN = '> menu.open()';
+    if (!this._scramble) this._scramble = function (target) {
+      clearInterval(me2._scrT);
+      var from = (me2.state && me2.state.logoText) || (target === LOGO_OPEN ? LOGO_CLOSED : LOGO_OPEN);
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) { me2.setState({ logoText: target, logoBusy: false }); return; }
+      var steps = 14, k = 0;
+      me2._scrT = setInterval(function () {
+        k++;
+        var len = Math.round(from.length + (target.length - from.length) * Math.min(1, k / (steps * 0.6)));
+        var reveal = Math.floor(target.length * k / steps), out = '';
+        for (var i = 0; i < len; i++) out += i < reveal ? target[i] : (target[i] === ' ' ? ' ' : GLYPHS[Math.floor(Math.random() * GLYPHS.length)]);
+        if (k >= steps) { clearInterval(me2._scrT); me2.setState({ logoText: target, logoBusy: target !== LOGO_CLOSED }); }
+        else me2.setState({ logoText: out, logoBusy: true });
+      }, 30);
+    };
+    var setMenu = function (open) { me2.setState({ menu: open }); me2._scramble(open ? LOGO_OPEN : LOGO_CLOSED); };
+    var initialOpen = !!this.props.menuOpen && (st.menu === undefined);
+    var logoBusy = st.logoBusy !== undefined ? st.logoBusy : initialOpen;
+    var logoText = st.logoText || (initialOpen ? LOGO_OPEN : LOGO_CLOSED);
+    var bur = menuOpen ? {
+      bg: t.btnBg, border: t.btnBg, g: 'none',
+      w1: '25px', c1: t.btnText, t1: 'translate(-1px, 7px) rotate(43deg)',
+      c2: t.btnText, o2: '0', t2: 'translateX(4px) scaleX(.15)',
+      w3: '20px', c3: t.btnText, t3: 'translate(3px, -7px) rotate(-38deg)'
+    } : {
+      bg: t.card, border: t.border, g: t.lineGlow,
+      w1: '22px', c1: t.mark, t1: 'translate(0, 0) rotate(0deg)',
+      c2: t.text, o2: '1', t2: 'translateX(-4px) scaleX(1)',
+      w3: '22px', c3: t.mark, t3: 'translate(0, 0) rotate(0deg)'
+    };
     return {
       pulseRef: this._pulseRefFn, pulseCols: PULSE_COLS[theme] || PULSE_COLS.neon,
       menuOpen:menuOpen, menuExpanded: menuOpen ? 'true' : 'false',
-      menuToggle: function () { me.setState({ menu: !menuOpen }); },
-      menuClose: function () { me.setState({ menu: false }); },
+      menuToggle: function () { setMenu(!menuOpen); },
+      menuClose: function () { setMenu(false); },
+      bur: bur, headerZ: menuOpen ? 70 : 30, hdrBg: menuOpen ? t.card : t.headerBg, hdrLine: menuOpen ? t.border : t.line, burgerLabel: menuOpen ? s.menu.close : s.menu.open,
+      logoIdle: !logoBusy, logoBusy: logoBusy, logoText: logoText, logoColor: menuOpen ? t.mark : t.dim,
       slides:slides, slideTabs:slideTabs, slideCount:'0' + nS,
       t:t, s:s, ab:ab, refs:this._refs, langs:langs, themes:themes, navItems:navItems,
       skillRows:skillRows, jobs:jobs, projects:projects, todoCols:todoCols,

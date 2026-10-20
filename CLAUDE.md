@@ -92,7 +92,7 @@ export function classNames(
 ```
 
 Использование:
-
+с 5-м этапомо погоди, те страниц
 ```tsx
 import cls from './Button.module.scss'
 import { classNames } from '@/shared/lib/classNames/classNames'
